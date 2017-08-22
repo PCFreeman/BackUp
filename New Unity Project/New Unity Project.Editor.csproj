@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5D0D6DBA-D4EA-5009-48A2-1663BA1D134D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
+    <CompilerResponseFile></CompilerResponseFile>
+    <UnityProjectType>Editor:5</UnityProjectType>
+    <UnityBuildTarget>Android:13</UnityBuildTarget>
+    <UnityVersion>5.6.0f3</UnityVersion>
+    <RootNamespace></RootNamespace>
+    <LangVersion>4</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Debug\</OutputPath>
+    <IntermediateOutputPath>Temp\UnityVS_obj\Debug\</IntermediateOutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_5_6_0;UNITY_5_6;UNITY_5;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;ENABLE_VIDEO;UNITY_ANDROID;ENABLE_SUBSTANCE;UNITY_ANDROID_API;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;ENABLE_VR;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;NET_2_0_SUBSET;DEVELOPMENT_BUILD;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;UNITY_PRO_LICENSE;UNITY_HAS_GOOGLEVR</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Release\</OutputPath>
+    <IntermediateOutputPath>Temp\UnityVS_obj\Release\</IntermediateOutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_5_6_0;UNITY_5_6;UNITY_5;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;ENABLE_VIDEO;UNITY_ANDROID;ENABLE_SUBSTANCE;UNITY_ANDROID_API;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;ENABLE_VR;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;NET_2_0_SUBSET;DEVELOPMENT_BUILD;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;UNITY_PRO_LICENSE;UNITY_HAS_GOOGLEVR</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Core" />
+    <Reference Include="Boo.Lang" />
+    <Reference Include="UnityScript.Lang" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UnityEngine">
+      <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Advertisements">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Advertisements.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>Library\UnityAssemblies\UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Networking">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.TestRunner">
+      <HintPath>Library\UnityAssemblies\UnityEditor.TestRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TestRunner">
+      <HintPath>Library\UnityAssemblies\UnityEngine.TestRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>Library\UnityAssemblies\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.TreeEditor">
+      <HintPath>Library\UnityAssemblies\UnityEditor.TreeEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Analytics">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Analytics">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.HoloLens">
+      <HintPath>Library\UnityAssemblies\UnityEditor.HoloLens.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HoloLens">
+      <HintPath>Library\UnityAssemblies\UnityEngine.HoloLens.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Purchasing">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Purchasing.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.VR">
+      <HintPath>Library\UnityAssemblies\UnityEditor.VR.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VR">
+      <HintPath>Library\UnityAssemblies\UnityEngine.VR.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Graphs">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Graphs.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Android.Extensions">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Android.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+      <HintPath>Library\UnityAssemblies\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
+      <HintPath>Library\UnityAssemblies\SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="New Unity Project.Plugins.csproj">
+      <Project>{63576ABA-4A40-934C-D330-C7D17E72811A}</Project>
+      <Name>New Unity Project.Plugins</Name>
+    </ProjectReference>
+    <ProjectReference Include="New Unity Project.csproj">
+      <Project>{BFD958C4-5209-89E8-D1A0-F25854A4DC74}</Project>
+      <Name>New Unity Project</Name>
+    </ProjectReference>
+    <ProjectReference Include="New Unity Project.Editor.Plugins.csproj">
+      <Project>{49CE4DE1-33C1-AB8C-7633-5DB5B4EA87C8}</Project>
+      <Name>New Unity Project.Editor.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Editor\FMODMigrationUtil.cs" />
+    <Compile Include="Assets\GoogleVR\Editor\FmodGvrAudioRoomEditor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Asset\{60d88351-a2c2-41dd-8d42-d2e5ec447dba}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\AudioFile\{309469cc-5362-4402-9587-527a7c30b05b}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\AudioFile\{374f3e1c-9c6b-4506-b237-6c516736d581}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\AudioFile\{5c88c9bb-b7d9-4910-abde-cab1b37abb60}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\AudioFile\{628dffbd-847f-4ae2-bb08-6f48941db290}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\AudioFile\{661477ce-15d0-49e0-a7de-7356e3ddb2ec}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\AudioFile\{681af424-3180-4522-81aa-b03c39fd0360}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\AudioFile\{790bb9af-4004-4d4e-8ec4-c70ecd4e2ae8}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\AudioFile\{7e73c72a-af62-4843-a6e1-38899e21200e}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\AudioFile\{9193bd96-e018-470f-8ae5-ef660b67ad00}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\AudioFile\{9716f9ff-5bbe-493b-9f06-da1022c2dcab}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\AudioFile\{a68c5d1e-78e9-4244-ab2f-a04836fe70ff}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\AudioFile\{adcd7b5f-d288-42ea-932c-33b1632e1065}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\AudioFile\{b8c65946-9400-4237-b867-d54021f38d76}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\AudioFile\{da796ad9-d2af-4b36-9bff-5544f862c215}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Bank\{8e12c6c8-ade7-45e2-8963-87e2097192ce}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\BankFolder\{b9f80215-f1ad-4c79-9eae-e5d8cf510db3}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\EncodingSetting\{e9db7067-f03b-4b03-8f97-4e7e4624edc0}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Event\{4980922a-c441-4b0f-ac07-c0e6a84d24f6}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Event\{5f426a51-1f3c-4488-9c62-36c884ee2df4}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Event\{8154fe22-8b89-4438-b592-ae7bfc688a63}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Event\{908e8787-24b3-421c-bc4e-3ef2bcc0eff2}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Event\{94508691-0840-4b53-8f4a-8a2561a3b9c5}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Event\{ad111c8c-3a7d-49d6-8b18-56a1dc330ae5}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Event\{ae9b6175-dc28-41e3-a87d-6a170f04ae8f}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Event\{cb9f1941-307e-4e54-920d-b023096369cc}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Event\{fe816ace-0a89-4587-ae7b-6c14ad989768}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\EventFolder\{4d6d6961-e57d-45c8-b34f-1201784c0b7d}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Master.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Mixer.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Return\{7791fcc2-d67e-430b-a71e-605e9d6cbbab}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\SnapshotGroup\{d27b1cc5-ce17-4480-8142-3da0df8ed275}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Tags.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Workspace.xml" />
+    <None Include="Assets\Plugins\FMOD\LICENSE.TXT" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="GenerateTargetFrameworkMonikerAttribute" />
+</Project>

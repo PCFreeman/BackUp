@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:New Unity Project/Assets/Audio/Audio Bank/Main Audio/Assets/bonus_time.wav.meta
+guid: a248fb2a7ad84e64bbd9ba9dd4e65578
+timeCreated: 1503205079
+=======
+guid: eac05b6f31eae3144a7d83423bf4aa1b
+timeCreated: 1503205846
+>>>>>>> b8633b34108e48f63c9eebeb4574f22decea8516:New Unity Project/Assets/Audio/Audio Bank/Main Audio/Assets/bonus_time.wav.meta
+licenseType: Free
+AudioImporter:
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  3D: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

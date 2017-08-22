@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.09.00">
+    <object class="AudioFile" id="{9193bd96-e018-470f-8ae5-ef660b67ad00}">
+        <property name="assetPath">
+            <value>timer_fast.wav</value>
+        </property>
+        <property name="isStreaming">
+            <value>true</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>48</value>
+        </property>
+        <property name="channelCount">
+            <value>1</value>
+        </property>
+        <property name="length">
+            <value>121.53525</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{60d88351-a2c2-41dd-8d42-d2e5ec447dba}</destination>
+        </relationship>
+    </object>
+</objects>
