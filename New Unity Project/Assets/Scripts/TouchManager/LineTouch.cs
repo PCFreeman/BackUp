@@ -9,10 +9,9 @@ public class LineTouch : MonoBehaviour {
     private bool check = false;
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collides!!");
+        Debug.Log("Collides line =  " + other.name);
 
-        if(check == false)
-        { 
+
             other.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.1f, 0.0f, 0.0f, 1.0f);
 
             GOs.Add(other.gameObject);
@@ -21,30 +20,14 @@ public class LineTouch : MonoBehaviour {
             TouchManager.mTouchManager.mColliders.pointCount += 1; 
 
             check = true;
-        }
+
 
 
         //TouchManager.mTouchManager.mDrawTouch.SetSelectedPoint(ref other.gameObject);
     }
+    
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (check == false)
-        {
-            other.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.1f, 0.0f, 0.0f, 1.0f);
-
-            GOs.Add(other.gameObject);
-
-            TouchManager.mTouchManager.mColliders.mCurrentPoint = other.gameObject;
-            TouchManager.mTouchManager.mColliders.pointCount += 1;
-            check = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        check = false;
-    }
+   
 
     public static List<GameObject> GetCollidedObjects()
     {

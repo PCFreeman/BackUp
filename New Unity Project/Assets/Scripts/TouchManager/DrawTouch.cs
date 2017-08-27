@@ -10,7 +10,8 @@ public class DrawTouch : MonoBehaviour {
     private GameObject thisLine;
     private Vector3 startPosition;
     private Plane objectPlane;
-    private List<GameObject> collidersList;
+    private GameObject coll; // line collider
+
     private bool LastShapeCorect;
 
 
@@ -19,8 +20,7 @@ public class DrawTouch : MonoBehaviour {
         LastShapeCorect = false;
         //pointsSelected = new List<GameObject>();
         objectPlane = new Plane(Camera.main.transform.forward * -1, this.transform.position);
-
-        collidersList = new List<GameObject>();
+        coll = (GameObject)Instantiate(lineColliderPrefab, new Vector3 (5000.0f,0.0f,0.0f), Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -55,8 +55,8 @@ public class DrawTouch : MonoBehaviour {
         }
         else if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved) || (Input.GetMouseButton(0)))
         {
-            //GameObject coll = (GameObject)Instantiate(lineColliderPrefab, this.transform.position, Quaternion.identity);
-               
+            
+
             Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
             //Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);           //Use This for Mouse test
 
@@ -64,6 +64,7 @@ public class DrawTouch : MonoBehaviour {
             if (objectPlane.Raycast(mRay, out rayDistance))    //This check the contact of RayCast with plane and return the distance
             {
                 
+
                 thisLine.transform.position = mRay.GetPoint(rayDistance);
 
                 if (startPosition.x == thisLine.transform.position.x && startPosition.y == thisLine.transform.position.y)
@@ -76,8 +77,8 @@ public class DrawTouch : MonoBehaviour {
 
                     float distance = thisLine.transform.position.y - startPosition.y;
 
-                    //coll.transform.position = new Vector3(startPosition.x, (distance * 0.5f) + startPosition.y, startPosition.z);
-                    //coll.GetComponent<BoxCollider>().size = new Vector3(1.0f , distance, 1.0f);                  
+                    coll.transform.position = new Vector3(startPosition.x, (distance * 0.5f) + startPosition.y, startPosition.z);
+                    coll.GetComponent<BoxCollider>().size = new Vector3(1.0f , distance, 1.0f);                  
 
                 }
                 else if (startPosition.x != thisLine.transform.position.x && startPosition.y == thisLine.transform.position.y)
@@ -86,8 +87,8 @@ public class DrawTouch : MonoBehaviour {
 
                     float distance = thisLine.transform.position.x - startPosition.x;
 
-                    //coll.transform.position = new Vector3((distance * 0.5f) + startPosition.x, startPosition.y, startPosition.z);
-                    //coll.GetComponent<BoxCollider>().size = new Vector3(distance, 1.0f, 1.0f);
+                    coll.transform.position = new Vector3((distance * 0.5f) + startPosition.x, startPosition.y, startPosition.z);
+                    coll.GetComponent<BoxCollider>().size = new Vector3(distance, 1.0f, 1.0f);
 
                 }
                 else
@@ -96,22 +97,20 @@ public class DrawTouch : MonoBehaviour {
                     float distanceX = thisLine.transform.position.x - startPosition.x;
                     float distanceY = thisLine.transform.position.y - startPosition.y;
 
-                    //coll.transform.position = new Vector3((distanceX * 0.5f) + startPosition.x, (distanceY * 0.5f) + startPosition.y, startPosition.z);
-                    //coll.GetComponent<BoxCollider>().size = new Vector3(distance, 1.0f, 1.0f);
+                    coll.transform.position = new Vector3((distanceX * 0.5f) + startPosition.x, (distanceY * 0.5f) + startPosition.y, startPosition.z);
+                    coll.GetComponent<BoxCollider>().size = new Vector3(distance, 5.0f, 1.0f);
 
 
-                    Debug.Log("Rotation = " + GetRotation(startPosition, thisLine.transform.position).ToString());
+                    //Debug.Log("Rotation = " + GetRotation(startPosition, thisLine.transform.position).ToString());
 
-                    //coll.GetComponent<BoxCollider>().transform.Rotate(0.0f, 0.0f, GetRotation(startPosition, thisLine.transform.position));
+                    coll.GetComponent<BoxCollider>().transform.Rotate(0.0f, 0.0f, GetRotation(startPosition, thisLine.transform.position));
                 }
                 
 
             }
 
             startPosition = thisLine.transform.position;
-
-            //collidersList.Add(coll);
-
+                        
         }
         else if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended) || (Input.GetMouseButtonUp(0)))
         {
@@ -154,6 +153,7 @@ public class DrawTouch : MonoBehaviour {
                 //Add points to score
                 UIManage.instance.AddTime(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().timeBonus);
 
+                coll.transform.position = new Vector3(5000.0f, 0.0f, 0.0f);
 
                 TouchManager.mTouchManager.mColliders.mCurrentShape = TouchManager.mTouchManager.GetCurrentShape();
 
@@ -175,6 +175,8 @@ public class DrawTouch : MonoBehaviour {
                {
                    GO.GetComponent<SpriteRenderer>().color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
                }
+
+                coll.transform.position = new Vector3(5000.0f, 0.0f, 0.0f);
 
                 TouchManager.mTouchManager.pointsSelected.Clear();
 
