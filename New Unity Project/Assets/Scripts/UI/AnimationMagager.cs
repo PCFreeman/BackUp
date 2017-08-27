@@ -11,6 +11,7 @@ public class AnimationMagager : MonoBehaviour
     public Vector3 EndPositionScore;
     Vector3 pp;
     private Animator pTime;
+    public GameObject t0;
     public GameObject t1;
     public GameObject t2;
     public GameObject t3;
@@ -108,10 +109,12 @@ public class AnimationMagager : MonoBehaviour
 
         for (int i = 0; i < size; ++i)
         {
+         
             switch (digits[i])
             {
+               
                 case 0:
-                    GameObject P0 = Instantiate(t1, pp, transform.rotation);
+                    GameObject P0 = Instantiate(t0, pp, transform.rotation);
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -227,7 +230,7 @@ public class AnimationMagager : MonoBehaviour
                     }
                     break;
                 case 4:
-                    GameObject P4 = Instantiate(t1, pp, transform.rotation);
+                    GameObject P4 = Instantiate(t4, pp, transform.rotation);
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -256,7 +259,7 @@ public class AnimationMagager : MonoBehaviour
                     }
                     break;
                 case 5:
-                    GameObject P5 = Instantiate(t1, pp, transform.rotation);
+                    GameObject P5 = Instantiate(t5, pp, transform.rotation);
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -285,7 +288,7 @@ public class AnimationMagager : MonoBehaviour
                     }
                     break;
                 case 6:
-                    GameObject P6 = Instantiate(t1, pp, transform.rotation);
+                    GameObject P6 = Instantiate(t6, pp, transform.rotation);
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -314,7 +317,7 @@ public class AnimationMagager : MonoBehaviour
                     }
                     break;
                 case 7:
-                    GameObject P7 = Instantiate(t1, pp, transform.rotation);
+                    GameObject P7 = Instantiate(t7, pp, transform.rotation);
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -343,7 +346,7 @@ public class AnimationMagager : MonoBehaviour
                     }
                     break;
                 case 8:
-                    GameObject P8 = Instantiate(t1, pp, transform.rotation);
+                    GameObject P8 = Instantiate(t8, pp, transform.rotation);
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -372,7 +375,7 @@ public class AnimationMagager : MonoBehaviour
                     }
                     break;
                 case 9:
-                    GameObject P9 = Instantiate(t1, pp, transform.rotation);
+                    GameObject P9 = Instantiate(t9, pp, transform.rotation);
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -442,8 +445,9 @@ public class AnimationMagager : MonoBehaviour
         {
             switch (digits[i])
             {
+              
                 case 0:
-                    GameObject P0 = Instantiate(t1, pp, transform.rotation);
+                    GameObject P0 = Instantiate(t0, pp, transform.rotation);
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -559,7 +563,7 @@ public class AnimationMagager : MonoBehaviour
                     }
                     break;
                 case 4:
-                    GameObject P4 = Instantiate(t1, pp, transform.rotation);
+                    GameObject P4 = Instantiate(t4, pp, transform.rotation);
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -588,7 +592,7 @@ public class AnimationMagager : MonoBehaviour
                     }
                     break;
                 case 5:
-                    GameObject P5 = Instantiate(t1, pp, transform.rotation);
+                    GameObject P5 = Instantiate(t5, pp, transform.rotation);
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -617,7 +621,7 @@ public class AnimationMagager : MonoBehaviour
                     }
                     break;
                 case 6:
-                    GameObject P6 = Instantiate(t1, pp, transform.rotation);
+                    GameObject P6 = Instantiate(t6, pp, transform.rotation);
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -646,7 +650,7 @@ public class AnimationMagager : MonoBehaviour
                     }
                     break;
                 case 7:
-                    GameObject P7 = Instantiate(t1, pp, transform.rotation);
+                    GameObject P7 = Instantiate(t7, pp, transform.rotation);
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -675,7 +679,7 @@ public class AnimationMagager : MonoBehaviour
                     }
                     break;
                 case 8:
-                    GameObject P8 = Instantiate(t1, pp, transform.rotation);
+                    GameObject P8 = Instantiate(t8, pp, transform.rotation);
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -704,7 +708,7 @@ public class AnimationMagager : MonoBehaviour
                     }
                     break;
                 case 9:
-                    GameObject P9 = Instantiate(t1, pp, transform.rotation);
+                    GameObject P9 = Instantiate(t9, pp, transform.rotation);
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x

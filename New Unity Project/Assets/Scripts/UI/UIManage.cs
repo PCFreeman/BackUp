@@ -134,7 +134,7 @@ public class UIManage : MonoBehaviour {
 
             GameManager.mGameManager.SetHighScore(Score);
 
-            GameObject.Find("FinalScore").GetComponent<Text>().text = "Final Score:   " + Score.ToString();
+            GameObject.Find("Score").GetComponent<Text>().text = "Final Score:   " + Score.ToString();
             GameObject.Find("HighScore").GetComponent<Text>().text = "High Score:   " + GameManager.mGameManager.GetHighScore().ToString();
         }
         SetHighscore();
