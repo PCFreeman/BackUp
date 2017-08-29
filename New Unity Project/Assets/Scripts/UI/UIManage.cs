@@ -15,8 +15,8 @@ public class UIManage : MonoBehaviour {
     public Text Timer;
     public GameObject Set;
     public GameObject mGameOverScreen;
-    private GameObject mG2;
-    private GameObject mG1;
+    public GameObject mG1;
+    public GameObject mG2;
     float Mins;
     float Secs;
 
@@ -26,8 +26,6 @@ public class UIManage : MonoBehaviour {
     private void Awake()
     {
 
-        mG2 = GameObject.Find("G2");
-        mG1= GameObject.Find("GameOver");
 
         //Check if instance already exist
         if (instance == null)
@@ -94,12 +92,19 @@ public class UIManage : MonoBehaviour {
     {
         //GameObject.Find("Canvas").SetActive(false);
         mGameOverScreen.SetActive(true);
-        StartCoroutine(GameOver2(3));
-        mG1.SetActive(false);
-        mG2.SetActive(true);
-		
+        if(mGameOverScreen.activeInHierarchy)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                mG1.SetActive(false);
+                mG2.SetActive(true);
+            }
+
+
+        }
+
         //Peter:Shuffle codes around debugging gameoverscreen score
-		GameManager.mGameManager.SetHighScore(Score);
+        GameManager.mGameManager.SetHighScore(Score);
 		GameObject.Find("Score").GetComponent<Text>().text = "Final Score:   " + Score.ToString();
 		GameObject.Find("HighScore").GetComponent<Text>().text = "High Score:    " + GameManager.mGameManager.GetHighScore().ToString();
         Time.timeScale = 0f;
@@ -112,11 +117,8 @@ public class UIManage : MonoBehaviour {
         GameObject.Find("HNumber").GetComponent<Text>().text = "     " + GameManager.mGameManager.GetHighScore().ToString();
     }
 
-    private IEnumerator GameOver2(float p)
-    {
-        yield return new WaitForSeconds(p);
-    }
-    void Update()
+
+     void FixedUpdate()
     {
         
         Mins = Mathf.FloorToInt(timeLeft / 60f);
