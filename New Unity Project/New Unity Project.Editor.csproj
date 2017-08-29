@@ -178,6 +178,7 @@
     <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\SnapshotGroup\{d27b1cc5-ce17-4480-8142-3da0df8ed275}.xml" />
     <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Tags.xml" />
     <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Workspace.xml" />
+    <None Include="Assets\Audio\SFX\Notes.txt" />
     <None Include="Assets\Plugins\FMOD\LICENSE.TXT" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

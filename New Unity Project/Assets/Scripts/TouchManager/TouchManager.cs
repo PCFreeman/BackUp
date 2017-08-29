@@ -63,7 +63,7 @@ public class TouchManager : MonoBehaviour {
         mDrawTouch.Initialize();
         mColliders.Initialize();
 
-        NumberOfShapesInstantiedMax = 4;                //Number of Shapes showing in screen
+        NumberOfShapesInstantiedMax = 5;                //Number of Shapes showing in screen
         GenerateShapesList();
         InstantiateShapes();
 
@@ -147,6 +147,9 @@ public class TouchManager : MonoBehaviour {
                 case 3:
                     yPos = -198;
                     break;
+                case 4:
+                    yPos = -330;
+                    break;
                 default:
                     Debug.Assert(false, "[TouchManager] Num of shapes bigger than Max");
                     break;
@@ -158,6 +161,11 @@ public class TouchManager : MonoBehaviour {
 
         Debug.Log("Size of Instantied Shapes List" + mShapesInstantied.Count);
 
+    }
+
+    public List<GameObject> GetShapesIniatialized()  // ==================     Freeman use it /////// Move shapes 132 px up          /////    TouchManager.mTouchManager.GetShapesIniatialized();
+    {
+        return mShapesInstantied;
     }
 
 

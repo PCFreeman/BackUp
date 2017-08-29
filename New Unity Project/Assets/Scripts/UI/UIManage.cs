@@ -19,10 +19,13 @@ public class UIManage : MonoBehaviour {
     float Secs;
 
 
-    int Score;
+    public int Score;
 
     private void Awake()
     {
+		//Peter:Shuffle codes around debugging gameoverscreen score
+		//mGameOverScreen = GameObject.Find ("GameOverScreen");
+		//mGameOverScreen.SetActive (false);
 
         //Check if instance already exist
         if (instance == null)
@@ -42,9 +45,10 @@ public class UIManage : MonoBehaviour {
 
         Time.timeScale = 1f;
         //Start Score
-        Score = 1;
+         //Score = 1;
 
         GameObject.Find("Number").GetComponent<Text>().text = Score.ToString();
+		//mGameOverScreen.SetActive (false);
 
         //Elrick's Code
         var target = GameObject.Find("Timer");
@@ -86,6 +90,12 @@ public class UIManage : MonoBehaviour {
     {
         //GameObject.Find("Canvas").SetActive(false);
         mGameOverScreen.SetActive(true);
+
+		//Peter:Shuffle codes around debugging gameoverscreen score
+		GameManager.mGameManager.SetHighScore(Score);
+		GameObject.Find("Score").GetComponent<Text>().text = "Final Score:   " + Score.ToString();
+		GameObject.Find("HighScore").GetComponent<Text>().text = "High Score:    " + GameManager.mGameManager.GetHighScore().ToString();
+
         Time.timeScale = 0f;
         GameObject.Find("SettingButton").GetComponent<Button>().enabled = false;
         
@@ -102,14 +112,13 @@ public class UIManage : MonoBehaviour {
         Secs = Mathf.FloorToInt(timeLeft % 60f);
 
         
-        if (timeLeft > 0)
-        {
-            timeLeft -= Time.deltaTime;
+		if (timeLeft > 0) {
+			timeLeft -= Time.deltaTime;
 
-            Timer.text = " " + Mins + ":" + Secs;
+			Timer.text = " " + Mins + ":" + Secs;
             
-            //Elric's code
-            if (timeLeft > 20)
+			//Elric's code
+			if (timeLeft > 20)
             {
                 emitter.SetParameter("Decider", 0);
             }
@@ -130,12 +139,14 @@ public class UIManage : MonoBehaviour {
         }
         else
         {            
-            OpenGameOverScreen();
+			OpenGameOverScreen();
 
-            GameManager.mGameManager.SetHighScore(Score);
+			//Peter:Shuffle codes around debugging gameoverscreen score
+            /*GameManager.mGameManager.SetHighScore(Score);
+            GameObject.Find("Score").GetComponent<Text>().text = "Final Score:         " + Score.ToString();
+			Debug.Log ("Score ========  " + Score);
+            GameObject.Find("HighScore").GetComponent<Text>().text = "High Score:         " + GameManager.mGameManager.GetHighScore().ToString();*/
 
-            GameObject.Find("Score").GetComponent<Text>().text = "Final Score:   " + Score.ToString();
-            GameObject.Find("HighScore").GetComponent<Text>().text = "High Score:   " + GameManager.mGameManager.GetHighScore().ToString();
         }
         SetHighscore();
 

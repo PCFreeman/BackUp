@@ -15,6 +15,13 @@ public class Firstscreen : MonoBehaviour {
     public GameObject Setting;
     public GameObject Mode;
     
+	//Peter's Code cliksound
+	//private AudioController mAudio;
+	void Start()
+	{
+		//Peter's Code cliksound
+		//mAudio = GameObject.Find ("SFX").GetComponent<AudioController> ();
+	}
 
     public void ModMenu()
     {
@@ -22,10 +29,11 @@ public class Firstscreen : MonoBehaviour {
         Mode.SetActive(true);
     }
     public void Endless()
-        {
+    {
         Mode.SetActive(false);
         EndlessWindow.SetActive(true);
-        }//Those are the button in main menu
+
+    }//Those are the button in main menu
     public void Timed()
     {
         Mode.SetActive(false);
@@ -35,6 +43,7 @@ public class Firstscreen : MonoBehaviour {
     {
         Mode.SetActive(false);
         ChallengeWindow.SetActive(true);
+
     }
     public void Zen()
     {
@@ -61,10 +70,20 @@ public class Firstscreen : MonoBehaviour {
     {
         SceneManager.LoadScene(1);
     }
+
+	//Peter's code play SFX
+	public void PlaySFX()
+	{
+		//mAudio.ClickSFX ();
+		AudioController.sInstance.ClickSFX ();
+	}
+
     public void PlayZen()
     {
         SceneManager.LoadScene(4);
     }
+
+
     public void SettingMenu()
     {
         if (!Setting.activeInHierarchy)
@@ -80,16 +99,17 @@ public class Firstscreen : MonoBehaviour {
         }
        
     }
-
     void Update () {
         if (LogininMenu.activeInHierarchy)
-            { 
+        { 
             if (Input.GetMouseButtonDown(0))
             {
                 LogininMenu.SetActive(false);
                 Mainmenu.SetActive(true);
             }
-            }
+         }
+
+
     }
 
 }
