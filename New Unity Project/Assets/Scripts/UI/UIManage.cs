@@ -15,6 +15,8 @@ public class UIManage : MonoBehaviour {
     public Text Timer;
     public GameObject Set;
     public GameObject mGameOverScreen;
+    public GameObject mG1;
+    public GameObject mG2;
     float Mins;
     float Secs;
 
@@ -26,6 +28,7 @@ public class UIManage : MonoBehaviour {
 		//Peter:Shuffle codes around debugging gameoverscreen score
 		//mGameOverScreen = GameObject.Find ("GameOverScreen");
 		//mGameOverScreen.SetActive (false);
+
 
         //Check if instance already exist
         if (instance == null)
@@ -53,6 +56,8 @@ public class UIManage : MonoBehaviour {
         //Elrick's Code
         var target = GameObject.Find("Timer");
         emitter = target.GetComponent<FMODUnity.StudioEventEmitter>();
+
+
     }
 
     public void settingMenu()
@@ -91,21 +96,40 @@ public class UIManage : MonoBehaviour {
         //GameObject.Find("Canvas").SetActive(false);
         mGameOverScreen.SetActive(true);
 
+
 		//Peter:Shuffle codes around debugging gameoverscreen score
 		GameManager.mGameManager.SetHighScore(Score);
 		GameObject.Find("Score").GetComponent<Text>().text = "Final Score:   " + Score.ToString();
 		GameObject.Find("HighScore").GetComponent<Text>().text = "High Score:    " + GameManager.mGameManager.GetHighScore().ToString();
 
+
+        if(mGameOverScreen.activeInHierarchy)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                mG1.SetActive(false);
+                mG2.SetActive(true);
+            }
+
+
+        }
+
+        //Peter:Shuffle codes around debugging gameoverscreen score
+        GameManager.mGameManager.SetHighScore(Score);
+		GameObject.Find("Score").GetComponent<Text>().text = "Final Score:   " + Score.ToString();
+		GameObject.Find("HighScore").GetComponent<Text>().text = "High Score:    " + GameManager.mGameManager.GetHighScore().ToString();
         Time.timeScale = 0f;
         GameObject.Find("SettingButton").GetComponent<Button>().enabled = false;
         
     }
+
     public void SetHighscore()
     {
         GameObject.Find("HNumber").GetComponent<Text>().text = "     " + GameManager.mGameManager.GetHighScore().ToString();
     }
 
-    void Update()
+
+     void FixedUpdate()
     {
         
         Mins = Mathf.FloorToInt(timeLeft / 60f);
