@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.09.00">
     <object class="Event" id="{cb9f1941-307e-4e54-920d-b023096369cc}">
         <relationship name="selectables">
-            <destination>{a959834e-e77c-4468-95e4-600beee41dde}</destination>
+            <destination>{7c972e80-07e6-40ab-b37f-61191e359157}</destination>
         </relationship>
         <relationship name="uiLastParameterSelection">
             <destination>{2827f9bd-8f45-4360-b703-1d87545836fb}</destination>
@@ -20,7 +20,7 @@
     <object class="GroupTrack" id="{c8203e82-73ec-4caa-9b57-83f0fbe0c169}"/>
     <object class="Timeline" id="{2827f9bd-8f45-4360-b703-1d87545836fb}">
         <property name="cursorPosition">
-            <value>0.16927121037094084</value>
+            <value>0</value>
         </property>
         <property name="uiLastRulerScaleRatio">
             <value>0.0039622641509433959</value>
@@ -36,7 +36,7 @@
     </object>
     <object class="GameParameter" id="{da7f3900-4bee-4ac3-b6d6-cc4cb3d0e39c}">
         <property name="cursorPosition">
-            <value>1</value>
+            <value>0.62000006437301636</value>
         </property>
         <property name="uiLastRulerScaleRatio">
             <value>0.00082034454470877774</value>
@@ -68,6 +68,8 @@
     <object class="TransitionRegion" id="{2255693a-cfc3-4e05-9d46-e0efd9607ea7}"/>
     <object class="LoopRegion" id="{5d59bce4-6f1b-428f-9fd5-afac1c41ce46}"/>
     <object class="LoopRegion" id="{e920c209-3259-43fe-8e69-c94b456bafc2}"/>
+    <object class="TransitionRegion" id="{8b596adc-b72a-485b-a8ff-4827433d8124}"/>
+    <object class="TransitionRegion" id="{7c972e80-07e6-40ab-b37f-61191e359157}"/>
     <object class="MixerBusEffectChain" id="{f7ea3b15-916f-487a-b11b-c77807fd3636}"/>
     <object class="MixerBusPanner" id="{17cbadef-8eb6-41d0-8238-b1b09cd45d80}"/>
     <object class="MixerBusFader" id="{28197f34-a343-4441-a35c-fd9bcd2f4d39}"/>
@@ -79,6 +81,8 @@
     <object class="MixerBusPanner" id="{9dac4a49-d75e-4713-8464-512f48e40f8b}"/>
     <object class="ParameterCondition" id="{17544a90-dd1e-4b55-b720-2c99d08fc188}"/>
     <object class="ParameterCondition" id="{8d68c3c3-a9f2-4c1a-b039-84265b8c2987}"/>
+    <object class="ParameterCondition" id="{5f544dd4-27ad-403e-8434-147c9fe57ea3}"/>
+    <object class="ParameterCondition" id="{d40e7120-109b-4d3a-994a-bd5ed4e21532}"/>
     <object class="MixerBusFader" id="{4202b519-6d2c-457d-b2dc-0b211ec4b4d7}"/>
     <object class="CompressorEffect" id="{43562bed-77be-45d4-b289-daf579b0ed78}"/>
     <object class="ThreeEQEffect" id="{1ff1aba5-673f-449a-91c0-b3026958feea}"/>
