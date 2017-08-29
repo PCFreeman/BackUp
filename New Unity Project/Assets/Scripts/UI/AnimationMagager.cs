@@ -27,7 +27,7 @@ public class AnimationMagager : MonoBehaviour
     int mTimebonus;
     int mScoreBonus;
     private List<int> digits;
-
+    private List<int> digits2;
 
     private void Awake()
     {
@@ -52,6 +52,7 @@ public class AnimationMagager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         digits = new List<int>();
+        digits2 = new List<int>();
     }
 
     // Use this for initialization
@@ -82,7 +83,7 @@ public class AnimationMagager : MonoBehaviour
     public void TimeAnimation(ref GameObject point, ref GameObject currentshape)
     {
         Vector3 pp = point.transform.position;
-        mTimebonus = currentshape.GetComponent<Shapes>().points;
+        mTimebonus = currentshape.GetComponent<Shapes>().timeBonus;
         int size = mTimebonus.ToString().Length;
         int halfSize;
 
@@ -92,7 +93,7 @@ public class AnimationMagager : MonoBehaviour
 
         for (int i = size - 1; i >= 0; --i)
         {
-            digits.Add(mTimebonus / (int)Mathf.Pow(10, i));
+            digits2.Add(mTimebonus / (int)Mathf.Pow(10, i));
             mTimebonus = mTimebonus % (int)Mathf.Pow(10, i);
         }
 
@@ -109,8 +110,8 @@ public class AnimationMagager : MonoBehaviour
 
         for (int i = 0; i < size; ++i)
         {
-         
-            switch (digits[i])
+  
+            switch (digits2[i])
             {
                
                 case 0:
