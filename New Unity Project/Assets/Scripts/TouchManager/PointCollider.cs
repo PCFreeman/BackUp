@@ -4,16 +4,28 @@ using UnityEngine;
 
 public class PointCollider : MonoBehaviour {
 
-
-    private static List<GameObject> GOs = new List<GameObject>();
+    List<GameObject> GOs;
+    
 
     private bool check = false;
     void OnTriggerEnter(Collider other)
     {
-        
+        GOs = new List<GameObject>();
+        GOs = TouchManager.mTouchManager.GetCollidedObjects();
+
+        if (GOs.Count != 0)
+        { 
+            if(this.gameObject.GetComponent<SpriteRenderer>().color == new Color(0.1f, 0.0f, 0.0f, 1.0f)
+                && this.gameObject != GOs[0]
+                && GOs[GOs.Count-1] != GOs[0])
+            {
+                return;
+            }
+        }
+
         this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.1f, 0.0f, 0.0f, 1.0f);
 
-        GOs.Add(other.gameObject);
+        TouchManager.mTouchManager.AddGameObject(this.gameObject);
 
         TouchManager.mTouchManager.mColliders.mCurrentPoint = this.gameObject;
         TouchManager.mTouchManager.mColliders.pointCount += 1;
@@ -27,11 +39,4 @@ public class PointCollider : MonoBehaviour {
 
 
 
-
-    public static List<GameObject> GetCollidedObjects()
-    {
-        Debug.Log("GOs size = " + GOs.Count.ToString());
-
-        return GOs;
-    }
 }

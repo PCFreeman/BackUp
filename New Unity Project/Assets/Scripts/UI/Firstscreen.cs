@@ -23,6 +23,19 @@ public class Firstscreen : MonoBehaviour {
 		//mAudio = GameObject.Find ("SFX").GetComponent<AudioController> ();
 	}
 
+    public void MusicSwitch()
+    {
+        //GameObject.Find("Canvas").GetComponent<FMOD_StudioEventEmitter>().
+        var fmodStudioEmitter = GetComponent<FMODUnity.StudioEventEmitter>(); // similar to auto in C++
+        if(fmodStudioEmitter.IsPlaying())
+        {
+            GetComponent<FMODUnity.StudioEventEmitter>().Stop();
+        }
+        else
+        {
+            GetComponent<FMODUnity.StudioEventEmitter>().Play();
+        }
+    }
     public void ModMenu()
     {
         MenuButton.SetActive(false);

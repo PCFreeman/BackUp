@@ -31,7 +31,7 @@ public class DrawTouch : MonoBehaviour {
     // Update is called once per frame
     public void update()
     {
-        ResetCollider();
+        //ResetCollider();
 
         //This function can be use for Touch or mouse click
         if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) || (Input.GetMouseButtonDown(0)))
@@ -86,7 +86,8 @@ public class DrawTouch : MonoBehaviour {
                     float distance = thisLine.transform.position.y - startPosition.y;
 
                     coll.transform.position = new Vector3(startPosition.x, (distance * 0.5f) + startPosition.y, startPosition.z);
-                    coll.GetComponent<BoxCollider>().size = new Vector3(5.0f , distance, 1.0f);                  
+                    coll.GetComponent<BoxCollider>().size = new Vector3(5.0f , distance, 1.0f);
+                    coll.GetComponent<BoxCollider>().transform.rotation.eulerAngles.Set(0.0f, 0.0f, 0.0f);
 
                 }
                 else if (startPosition.x != thisLine.transform.position.x && startPosition.y == thisLine.transform.position.y)
@@ -97,6 +98,7 @@ public class DrawTouch : MonoBehaviour {
 
                     coll.transform.position = new Vector3((distance * 0.5f) + startPosition.x, startPosition.y, startPosition.z);
                     coll.GetComponent<BoxCollider>().size = new Vector3(distance, 5.0f, 1.0f);
+                    coll.GetComponent<BoxCollider>().transform.rotation.eulerAngles.Set(0.0f, 0.0f, 0.0f);
 
                 }
                 else
@@ -111,7 +113,8 @@ public class DrawTouch : MonoBehaviour {
 
                     //Debug.Log("Rotation = " + GetRotation(startPosition, thisLine.transform.position).ToString());
 
-                    coll.GetComponent<BoxCollider>().transform.Rotate(0.0f, 0.0f, GetRotation(startPosition, thisLine.transform.position));
+                    //coll.GetComponent<BoxCollider>().transform.Rotate(0.0f, 0.0f, GetRotation(startPosition, thisLine.transform.position));
+                    coll.GetComponent<BoxCollider>().transform.rotation.eulerAngles.Set(0.0f, 0.0f, GetRotation(startPosition, thisLine.transform.position));
                 }
                 
 
@@ -122,16 +125,18 @@ public class DrawTouch : MonoBehaviour {
         }
         else if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Stationary))
         {
-
+            coll.GetComponent<BoxCollider>().size = new Vector3(1.0f, 1.0f, 1.0f);
+            coll.GetComponent<BoxCollider>().transform.rotation.eulerAngles.Set(0.0f, 0.0f, 0.0f);
         }
         else if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended) || (Input.GetMouseButtonUp(0)))
         {
 
-            TouchManager.mTouchManager.pointsSelected = LineTouch.GetCollidedObjects();
+            //TouchManager.mTouchManager.pointsSelected = LineTouch.GetCollidedObjects();
+            TouchManager.mTouchManager.pointsSelected = TouchManager.mTouchManager.GetCollidedObjects();
 
             Debug.Log("points selected = " + TouchManager.mTouchManager.pointsSelected.ToString()); 
             // Check if the line makes the corect shape
-            //if (TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchLogic.Shapes.Triangle5X3YLeft, ref pointsSelected))
+            //if (TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchLogic.Shapes.Rectangle3x4, ref TouchManager.mTouchManager.pointsSelected))
             if(TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().GetShpeType(), ref TouchManager.mTouchManager.pointsSelected))
             {
                 GameObject curShape = new GameObject();
@@ -147,6 +152,8 @@ public class DrawTouch : MonoBehaviour {
                 AnimationMagager.mAnimation.TimeAnimation(ref firstPoint, ref curShape);
 
                Debug.Log("Correct Shape");
+
+               AnimationMagager.mAnimation.ShapeMoveOut(TouchManager.mTouchManager.GetShapesIniatialized());
                TouchManager.mTouchManager.DeleteCurrentShape(); //Delete current shape and Instantiate a new one
 
 
@@ -171,7 +178,11 @@ public class DrawTouch : MonoBehaviour {
 
 
                 TouchManager.mTouchManager.mColliders.pointCount = 0;
-                //Reset Collidrrs size
+                
+                //Reset Collider Pos
+                coll.transform.position = new Vector3(5000.0f, 0.0f, 0.0f);
+                coll.GetComponent<BoxCollider>().size = new Vector3(1.0f, 1.0f, 1.0f);
+                coll.GetComponent<BoxCollider>().transform.rotation.eulerAngles.Set(0.0f, 0.0f, 0.0f);
 
                 //Call the winning animation or add points or ...
 
@@ -194,9 +205,12 @@ public class DrawTouch : MonoBehaviour {
 
                 TouchManager.mTouchManager.mColliders.pointCount = 0;
                 //Reset Colliders size
+                coll.transform.position = new Vector3(5000.0f, 0.0f, 0.0f);
+                coll.GetComponent<BoxCollider>().size = new Vector3(1.0f, 1.0f, 1.0f);
+                coll.GetComponent<BoxCollider>().transform.rotation.eulerAngles.Set(0.0f, 0.0f, 0.0f);
             }
 
-            Destroy(thisLine);
+            Destroy(thisLine.gameObject);
         }
     }
 
@@ -226,10 +240,10 @@ public class DrawTouch : MonoBehaviour {
 
     }
 
-    private void ResetCollider()
-    {
-        coll.transform.position = new Vector3(5000.0f, 0.0f, 0.0f);
-        coll.GetComponent<BoxCollider>().size = new Vector3(1.0f, 1.0f, 1.0f);
-        coll.GetComponent<BoxCollider>().transform.Rotate(0.0f, 0.0f, 0.0f);
-    }
+    //private void ResetCollider()
+    //{
+    //    coll.transform.position = new Vector3(5000.0f, 0.0f, 0.0f);
+    //    coll.GetComponent<BoxCollider>().size = new Vector3(1.0f, 1.0f, 1.0f);
+    //    coll.GetComponent<BoxCollider>().transform.Rotate(0.0f, 0.0f, 0.0f);
+    //}
 }

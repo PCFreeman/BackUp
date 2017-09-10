@@ -1,18 +1,11 @@
-<<<<<<< HEAD
-﻿<Properties StartupItem="Assembly-CSharp.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Audio\AudioController.cs">
-    <Files>
-      <File FileName="Assets\Scripts\UI\Firstscreen.cs" Line="19" Column="4" />
-      <File FileName="Assets\Scripts\Audio\AudioController.cs" Line="70" Column="5" />
-=======
 ﻿<Properties StartupItem="New Unity Project.Plugins.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Audio\AudioController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\TouchManager\DrawTouch.cs">
     <Files>
       <File FileName="Assets\Scripts\UI\Firstscreen.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Audio\AudioController.cs" Line="73" Column="1" />
->>>>>>> 8ac2a55e27aaf6d85f1f8b0490426d0d65cf6ff2
+      <File FileName="Assets\Scripts\Audio\AudioController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\UI\UIManage.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\TouchManager\DrawTouch.cs" Line="68" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
