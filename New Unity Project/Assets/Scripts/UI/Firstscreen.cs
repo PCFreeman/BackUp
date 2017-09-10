@@ -13,11 +13,12 @@ public class Firstscreen : MonoBehaviour {
     public GameObject ChallengeWindow;
     public GameObject ZenWindow;
     public GameObject Setting;
+    public GameObject setbutton;
     public GameObject Mode;
-    
-	//Peter's Code cliksound
-	//private AudioController mAudio;
-	void Start()
+    public GameObject Question;
+    //Peter's Code cliksound
+    //private AudioController mAudio;
+    void Start()
 	{
 		//Peter's Code cliksound
 		//mAudio = GameObject.Find ("SFX").GetComponent<AudioController> ();
@@ -35,6 +36,26 @@ public class Firstscreen : MonoBehaviour {
         {
             GetComponent<FMODUnity.StudioEventEmitter>().Play();
         }
+    }
+
+    public void ModBack()
+    {
+        Mode.SetActive(false);
+        MenuButton.SetActive(true);
+    }
+    public void Tutorial()
+    {
+        Question.SetActive(true);
+        Setting.SetActive(false);
+        GameObject.Find("SettingButton").SetActive(false);
+    }
+
+    public void TutorialBack()
+    {
+        Question.SetActive(false);
+        setbutton.SetActive(true);
+        Setting.SetActive(true);
+
     }
     public void ModMenu()
     {

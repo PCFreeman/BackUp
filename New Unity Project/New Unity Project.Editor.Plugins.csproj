@@ -164,6 +164,7 @@
     <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\AudioFile\{9716f9ff-5bbe-493b-9f06-da1022c2dcab}.xml" />
     <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\AudioFile\{a68c5d1e-78e9-4244-ab2f-a04836fe70ff}.xml" />
     <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\AudioFile\{adcd7b5f-d288-42ea-932c-33b1632e1065}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\AudioFile\{b8c65946-9400-4237-b867-d54021f38d76}.xml" />
     <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\AudioFile\{da796ad9-d2af-4b36-9bff-5544f862c215}.xml" />
     <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Bank\{8e12c6c8-ade7-45e2-8963-87e2097192ce}.xml" />
     <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\BankFolder\{b9f80215-f1ad-4c79-9eae-e5d8cf510db3}.xml" />
@@ -173,6 +174,7 @@
     <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Event\{5f426a51-1f3c-4488-9c62-36c884ee2df4}.xml" />
     <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Event\{8154fe22-8b89-4438-b592-ae7bfc688a63}.xml" />
     <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Event\{908e8787-24b3-421c-bc4e-3ef2bcc0eff2}.xml" />
+    <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Event\{94508691-0840-4b53-8f4a-8a2561a3b9c5}.xml" />
     <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Event\{ad111c8c-3a7d-49d6-8b18-56a1dc330ae5}.xml" />
     <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Event\{ae9b6175-dc28-41e3-a87d-6a170f04ae8f}.xml" />
     <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Event\{cb9f1941-307e-4e54-920d-b023096369cc}.xml" />
