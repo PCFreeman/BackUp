@@ -24,20 +24,6 @@ public class Firstscreen : MonoBehaviour {
 		//mAudio = GameObject.Find ("SFX").GetComponent<AudioController> ();
 	}
 
-    public void MusicSwitch()
-    {
-        //GameObject.Find("Canvas").GetComponent<FMOD_StudioEventEmitter>().
-        var fmodStudioEmitter = GetComponent<FMODUnity.StudioEventEmitter>(); // similar to auto in C++
-        if(fmodStudioEmitter.IsPlaying())
-        {
-            GetComponent<FMODUnity.StudioEventEmitter>().Stop();
-        }
-        else
-        {
-            GetComponent<FMODUnity.StudioEventEmitter>().Play();
-        }
-    }
-
     public void ModBack()
     {
         Mode.SetActive(false);
@@ -105,12 +91,12 @@ public class Firstscreen : MonoBehaviour {
         SceneManager.LoadScene(1);
     }
 
-	//Peter's code play SFX
-	public void PlaySFX()
-	{
-		//mAudio.ClickSFX ();
-		AudioController.sInstance.ClickSFX ();
-	}
+	////Peter's code play SFX
+	//public void PlaySFX()
+	//{
+	//	//mAudio.ClickSFX ();
+	//	AudioController.sInstance.ClickSFX ();
+	//}
 
     public void PlayZen()
     {

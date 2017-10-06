@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class UIManage : MonoBehaviour {
 
-    FMODUnity.StudioEventEmitter emitter;
-
     public static UIManage instance;
 
     public float timeMax;
@@ -50,9 +48,7 @@ public class UIManage : MonoBehaviour {
         GameObject.Find("Number").GetComponent<Text>().text = Score.ToString();
 
 
-        //Elrick's Code
-        var target = GameObject.Find("Timer");
-        emitter = target.GetComponent<FMODUnity.StudioEventEmitter>();
+
     }
 
     public void settingMenu()
@@ -112,20 +108,6 @@ public class UIManage : MonoBehaviour {
         
         Mins = Mathf.FloorToInt(timeLeft / 60f);
         Secs = Mathf.FloorToInt(timeLeft % 60f);
-        //Elric's code LEAVE HERE
-        if (timeLeft > 20)
-        {
-            emitter.SetParameterValueByIndex(0, 0);
-        }
-        else if (Secs < 20 && Secs > 10)
-        {
-            emitter.SetParameterValueByIndex(0, 7.51f);
-        }
-        else if (Secs < 10 && Secs > 0)
-        {
-            emitter.SetParameterValueByIndex(0, 9.01f);
-        }
-        // LEAVE CODE HERE LINES 115-128 NO ENWRAPPING IF STATEMENT
         if (timeLeft > 0) {
 			timeLeft -= Time.deltaTime;
 
@@ -134,8 +116,6 @@ public class UIManage : MonoBehaviour {
         else if (timeLeft > -1 && timeLeft < 0)
         {
             timeLeft -= Time.deltaTime;
-
-            emitter.SetParameterValueByIndex(0, 9.90f);
         }
         else
         {        
