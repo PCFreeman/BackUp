@@ -28,7 +28,7 @@ public class AnimationMagager : MonoBehaviour
     int mScoreBonus;
     private List<int> digits;
     private List<int> digits2;
-
+    public Animator myAnimator;
 
 
     private void Awake()
@@ -755,123 +755,13 @@ public class AnimationMagager : MonoBehaviour
 
         digits.Clear();
 
-        //if (m1 == 0 && m2 == 0)
-        //{
-        //    Debug.Log("No Score bonus for this shape");
-        //}
-        //else if (m1 == 1)
-        //{
-        //    GameObject P1 = Instantiate(t1, pp, transform.rotation);
-        //    StartCoroutine(Move(P1, pp, EndPositionScore, sp));
-        //
-        //}
-        //else if (m1 == 2)
-        //{
-        //    GameObject P2 = Instantiate(t2, pp, transform.rotation);
-        //    StartCoroutine(Move(P2, pp, EndPositionScore, sp));
-        //
-        //}
-        //else if (m1 == 3)
-        //{
-        //    GameObject P3 = Instantiate(t3, pp, transform.rotation);
-        //    StartCoroutine(Move(P3, pp, EndPositionScore, sp));
-        //
-        //}
-        //else if (m1 == 4)
-        //{
-        //    GameObject P4 = Instantiate(t4, pp, transform.rotation);
-        //    StartCoroutine(Move(P4, pp, EndPositionScore, sp));
-        //
-        //}
-        //else if (m1 == 5)
-        //{
-        //    GameObject P5 = Instantiate(t5, pp, transform.rotation);
-        //    StartCoroutine(Move(P5, pp, EndPositionScore, sp));
-        //
-        //}
-        //else if (m1 == 6)
-        //{
-        //    GameObject P6 = Instantiate(t6, pp, transform.rotation);
-        //    StartCoroutine(Move(P6, pp, EndPositionScore, sp));
-        //
-        //}
-        //else if (m1 == 7)
-        //{
-        //    GameObject P7 = Instantiate(t7, pp, transform.rotation);
-        //    StartCoroutine(Move(P7, pp, EndPositionScore, sp));
-        //
-        //}
-        //else if (m1 == 8)
-        //{
-        //    GameObject P8 = Instantiate(t8, pp, transform.rotation);
-        //    StartCoroutine(Move(P8, pp, EndPositionScore, sp));
-        //
-        //}
-        //else if (m1 == 9)
-        //{
-        //    GameObject P9 = Instantiate(t9, pp, transform.rotation);
-        //    StartCoroutine(Move(P9, pp, EndPositionScore, sp));
-        //
-        //}
-        //
-        //if (m2 == 1)
-        //{
-        //    GameObject P1 = Instantiate(t1, pp, transform.rotation);
-        //    StartCoroutine(Move(P1, pp + new Vector3(45, 0, 0), EndPositionScore + new Vector3(45, 0, 0), sp));
-        //}
-        //else if (m2 == 2)
-        //{
-        //    GameObject P2 = Instantiate(t2, pp + new Vector3(45, 0, 0), transform.rotation);
-        //    StartCoroutine(Move(P2, pp + new Vector3(45, 0, 0), EndPositionScore + new Vector3(45, 0, 0), sp));
-        //
-        //}
-        //else if (m2 == 3)
-        //{
-        //    GameObject P3 = Instantiate(t3, pp, transform.rotation);
-        //    StartCoroutine(Move(P3, pp + new Vector3(45, 0, 0), EndPositionScore + new Vector3(45, 0, 0), sp));
-        //
-        //}
-        //else if (m2 == 4)
-        //{
-        //    GameObject P4 = Instantiate(t4, pp, transform.rotation);
-        //    StartCoroutine(Move(P4, pp + new Vector3(45, 0, 0), EndPositionScore + new Vector3(45, 0, 0), sp));
-        //
-        //}
-        //else if (m2 == 5)
-        //{
-        //    GameObject P5 = Instantiate(t5, pp, transform.rotation);
-        //    StartCoroutine(Move(P5, pp + new Vector3(45, 0, 0), EndPositionScore + new Vector3(45, 0, 0), sp));
-        //
-        //}
-        //else if (m2 == 6)
-        //{
-        //    GameObject P6 = Instantiate(t6, pp, transform.rotation);
-        //    StartCoroutine(Move(P6, pp + new Vector3(45, 0, 0), EndPositionScore + new Vector3(45, 0, 0), sp));
-        //
-        //}
-        //else if (m2 == 7)
-        //{
-        //    GameObject P7 = Instantiate(t7, pp, transform.rotation);
-        //    StartCoroutine(Move(P7, pp + new Vector3(45, 0, 0), EndPositionScore + new Vector3(45, 0, 0), sp));
-        //
-        //}
-        //else if (m2 == 8)
-        //{
-        //    GameObject P8 = Instantiate(t8, pp, transform.rotation);
-        //    StartCoroutine(Move(P8, pp + new Vector3(45, 0, 0), EndPositionScore + new Vector3(45, 0, 0), sp));
-        //
-        //}
-        //else if (m2 == 9)
-        //{
-        //    GameObject P9 = Instantiate(t9, pp, transform.rotation);
-        //    StartCoroutine(Move(P9, pp + new Vector3(45, 0, 0), EndPositionScore + new Vector3(45, 0, 0), sp));
-        //
-        //}
     }
 
     public void ShapeMoveOut(List<GameObject> ShapeList)
     {
-        StartCoroutine(MoveShape(ShapeList[0], ShapeList[0].transform.position, ShapeList[0].transform.position + new Vector3(200,0,0),ShapeMoveSpeed));
+      
+        myAnimator.SetBool("two", true);
+       // StartCoroutine(MoveShape(ShapeList[0], ShapeList[0].transform.position, ShapeList[0].transform.position + new Vector3(200,0,0),ShapeMoveSpeed));
         for (int i = 1; i < 5; i++)
         {
             StartCoroutine(MoveShape(ShapeList[i], ShapeList[i].transform.position,ShapeList[i].transform.position + new Vector3(0, 132, 0), ShapeMoveSpeed));
