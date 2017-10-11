@@ -760,7 +760,7 @@ public class AnimationMagager : MonoBehaviour
     public void ShapeMoveOut(List<GameObject> ShapeList)
     {
       
-        myAnimator.SetBool("two", true);
+        myAnimator.SetBool("IsOne", true);
        // StartCoroutine(MoveShape(ShapeList[0], ShapeList[0].transform.position, ShapeList[0].transform.position + new Vector3(200,0,0),ShapeMoveSpeed));
         for (int i = 1; i < 5; i++)
         {
