@@ -247,9 +247,6 @@ public class PointsManager : MonoBehaviour {
                 }
 
 
-
-
-
                 points.Add(pointsList);     //2D List
             }
 
@@ -377,9 +374,7 @@ public class PointsManager : MonoBehaviour {
                             pointTemp.transform.position.z);
 
                         pointsList.Add(pointTemp);  //Temp list
-
-
-
+                        
                         pointsLines.Add(line);      //Line List
 
 
@@ -388,7 +383,9 @@ public class PointsManager : MonoBehaviour {
 
                 }
 
+                pointsList.Sort(sortLine);
 
+                checkPointsDistance(ref pointsList, (sizePoint + emptyLineAreaSize));
 
 
 
@@ -403,7 +400,7 @@ public class PointsManager : MonoBehaviour {
 
     public float GetDistanceBetweenLinePoints()
     {
-        return points[0][2].transform.position.x - points[0][0].transform.position.x;
+        return points[0][1].transform.position.x - points[0][0].transform.position.x;
     }
 
     public float GetDistanceBetweenLines()
@@ -414,6 +411,80 @@ public class PointsManager : MonoBehaviour {
         return points[2][0].transform.position.y - points[0][0].transform.position.y;
     }
 
+    private void checkPointsDistance(ref List<GameObject> pointsList, float distance)
+    {
+        float offset = 0.0f;
+
+        for (int i = 1 ; i < pointsList.Count; ++i)
+        {
+            if ((pointsList[i].transform.position.x - pointsList[i - 1].transform.position.x) != distance)
+            {
+                if(((pointsList[i].transform.position.x + offset) - pointsList[i - 1].transform.position.x) != distance)
+                { 
+                    offset += distance - (pointsList[i].transform.position.x - pointsList[i - 1].transform.position.x);
+                }
+
+                float xPos = pointsList[i].transform.position.x;
+                xPos += offset;
+
+                pointsList[i].transform.position = new Vector3 (xPos,
+                                                      pointsList[i].transform.position.y,
+                                                      pointsList[i].transform.position.z);
+            }
+
+        }
+
+        
+
+    }
 
 
+    private int sortLine(GameObject GO1, GameObject GO2)
+    {
+
+        if (GO1 == null)
+        {
+            if (GO2 == null)
+            {
+                // If GO1 is null and GO2 is null, they're
+                // equal. 
+                return 0;
+            }
+            else
+            {
+                // If GO1 is null and GO2 is not null, GO2
+                // is greater. 
+                return -1;
+            }
+        }
+        else
+        {
+            // If GO1 is not null...
+            //
+            if (GO2 == null)
+            // ...and GO2 is null, GO1 is greater.
+            {
+                return 1;
+            }
+            else
+            {
+                // ...and GO2 is not null, compare the 
+                // lengths of the two strings.
+                //
+                if (GO1.transform.position.x > GO2.transform.position.x)
+                {
+                    return 1;
+                }
+                else if (GO1.transform.position.x < GO2.transform.position.x)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 0;
+                }
+
+            }
+        }
+    }
 }

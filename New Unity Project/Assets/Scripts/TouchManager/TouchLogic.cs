@@ -1272,7 +1272,7 @@ public class TouchLogic {
 
 
     //Crescent order 
-    private int sortLine(GameObject GO1, GameObject GO2)
+    public int sortLine(GameObject GO1, GameObject GO2)
     {
 
         if (GO1 == null)
