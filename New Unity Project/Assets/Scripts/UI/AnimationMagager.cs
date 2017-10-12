@@ -51,7 +51,7 @@ public class AnimationMagager : MonoBehaviour
         digits = new List<int>();
         digits2 = new List<int>();
 
-
+        myAnimator = new Animator();
     }
 
     // Use this for initialization
