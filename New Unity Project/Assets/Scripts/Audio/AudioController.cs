@@ -5,19 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class AudioController : MonoBehaviour
 {
-
-    private bool isPlaying = false;
-    public AudioSource mBGM;
-    public AudioSource mClickSFX;
-    public AudioSource mSuccessMoveSFX;
-    public AudioSource mGameOverSFX;
-    public AudioClip[] mCurrentClip;
-    private Scene mCurrentScene;
+    public AudioSource SFX;
+    //public AudioSource mBGM;
+    public AudioClip[] mCurrentSFXClip;
 
     public static AudioController sInstance;
 
     void Awake()
     {
+        SFX = GetComponent<AudioSource>();
         //Check if instance already exist
         if (sInstance == null)
         {
@@ -32,45 +28,21 @@ public class AudioController : MonoBehaviour
         //Sets this to not be destroyed when reloading scene
         DontDestroyOnLoad(gameObject);
     }
-    // Use this for initialization
-    // Update is called once per frame
-    void Update()
-    {
-        //mCurrentScene = SceneManager.GetActiveScene();
-        //BGM();
-    }
 
     public void ClickSFX()
     {
-        mClickSFX.Play();
+        SFX.clip = mCurrentSFXClip[0];
+        SFX.Play();
     }
 
     public void SuccessMoveSFX()
     {
-        mSuccessMoveSFX.Play();
+        SFX.clip = mCurrentSFXClip[1];
+        SFX.Play();
     }
     public void GameOverSFX()
     {
-        mGameOverSFX.Play();
-    }
-
-    public void BGM()
-    {
-        //string sceneName = mCurrentScene.name;
-        //Debug.Log (sceneName);
-        //if (sceneName == "Main" && isPlaying == false)
-        //{
-        //	mBGM.clip = mCurrentClip [0];
-        //	mBGM.Play ();
-        //	isPlaying = true;
-        //}
-
-        /*if (sceneName == "Endless" && isPlaying == false)
-		{
-			mBGM.clip = mCurrentClip [1];
-			mBGM.Play ();
-			isPlaying = true;
-		}
-		*/
+        SFX.clip = mCurrentSFXClip[2];
+        SFX.Play();
     }
 }
