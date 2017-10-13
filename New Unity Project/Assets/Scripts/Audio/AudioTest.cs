@@ -14,14 +14,20 @@ public class AudioTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(Input.GetKeyDown(KeyCode.W))
-        //{
-        //    AudioController.sInstance.SuccessMoveSFX();
-        //}
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            AudioController.sInstance.SuccessMoveSFX();
+        }
 
-        //if (Input.GetKeyDown(KeyCode.E))
-        //{
-        //    AudioController.sInstance.GameOverSFX();
-        //}
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            AudioController.sInstance.GameOverSFX();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("SPACE PRESSED!!!");
+            AudioController.sInstance.MuteMainBGM();
+        }
     }
 }
