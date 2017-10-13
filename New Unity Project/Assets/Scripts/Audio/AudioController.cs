@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class AudioController : MonoBehaviour
 {
     public AudioSource SFX;
+    public MainBGM mBGM;
     //public AudioSource mBGM;
     public AudioClip[] mCurrentSFXClip;
 
@@ -14,6 +15,7 @@ public class AudioController : MonoBehaviour
     void Awake()
     {
         SFX = GetComponent<AudioSource>();
+        mBGM = GameObject.Find("MainBackgroundMusic").GetComponent<MainBGM>();
         //Check if instance already exist
         if (sInstance == null)
         {
@@ -44,5 +46,10 @@ public class AudioController : MonoBehaviour
     {
         SFX.clip = mCurrentSFXClip[2];
         SFX.Play();
+    }
+
+    public void MuteMainBGM()
+    {
+        mBGM.mainBGM.mute = !mBGM.mainBGM.mute;
     }
 }
