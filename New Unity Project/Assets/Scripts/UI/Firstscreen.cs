@@ -26,11 +26,14 @@ public class Firstscreen : MonoBehaviour {
 
     public void ModBack()
     {
+        PlaySFX();
         Mode.SetActive(false);
         MenuButton.SetActive(true);
+
     }
     public void Tutorial()
     {
+        PlaySFX();
         Question.SetActive(true);
         Setting.SetActive(false);
         GameObject.Find("SettingButton").SetActive(false);
@@ -38,6 +41,7 @@ public class Firstscreen : MonoBehaviour {
 
     public void TutorialBack()
     {
+        PlaySFX();
         Question.SetActive(false);
         setbutton.SetActive(true);
         Setting.SetActive(true);
@@ -45,34 +49,35 @@ public class Firstscreen : MonoBehaviour {
     }
     public void ModMenu()
     {
+        PlaySFX();
         MenuButton.SetActive(false);
         Mode.SetActive(true);
     }
     public void Endless()
     {
+        PlaySFX();
         Mode.SetActive(false);
         EndlessWindow.SetActive(true);
 
     }//Those are the button in main menu
     public void Timed()
     {
+        PlaySFX();
         Mode.SetActive(false);
         TimedWindow.SetActive(true);
     }
     public void Challenge()
     {
+        PlaySFX();
         Mode.SetActive(false);
         ChallengeWindow.SetActive(true);
 
     }
-    public void Zen()
-    {
-        Mode.SetActive(false);
-        ZenWindow.SetActive(true);
-    }
+
     public void CloseButton()
     {
-            EndlessWindow.SetActive(false);
+        PlaySFX();
+        EndlessWindow.SetActive(false);
             TimedWindow.SetActive(false);
             ChallengeWindow.SetActive(false);
             ZenWindow.SetActive(false);
@@ -91,18 +96,12 @@ public class Firstscreen : MonoBehaviour {
         SceneManager.LoadScene(1);
     }
 
-	////Peter's code play SFX
-	//public void PlaySFX()
-	//{
-	//	//mAudio.ClickSFX ();
-	//	AudioController.sInstance.ClickSFX ();
-	//}
-
-    public void PlayZen()
+    ////Peter's code play SFX
+    public void PlaySFX()
     {
-        SceneManager.LoadScene(4);
-    }
 
+        AudioController.sInstance.ClickSFX();
+    }
 
     public void SettingMenu()
     {

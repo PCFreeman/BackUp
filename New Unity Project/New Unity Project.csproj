@@ -101,13 +101,13 @@
     <Compile Include="Assets\Scripts\TouchManager\TouchLogic.cs" />
     <Compile Include="Assets\Scripts\TouchManager\TouchManager.cs" />
     <Compile Include="Assets\Scripts\TouchManager\TouchSence.cs" />
-    <Compile Include="Assets\Scripts\UI\AnimationMagager.cs" />
+    <Compile Include="Assets\Scripts\UI\Animation\AnimationMagager.cs" />
+    <Compile Include="Assets\Scripts\UI\Animation\transtion.cs" />
     <Compile Include="Assets\Scripts\UI\BackGround.cs" />
     <Compile Include="Assets\Scripts\UI\Firstscreen.cs" />
     <Compile Include="Assets\Scripts\UI\InGameSetting.cs" />
     <Compile Include="Assets\Scripts\UI\ScreenResolution.cs" />
     <Compile Include="Assets\Scripts\UI\UIManage.cs" />
-    <Compile Include="Assets\transtion.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Asset\{60d88351-a2c2-41dd-8d42-d2e5ec447dba}.xml" />
