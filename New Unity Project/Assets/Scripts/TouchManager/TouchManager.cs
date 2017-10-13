@@ -36,6 +36,8 @@ public class TouchManager : MonoBehaviour {
     private List<GameObject> mShapesInstantied;
     private uint NumberOfShapesInstantiedMax;
 
+    public GameObject redBorder;
+
 
     public List<GameObject> pointsSelected;
     private List<GameObject> GOs;
@@ -78,7 +80,7 @@ public class TouchManager : MonoBehaviour {
         mDrawTouch.Initialize();
         mColliders.Initialize();
 
-        NumberOfShapesInstantiedMax = 5;                //Number of Shapes showing in screen
+        NumberOfShapesInstantiedMax = 3;                //Number of Shapes showing in screen
         GenerateShapesList();
         InstantiateShapes();
 
@@ -103,6 +105,8 @@ public class TouchManager : MonoBehaviour {
 
 
     }
+
+
 
 
     private void GenerateShapesList()
@@ -148,31 +152,37 @@ public class TouchManager : MonoBehaviour {
     {
         for (int i = mShapesInstantied.Count; i < NumberOfShapesInstantiedMax; ++i)
         {
-            mShapesInstantied.Add(GameObject.Instantiate(mShapesList[i], new Vector3(0.0f,0.0f,0.0f), Quaternion.identity));
+            mShapesInstantied.Add(GameObject.Instantiate(mShapesList[i], new Vector3(0.0f,0.0f,-20.0f), Quaternion.identity));
 
             mShapesInstantied[i].transform.SetParent(GameObject.Find("ShapeSpawnPlace").transform, false);
+
+            mShapesInstantied[i].GetComponent<RectTransform>().sizeDelta = new Vector2(210.0f,210.0f);
         }
 
-        for(int i = 0; i < mShapesInstantied.Count; ++i)
+        mShapesInstantied[0].GetComponent<RectTransform>().sizeDelta = new Vector2(210.0f, 210.0f);
+        mShapesInstantied[1].GetComponent<RectTransform>().sizeDelta = new Vector2(105.0f, 105.0f);
+        mShapesInstantied[2].GetComponent<RectTransform>().sizeDelta = new Vector2(5.0f, 5.0f);
+
+        for (int i = 0; i < mShapesInstantied.Count; ++i)
         {
             int yPos = 0;
 
             switch (i)
             {
                 case 0:
-                    yPos = 198;
+                    yPos = 165;
                     break;
                 case 1:
-                    yPos = 66;
+                    yPos = -135;
                     break;
                 case 2:
-                    yPos = -66;
+                    yPos = -435;
                     break;
                 case 3:
-                    yPos = -198;
+                    yPos = -735;
                     break;
                 case 4:
-                    yPos = -330;
+                    yPos = -635;
                     break;
                 default:
                     Debug.Assert(false, "[TouchManager] Num of shapes bigger than Max");
@@ -182,6 +192,7 @@ public class TouchManager : MonoBehaviour {
 
         }
 
+        redBorder.transform.SetAsLastSibling();
 
         Debug.Log("Size of Instantied Shapes List" + mShapesInstantied.Count);
 
@@ -205,7 +216,8 @@ public class TouchManager : MonoBehaviour {
         mShapesList.RemoveAt(0);
         InstantiateShapes();
 
-        if(mShapesList.Count <= 5)
+
+        if (mShapesList.Count <= 5)
         {
             GenerateShapesList();
         }
@@ -220,6 +232,11 @@ public class TouchManager : MonoBehaviour {
     public List<GameObject> GetCollidedObjects()
     {
         return GOs;
+    }
+
+    public int GetNumShapesInstantied()
+    {
+        return (int)NumberOfShapesInstantiedMax;
     }
 
 

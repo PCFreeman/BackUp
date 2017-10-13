@@ -62,7 +62,7 @@ public class Colliders : MonoBehaviour {
             if (linePos == (PointsManager.mPointsManager.numberLines - 1).ToString())
             {
                 //Right side point
-                if(pointPos == (PointsManager.mPointsManager.numberPointsInLine - 1).ToString())
+                if(pointPos == (PointsManager.mPointsManager.GetNumberOfHorizontalPoints() - 1).ToString())
                 {
 
                 }
@@ -76,7 +76,7 @@ public class Colliders : MonoBehaviour {
             else if (linePos == (PointsManager.mPointsManager.numberLines - 2).ToString())  //Bottom line
             {
                 //Right side point
-                if (pointPos == (PointsManager.mPointsManager.numberPointsInLine - 1).ToString())
+                if (pointPos == (PointsManager.mPointsManager.GetNumberOfHorizontalPoints() - 1).ToString())
                 {
 
                 }

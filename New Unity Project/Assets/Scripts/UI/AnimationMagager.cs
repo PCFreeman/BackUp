@@ -762,9 +762,9 @@ public class AnimationMagager : MonoBehaviour
       
         myAnimator.SetBool("IsOne", true);
        // StartCoroutine(MoveShape(ShapeList[0], ShapeList[0].transform.position, ShapeList[0].transform.position + new Vector3(200,0,0),ShapeMoveSpeed));
-        for (int i = 1; i < 5; i++)
+        for (int i = 1; i < TouchManager.mTouchManager.GetNumShapesInstantied(); i++)
         {
-            StartCoroutine(MoveShape(ShapeList[i], ShapeList[i].transform.position,ShapeList[i].transform.position + new Vector3(0, 132, 0), ShapeMoveSpeed));
+            StartCoroutine(MoveShape(ShapeList[i], ShapeList[i].transform.position,ShapeList[i].transform.position + new Vector3(0, 300, 0), ShapeMoveSpeed));
         }
     }
 
