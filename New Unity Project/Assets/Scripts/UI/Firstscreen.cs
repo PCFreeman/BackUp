@@ -80,7 +80,6 @@ public class Firstscreen : MonoBehaviour {
         EndlessWindow.SetActive(false);
             TimedWindow.SetActive(false);
             ChallengeWindow.SetActive(false);
-            ZenWindow.SetActive(false);
             Mode.SetActive(true);
     }
     public void PlayEndless()
