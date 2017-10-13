@@ -95,6 +95,10 @@ public class Firstscreen : MonoBehaviour {
     {
         SceneManager.LoadScene(1);
     }
+    public void MusicSwitch()
+    {
+        AudioController.sInstance.MuteMainBGM();
+    }
 
     ////Peter's code play SFX
     public void PlaySFX()
