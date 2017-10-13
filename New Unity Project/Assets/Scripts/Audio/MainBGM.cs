@@ -5,7 +5,7 @@ using UnityEngine;
 public class MainBGM : MonoBehaviour
 {
 
-    private AudioSource mainBGM;
+    public AudioSource mainBGM;
     // Use this for initialization
     void Start()
     {

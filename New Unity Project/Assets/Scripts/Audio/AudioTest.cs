@@ -23,5 +23,11 @@ public class AudioTest : MonoBehaviour
         {
             AudioController.sInstance.GameOverSFX();
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("SPACE PRESSED!!!");
+            AudioController.sInstance.MuteMainBGM();
+        }
     }
 }
