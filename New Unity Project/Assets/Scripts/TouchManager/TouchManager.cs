@@ -12,6 +12,8 @@ public class TouchManager : MonoBehaviour {
     public GameObject Triangle5x3Left;
     public GameObject TriangleRectangle3UpLeft;
     public GameObject TriangleRectangle3DownLeft;
+    public GameObject TriangleRectangle3UpRight;
+    public GameObject TriangleRectangle3DownRight;
 
     public GameObject Square2x2;
     public GameObject Square3x3;
@@ -117,6 +119,8 @@ public class TouchManager : MonoBehaviour {
         mShapes.Add(Triangle5x3Left);
         mShapes.Add(TriangleRectangle3UpLeft);
         mShapes.Add(TriangleRectangle3DownLeft);
+        mShapes.Add(TriangleRectangle3UpRight);
+        mShapes.Add(TriangleRectangle3DownRight);
 
         mShapes.Add(Square2x2);
         mShapes.Add(Square3x3);

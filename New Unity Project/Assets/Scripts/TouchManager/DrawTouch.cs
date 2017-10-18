@@ -142,12 +142,9 @@ public class DrawTouch : MonoBehaviour {
 
             Debug.Log("points selected = " + TouchManager.mTouchManager.pointsSelected.ToString()); 
             // Check if the line makes the corect shape
-            //if (TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchLogic.Shapes.Triangle5X3YUp, ref TouchManager.mTouchManager.pointsSelected))
+            //if (TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchLogic.Shapes.TriangleRectangle3UpRight, ref TouchManager.mTouchManager.pointsSelected))
             if(TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().GetShpeType(), ref TouchManager.mTouchManager.pointsSelected))
             {
-                curShape = new GameObject();
-                firstPoint = new GameObject();
-
                 curShape = TouchManager.mTouchManager.GetCurrentShape();
                 firstPoint = TouchManager.mTouchManager.pointsSelected[0];
 
