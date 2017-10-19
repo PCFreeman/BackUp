@@ -243,4 +243,11 @@ public class DrawTouch : MonoBehaviour {
         coll.GetComponent<BoxCollider>().size = new Vector3(1.0f, 1.0f, 1.0f);
         coll.GetComponent<BoxCollider>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
     }
+
+    public void DestroyLine()
+    {
+        Destroy(thisLine);
+        ResetCollider();
+    }
+
 }
