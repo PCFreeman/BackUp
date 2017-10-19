@@ -92,6 +92,8 @@
     <Compile Include="Assets\Scripts\GeneratePoints\GeneratingPoints.cs" />
     <Compile Include="Assets\Scripts\GeneratePoints\PointsManager.cs" />
     <Compile Include="Assets\Scripts\GeneratePoints\PointsMovement.cs" />
+    <Compile Include="Assets\Scripts\LevelSystem\Level.cs" />
+    <Compile Include="Assets\Scripts\LevelSystem\LevelManager.cs" />
     <Compile Include="Assets\Scripts\Shapes.cs" />
     <Compile Include="Assets\Scripts\TShapes.cs" />
     <Compile Include="Assets\Scripts\TouchManager for Tutorial\TColliders.cs" />
