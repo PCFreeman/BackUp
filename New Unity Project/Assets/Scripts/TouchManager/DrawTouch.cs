@@ -56,8 +56,8 @@ public class DrawTouch : MonoBehaviour {
                 thisLine = (GameObject)Instantiate(linePrefab, this.transform.position, Quaternion.identity);
             }
 
-            Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            //Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);           //Use This for Mouse test
+            //Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);           //Use This for Mouse test
 
             float rayDistance;
             if (objectPlane.Raycast(mRay, out rayDistance))    //This check the contact of RayCast with plane and return the distance
@@ -69,8 +69,8 @@ public class DrawTouch : MonoBehaviour {
         {
             
 
-            Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            //Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);           //Use This for Mouse test
+            //Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);           //Use This for Mouse test
 
             float rayDistance;
             if (objectPlane.Raycast(mRay, out rayDistance))    //This check the contact of RayCast with plane and return the distance

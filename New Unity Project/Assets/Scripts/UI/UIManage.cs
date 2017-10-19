@@ -53,6 +53,7 @@ public class UIManage : MonoBehaviour {
 
     public void settingMenu()
     {
+        //TouchManager.mTouchManager.GetComponent<DrawTouch>().
         Set.SetActive(true);
         Time.timeScale = 0f;
     }
