@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TTouchManager : MonoBehaviour {
+public class TTouchManager : MonoBehaviour
+{
 
     //All shapes go here
-    
+
     public GameObject Triangle5x3Up;
     public GameObject Triangle5x3Down;
     public GameObject Triangle5x3Right;
     public GameObject Triangle5x3Left;
     public GameObject TriangleRectangle3UpLeft;
     public GameObject TriangleRectangle3DownLeft;
+    public GameObject TriangleRectangle3UpRight;
+    public GameObject TriangleRectangle3DownRight;
 
     public GameObject Square2x2;
     public GameObject Square3x3;
@@ -27,7 +30,7 @@ public class TTouchManager : MonoBehaviour {
 
     public static TTouchManager mTTouchManager = null;
 
-    public Colliders mColliders;
+    public TColliders mTColliders;
     public TTouchLogic mTTouchLogic;
     public TDrawTouch mTDrawTouch;
     private List<GameObject> mShapes;           //All types of Shapes
@@ -36,6 +39,8 @@ public class TTouchManager : MonoBehaviour {
     private List<GameObject> mShapesInstantied;
     private uint NumberOfShapesInstantiedMax;
 
+    public GameObject redBorder;
+
 
     public List<GameObject> pointsSelected;
     private List<GameObject> GOs;
@@ -43,12 +48,12 @@ public class TTouchManager : MonoBehaviour {
 
     private void Awake()
     {
-        //mTDrawTouch = GameObject.Find("TouchManager").GetComponent<DrawTouch>();
+        //mDrawTouch = GameObject.Find("TouchManager").GetComponent<DrawTouch>();
         GOs = new List<GameObject>();
 
         //Check if instance already exist
         if (mTTouchManager == null)
-        { 
+        {
             //if not, set instance to this
             mTTouchManager = this;
         }
@@ -61,12 +66,13 @@ public class TTouchManager : MonoBehaviour {
         //DontDestroyOnLoad(gameObject);
     }
 
-        
+
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         Debug.Log("[TouchManager]Manager successfully started.");
 
-        mColliders = new Colliders();
+        mTColliders = new TColliders();
         mTTouchLogic = new TTouchLogic();
         Debug.Log("TouchLogic   " + mTTouchLogic.ToString());
 
@@ -76,18 +82,19 @@ public class TTouchManager : MonoBehaviour {
         mShapesInstantied = new List<GameObject>();
 
         mTDrawTouch.Initialize();
-        mColliders.Initialize();
+        mTColliders.Initialize();
 
-        NumberOfShapesInstantiedMax = 5;                //Number of Shapes showing in screen
+        NumberOfShapesInstantiedMax = 3;                //Number of Shapes showing in screen
         GenerateShapesList();
         InstantiateShapes();
 
-        mColliders.mCurrentShape = GetCurrentShape();
+        mTColliders.mCurrentShape = GetCurrentShape();
 
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         mTDrawTouch.update();
 
 
@@ -107,10 +114,6 @@ public class TTouchManager : MonoBehaviour {
 
 
 
-
-    //============================================================================================================
-
-
     private void GenerateShapesList()
     {
         mShapes.Add(Triangle5x3Up);
@@ -119,6 +122,8 @@ public class TTouchManager : MonoBehaviour {
         mShapes.Add(Triangle5x3Left);
         mShapes.Add(TriangleRectangle3UpLeft);
         mShapes.Add(TriangleRectangle3DownLeft);
+        mShapes.Add(TriangleRectangle3UpRight);
+        mShapes.Add(TriangleRectangle3DownRight);
 
         mShapes.Add(Square2x2);
         mShapes.Add(Square3x3);
@@ -130,7 +135,7 @@ public class TTouchManager : MonoBehaviour {
         mShapes.Add(Rectangle4x3);
 
         if (mShapesList.Count == 0)
-        { 
+        {
             //Generate List with random shapes
             for (int i = 0; i < NumberOfShapes; ++i)
             {
@@ -154,31 +159,37 @@ public class TTouchManager : MonoBehaviour {
     {
         for (int i = mShapesInstantied.Count; i < NumberOfShapesInstantiedMax; ++i)
         {
-            mShapesInstantied.Add(GameObject.Instantiate(mShapesList[i], new Vector3(0.0f,0.0f,0.0f), Quaternion.identity));
+            mShapesInstantied.Add(GameObject.Instantiate(mShapesList[i], new Vector3(0.0f, 0.0f, -20.0f), Quaternion.identity));
 
             mShapesInstantied[i].transform.SetParent(GameObject.Find("ShapeSpawnPlace").transform, false);
+
+            mShapesInstantied[i].GetComponent<RectTransform>().sizeDelta = new Vector2(210.0f, 210.0f);
         }
 
-        for(int i = 0; i < mShapesInstantied.Count; ++i)
+        mShapesInstantied[0].GetComponent<RectTransform>().sizeDelta = new Vector2(210.0f, 210.0f);
+        mShapesInstantied[1].GetComponent<RectTransform>().sizeDelta = new Vector2(105.0f, 105.0f);
+        mShapesInstantied[2].GetComponent<RectTransform>().sizeDelta = new Vector2(5.0f, 5.0f);
+
+        for (int i = 0; i < mShapesInstantied.Count; ++i)
         {
             int yPos = 0;
 
             switch (i)
             {
                 case 0:
-                    yPos = 198;
+                    yPos = 165;
                     break;
                 case 1:
-                    yPos = 66;
+                    yPos = -135;
                     break;
                 case 2:
-                    yPos = -66;
+                    yPos = -435;
                     break;
                 case 3:
-                    yPos = -198;
+                    yPos = -735;
                     break;
                 case 4:
-                    yPos = -330;
+                    yPos = -635;
                     break;
                 default:
                     Debug.Assert(false, "[TouchManager] Num of shapes bigger than Max");
@@ -188,6 +199,7 @@ public class TTouchManager : MonoBehaviour {
 
         }
 
+        redBorder.transform.SetAsLastSibling();
 
         Debug.Log("Size of Instantied Shapes List" + mShapesInstantied.Count);
 
@@ -206,12 +218,13 @@ public class TTouchManager : MonoBehaviour {
 
     public void DeleteCurrentShape()
     {
-        Destroy(mShapesInstantied[0],3.0f);
+        Destroy(mShapesInstantied[0], 3.0f);
         mShapesInstantied.Remove(mShapesInstantied[0]);
         mShapesList.RemoveAt(0);
         InstantiateShapes();
 
-        if(mShapesList.Count <= 5)
+
+        if (mShapesList.Count <= 5)
         {
             GenerateShapesList();
         }
@@ -226,6 +239,11 @@ public class TTouchManager : MonoBehaviour {
     public List<GameObject> GetCollidedObjects()
     {
         return GOs;
+    }
+
+    public int GetNumShapesInstantied()
+    {
+        return (int)NumberOfShapesInstantiedMax;
     }
 
 

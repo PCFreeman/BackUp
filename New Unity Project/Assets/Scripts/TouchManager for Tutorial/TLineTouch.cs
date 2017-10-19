@@ -16,8 +16,8 @@ public class TLineTouch : MonoBehaviour {
 
             GOs.Add(other.gameObject);
 
-            TTouchManager.mTTouchManager.mColliders.mCurrentPoint = other.gameObject;
-            TTouchManager.mTTouchManager.mColliders.pointCount += 1; 
+            TTouchManager.mTTouchManager.mTColliders.mCurrentPoint = other.gameObject;
+            TTouchManager.mTTouchManager.mTColliders.pointCount += 1; 
 
             check = true;
 
