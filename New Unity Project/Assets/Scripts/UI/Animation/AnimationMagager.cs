@@ -46,7 +46,7 @@ public class AnimationMagager : MonoBehaviour
             Destroy(gameObject);
         }
         //Sets this to not be destroyed when reloading scene
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         digits = new List<int>();
         digits2 = new List<int>();
