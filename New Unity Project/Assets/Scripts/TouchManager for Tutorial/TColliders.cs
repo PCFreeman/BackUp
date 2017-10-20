@@ -62,10 +62,10 @@ public class TColliders : MonoBehaviour
         if (pointCount == 1)
         {
             //Top line
-            if (linePos == (PointsManager.mPointsManager.numberLines - 1).ToString())
+            if (linePos == (TPointsManager.mTPointsManager.numberLines - 1).ToString())
             {
                 //Right side point
-                if (pointPos == (PointsManager.mPointsManager.GetNumberOfHorizontalPoints() - 1).ToString())
+                if (pointPos == (TPointsManager.mTPointsManager.GetNumberOfHorizontalPoints() - 1).ToString())
                 {
 
                 }
@@ -76,10 +76,10 @@ public class TColliders : MonoBehaviour
                 }
 
             }
-            else if (linePos == (PointsManager.mPointsManager.numberLines - 2).ToString())  //Bottom line
+            else if (linePos == (TPointsManager.mTPointsManager.numberLines - 2).ToString())  //Bottom line
             {
                 //Right side point
-                if (pointPos == (PointsManager.mPointsManager.GetNumberOfHorizontalPoints() - 1).ToString())
+                if (pointPos == (TPointsManager.mTPointsManager.GetNumberOfHorizontalPoints() - 1).ToString())
                 {
 
                 }
@@ -97,7 +97,7 @@ public class TColliders : MonoBehaviour
 
     public void ResetCollidersSize()
     {
-        foreach (List<GameObject> Line in PointsManager.mPointsManager.points)
+        foreach (List<GameObject> Line in TPointsManager.mTPointsManager.points)
         {
             foreach (GameObject Point in Line)
             {

@@ -57,8 +57,8 @@ public class TDrawTouch : MonoBehaviour
                 thisLine = (GameObject)Instantiate(linePrefab, this.transform.position, Quaternion.identity);
             }
 
-            Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            //Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);           //Use This for Mouse test
+            //Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);           //Use This for Mouse test
 
             float rayDistance;
             if (objectPlane.Raycast(mRay, out rayDistance))    //This check the contact of RayCast with plane and return the distance
@@ -70,8 +70,8 @@ public class TDrawTouch : MonoBehaviour
         {
 
 
-            Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            //Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);           //Use This for Mouse test
+            //Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);           //Use This for Mouse test
 
             float rayDistance;
             if (objectPlane.Raycast(mRay, out rayDistance))    //This check the contact of RayCast with plane and return the distance
@@ -152,12 +152,12 @@ public class TDrawTouch : MonoBehaviour
                 Debug.Log("..........." + curShape.name);
                 Debug.Log("***********" + firstPoint.name);
 
-                AnimationMagager.mAnimation.ScoreAnimation(ref firstPoint, ref curShape);
-                AnimationMagager.mAnimation.TimeAnimation(ref firstPoint, ref curShape);
+                TAnimationMagager.mTAnimation.ScoreAnimation(ref firstPoint, ref curShape);
+                TAnimationMagager.mTAnimation.TimeAnimation(ref firstPoint, ref curShape);
 
                 Debug.Log("Correct Shape");
 
-                AnimationMagager.mAnimation.ShapeMoveOut(TTouchManager.mTTouchManager.GetShapesIniatialized());
+                TAnimationMagager.mTAnimation.ShapeMoveOut(TTouchManager.mTTouchManager.GetShapesIniatialized());
                 TTouchManager.mTTouchManager.DeleteCurrentShape(); //Delete current shape and Instantiate a new one
 
 
@@ -171,10 +171,10 @@ public class TDrawTouch : MonoBehaviour
                 LastShapeCorect = true;
 
                 //Add points to score
-                UIManage.instance.AddScore(TTouchManager.mTTouchManager.GetCurrentShape().GetComponent<Shapes>().points);
+                TUIManage.instance.AddScore(TTouchManager.mTTouchManager.GetCurrentShape().GetComponent<TShapes>().points);
 
                 //Add points to score
-                UIManage.instance.AddTime(TTouchManager.mTTouchManager.GetCurrentShape().GetComponent<Shapes>().timeBonus);
+                TUIManage.instance.AddTime(TTouchManager.mTTouchManager.GetCurrentShape().GetComponent<TShapes>().timeBonus);
 
                 ResetCollider();
 
