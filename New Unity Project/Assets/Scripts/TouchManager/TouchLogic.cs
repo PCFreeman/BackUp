@@ -45,51 +45,51 @@ public class TouchLogic {
         switch(shape)
         {
             case Shapes.Triangle5X3YUp:                                     // Up means the direction that it points
-                return checkTriangle5X3Y(ref points,true);
+                return CheckTriangle5X3Y(ref points,true);
                 break;
             case Shapes.Triangle5X3YDown:                                  
-                return checkTriangle5X3Y(ref points, false);                // Down means the direction that it points
+                return CheckTriangle5X3Y(ref points, false);                // Down means the direction that it points
                 break;
             case Shapes.Triangle5X3YRight:
-                return checkTriangle5X3YSides(ref points, false);           // Right means the direction that it points
+                return CheckTriangle5X3YSides(ref points, false);           // Right means the direction that it points
                 break;
             case Shapes.Triangle5X3YLeft:
-                return checkTriangle5X3YSides(ref points, true);           // Left means the direction that it points
+                return CheckTriangle5X3YSides(ref points, true);           // Left means the direction that it points
                 break;
             case Shapes.TriangleRectangle3DownLeft:                         // Left means the side of the 90 degree angle
-                return checkTriangleRectangle(ref points, false, true, 3);    // Down means the position of the 90 degree angle compared with the rest
+                return CheckTriangleRectangle(ref points, false, true, 3);    // Down means the position of the 90 degree angle compared with the rest
                 break;
             case Shapes.TriangleRectangle3UpLeft:                        
-                return checkTriangleRectangle(ref points, true, true, 3);
+                return CheckTriangleRectangle(ref points, true, true, 3);
                 break;
             case Shapes.TriangleRectangle3UpRight:                         
-                return checkTriangleRectangle(ref points, true, false, 3);   
+                return CheckTriangleRectangle(ref points, true, false, 3);   
                 break;
             case Shapes.TriangleRectangle3DownRight:
-                return checkTriangleRectangle(ref points, false, false, 3);
+                return CheckTriangleRectangle(ref points, false, false, 3);
                 break;
 
             case Shapes.Square2x2:
-                return checkSquare(ref points, 2);
+                return CheckSquare(ref points, 2);
                 break;
             case Shapes.Square3x3:
-                return checkSquare(ref points, 3);
+                return CheckSquare(ref points, 3);
                 break;
             case Shapes.Square4x4:
-                return checkSquare(ref points, 4);
+                return CheckSquare(ref points, 4);
                 break;
 
             case Shapes.Rectangle2x3:
-                return checkRectangle(ref points, 2,3);
+                return CheckRectangle(ref points, 2,3);
                 break;
             case Shapes.Rectangle3x2:
-                return checkRectangle(ref points, 3,2);
+                return CheckRectangle(ref points, 3,2);
                 break;
             case Shapes.Rectangle3x4:
-                return checkRectangle(ref points, 3, 4 );
+                return CheckRectangle(ref points, 3, 4 );
                 break;
             case Shapes.Rectangle4x3:
-                return checkRectangle(ref points, 4, 3);
+                return CheckRectangle(ref points, 4, 3);
                 break;
             default:
                 Debug.Log("[TouchLogic]Shape name does not exit.");
@@ -104,7 +104,7 @@ public class TouchLogic {
 
 
 
-    private bool checkTriangle5X3Y(ref List<GameObject> points, bool isUp)
+    private bool CheckTriangle5X3Y(ref List<GameObject> points, bool isUp)
     {
         Debug.Log("Start Triangle Check");
 
@@ -403,7 +403,7 @@ public class TouchLogic {
 
     }
 
-    private bool checkTriangle5X3YSides(ref List<GameObject> points, bool isLeft)
+    private bool CheckTriangle5X3YSides(ref List<GameObject> points, bool isLeft)
     {
         Debug.Log("Start Triangle Check");
 
@@ -707,7 +707,7 @@ public class TouchLogic {
 
     }
 
-    private bool checkTriangleRectangle(ref List<GameObject> points, bool isUp, bool isLeft, int numDots)
+    private bool CheckTriangleRectangle(ref List<GameObject> points, bool isUp, bool isLeft, int numDots)
     {
 
         Debug.Log("Start Triangle Rectangle Check");
@@ -935,7 +935,7 @@ public class TouchLogic {
         return true;
     }
 
-    private bool checkSquare(ref List<GameObject> points, uint numSidePoints)
+    private bool CheckSquare(ref List<GameObject> points, uint numSidePoints)
     {
         Debug.Log("Start Square Check");
 
@@ -1063,12 +1063,12 @@ public class TouchLogic {
 
     }
 
-    private bool checkRectangle(ref List<GameObject> points, uint numHorizontalPoints, uint numVerticalPoints)
+    private bool CheckRectangle(ref List<GameObject> points, uint numHorizontalPoints, uint numVerticalPoints)
     {
         Debug.Log("Start Square Check");
 
 
-        Debug.Assert(numHorizontalPoints >= 2 && numVerticalPoints >= 2, "[checkRectangle] wrong size!");
+        Debug.Assert(numHorizontalPoints >= 2 && numVerticalPoints >= 2, "[CheckRectangle] wrong size!");
 
 
         float distanceBetweenPointsX = PointsManager.mPointsManager.GetDistanceBetweenLinePoints();
@@ -1199,6 +1199,132 @@ public class TouchLogic {
         return true;
 
     }
+
+    private bool CheckDiamond(ref List<GameObject> points, uint numSidePoints)
+    {
+        float distanceBetweenPoints = PointsManager.mPointsManager.GetDistanceBetweenLinePoints();
+
+        //Check number of points
+        if (points.Count != ((4 * (numSidePoints - 1)) + 1))
+        {
+            return false;
+        }
+
+        //Check if shape was closed
+        if (points[0].transform.position != points[points.Count - 1].transform.position)
+        {
+            return false;
+        }
+
+        List<List<GameObject>> Lines = new List<List<GameObject>>();
+
+
+        //Initialize Lines list
+        for (int i = 0; i < (points.Count - 1); ++i)
+        {
+
+            for (int j = 0; j < PointsManager.mPointsManager.numberLines; ++j)
+            {
+                if (Lines.Count == j)
+                {
+                    Lines.Add(new List<GameObject>());
+                    Lines[j].Add(points[i]);
+                    Debug.Log("Line " + j.ToString());
+                    break;
+                }
+                else if (points[i].transform.position.y == Lines[j][0].transform.position.y)
+                {
+                    Lines[j].Add(points[i]);
+                    break;
+                }
+
+            }
+
+        }
+
+        //Sort Lines
+        Lines.Sort(sortListY);
+
+        //Check first and last lines size
+        if(Lines[0].Count != 1 && Lines[Lines.Count - 1].Count != 1)
+        {
+            return false;
+        }
+
+        //Check other lines size
+        for(int i = 1; i < Lines.Count - 1; ++i)
+        {
+            if(Lines[i].Count != 2)
+            {
+                return false;
+            }
+        }
+
+        //Sort all lines
+        foreach (List<GameObject> line in Lines)
+        {
+            line.Sort(sortLine);
+        }
+
+
+        //Will divide the check in two halfs of the diamond
+
+        //Top Side
+
+        int startPos =  Mathf.FloorToInt(Lines.Count * 0.5f);
+
+
+        for(int i = startPos; i > 0; --i)
+        {
+            //Check first element (left element) distance to first of line on top
+            if((Lines[i - 1][0].transform.position.y - Lines[i][0].transform.position.y) != distanceBetweenPoints)
+            {
+                return false;
+            }
+
+            //Check Second element (right element) distance to second of line on top (protect against last line check)
+            if ( i > 1 && (Lines[i - 1][1].transform.position.y - Lines[i][1].transform.position.y) != distanceBetweenPoints)
+            {
+                return false;
+            }
+
+            //Check distance between points inside same line
+            if ((Lines[i][1].transform.position.x - Lines[1][0].transform.position.x) != (i * 2) * distanceBetweenPoints)
+            {
+                return false;
+            }
+
+        }
+
+        //Bottom Side
+
+        for (int i = startPos; i < (numSidePoints + (numSidePoints - 1) - 1); i++)
+        {
+            //Check first element (left element) distance to first of line on bottom
+            if ((Lines[i][0].transform.position.y - Lines[i + 1][0].transform.position.y) != distanceBetweenPoints)
+            {
+                return false;
+            }
+
+            //Check Second element (right element) distance to second of line on bottom (protect against last line check)
+            if (i < (numSidePoints + (numSidePoints - 1) - 2) && (Lines[i][1].transform.position.y - Lines[i + 1][1].transform.position.y) != distanceBetweenPoints)
+            {
+                return false;
+            }
+
+            //Check distance between points inside same line
+            if ((Lines[i][1].transform.position.x - Lines[1][0].transform.position.x) != ((numSidePoints - i - 1) * 2) * distanceBetweenPoints)
+            {
+                return false;
+            }
+
+        }
+
+
+
+        return true;
+    }
+
 
 
     //=========================================================================
@@ -1354,6 +1480,56 @@ public class TouchLogic {
 
             }
         }
+    }
+
+    //Decrescent order
+    public int sortListY(List<GameObject> list1, List<GameObject> list2)
+    {
+        if (list1.Count == 0)
+        {
+            if (list2.Count == 0)
+            {
+                // If list1 is null and list2 is null, they're
+                // equal. 
+                return 0;
+            }
+            else
+            {
+                // If list1 is null and list2 is not null, list2
+                // is greater. 
+                return 1;
+            }
+        }
+        else
+        {
+            // If list1 is not null...
+            //
+            if (list2.Count == 0)
+            {
+                return -1;
+            }
+            else
+            {
+                // ...and list2 is not null, compare the 
+                // number of GameObjects.
+                //
+                if (list1[0].transform.position.y > list2[0].transform.position.y)
+                {
+                    return -1;
+                }
+                else if (list1[0].transform.position.y < list2[0].transform.position.y)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+
+            }
+        }
+
+
     }
 
 }

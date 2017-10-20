@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class TouchManager : MonoBehaviour {
 
+    private GameObject currentLevel;
+
+
+
     //All shapes go here
     
     public GameObject Triangle5x3Up;
@@ -111,25 +115,32 @@ public class TouchManager : MonoBehaviour {
 
 
 
-    private void GenerateShapesList()
+    public void GenerateShapesList()
     {
-        mShapes.Add(Triangle5x3Up);
-        mShapes.Add(Triangle5x3Down);
-        mShapes.Add(Triangle5x3Right);
-        mShapes.Add(Triangle5x3Left);
-        mShapes.Add(TriangleRectangle3UpLeft);
-        mShapes.Add(TriangleRectangle3DownLeft);
-        mShapes.Add(TriangleRectangle3UpRight);
-        mShapes.Add(TriangleRectangle3DownRight);
+        currentLevel = LevelManager.mLevelManager.GetCurrentLevel();
 
-        mShapes.Add(Square2x2);
-        mShapes.Add(Square3x3);
-        mShapes.Add(Square4x4);
+        foreach(GameObject shape in currentLevel.GetComponent<Level>().mShapes)
+        {
+            mShapes.Add(shape);
+        }
 
-        mShapes.Add(Rectangle2x3);
-        mShapes.Add(Rectangle3x2);
-        mShapes.Add(Rectangle3x4);
-        mShapes.Add(Rectangle4x3);
+        //mShapes.Add(Triangle5x3Up);
+        //mShapes.Add(Triangle5x3Down);
+        //mShapes.Add(Triangle5x3Right);
+        //mShapes.Add(Triangle5x3Left);
+        //mShapes.Add(TriangleRectangle3UpLeft);
+        //mShapes.Add(TriangleRectangle3DownLeft);
+        //mShapes.Add(TriangleRectangle3UpRight);
+        //mShapes.Add(TriangleRectangle3DownRight);
+        //
+        //mShapes.Add(Square2x2);
+        //mShapes.Add(Square3x3);
+        //mShapes.Add(Square4x4);
+        //
+        //mShapes.Add(Rectangle2x3);
+        //mShapes.Add(Rectangle3x2);
+        //mShapes.Add(Rectangle3x4);
+        //mShapes.Add(Rectangle4x3);
 
         if (mShapesList.Count == 0)
         { 
@@ -141,6 +152,7 @@ public class TouchManager : MonoBehaviour {
         }
         else
         {
+            mShapesList.RemoveRange((int)NumberOfShapesInstantiedMax, (int)(mShapesList.Count - NumberOfShapesInstantiedMax));
             //Complete List with random shapes
             for (int i = 0; i < NumberOfShapes - mShapesList.Count; ++i)
             {
@@ -149,7 +161,6 @@ public class TouchManager : MonoBehaviour {
 
         }
         Debug.Log("Size of Shapes List" + mShapesList.Count);
-        mShapes.Clear();
     }
 
     public void InstantiateShapes()

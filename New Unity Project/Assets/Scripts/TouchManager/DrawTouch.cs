@@ -14,6 +14,8 @@ public class DrawTouch : MonoBehaviour {
     GameObject firstPoint;
     GameObject curShape;
 
+    private float timeLimit;
+
     private bool LastShapeCorect;
 
     public void Awake()
@@ -30,12 +32,18 @@ public class DrawTouch : MonoBehaviour {
 
         firstPoint = new GameObject();
         curShape = new GameObject();
+
+        timeLimit = -5;
     }
 
     // Update is called once per frame
     public void update()
     {
-        //ResetCollider();
+        if(timeLimit == -5)
+        {
+            timeLimit = TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().timeLimit;
+        }
+
 
         //This function can be use for Touch or mouse click
         if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) || (Input.GetMouseButtonDown(0)))
@@ -54,6 +62,7 @@ public class DrawTouch : MonoBehaviour {
             if(thisLine == null)
             {
                 thisLine = (GameObject)Instantiate(linePrefab, this.transform.position, Quaternion.identity);
+                thisLine.name = "Line";
             }
 
             Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
@@ -64,6 +73,7 @@ public class DrawTouch : MonoBehaviour {
             {
                 startPosition = mRay.GetPoint(rayDistance);
             }
+
         }
         else if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved) || (Input.GetMouseButton(0)))
         {
@@ -121,7 +131,7 @@ public class DrawTouch : MonoBehaviour {
             }
 
             startPosition = thisLine.transform.position;
-                        
+
         }
         else if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Stationary))
         {
@@ -180,14 +190,17 @@ public class DrawTouch : MonoBehaviour {
                 TouchManager.mTouchManager.mColliders.mCurrentShape = TouchManager.mTouchManager.GetCurrentShape();
 
 
+                LevelManager.mLevelManager.DecreaseShapesToNext();
+
+
                 //TouchManager.mTouchManager.mColliders.pointCount = 0;
                 
 
                 //Call the winning animation or add points or ...
 
             }
-           else
-           {
+            else
+            {
                Debug.Log("Wrong Shape");
 
                //Destroi the line , may add some stuff in future to make player know that made mistake
@@ -202,12 +215,18 @@ public class DrawTouch : MonoBehaviour {
 
                 TouchManager.mTouchManager.pointsSelected.Clear();
 
+                LevelManager.mLevelManager.DecreaseShapesTry();
+
                 //TouchManager.mTouchManager.mColliders.pointCount = 0;
                 
             }
 
+            timeLimit = TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().timeLimit;
+
             Destroy(thisLine);
         }
+
+        DecrementTime();
     }
 
     public void SetSelectedPoint(ref GameObject point)
@@ -248,6 +267,49 @@ public class DrawTouch : MonoBehaviour {
     {
         Destroy(thisLine);
         ResetCollider();
+    }
+
+    private void DecrementTime()
+    {
+        timeLimit -= Time.deltaTime;
+
+        //Put value inside time container
+        //Mathf.FloorToInt() to get an int
+
+        if(timeLimit <= 0.0f)
+        {
+            if(lineColliderPrefab != null)
+            {
+                Destroy(thisLine);
+            }
+            
+            if(TouchManager.mTouchManager.pointsSelected.Count > 0)
+            {
+                foreach (GameObject GO in TouchManager.mTouchManager.pointsSelected)
+                {
+                    GO.GetComponent<SpriteRenderer>().color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+                }
+            }
+
+
+            ResetCollider();
+
+            TouchManager.mTouchManager.pointsSelected.Clear();
+
+            LevelManager.mLevelManager.DecreaseShapesTry();
+
+            Debug.Assert(false,"Shape time finished");
+
+            AnimationMagager.mAnimation.ShapeMoveOut(TouchManager.mTouchManager.GetShapesIniatialized());
+            TouchManager.mTouchManager.DeleteCurrentShape(); //Delete current shape and Instantiate a new one
+
+            timeLimit = TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().timeLimit;
+
+            LevelManager.mLevelManager.DecreaseShapesTry();
+
+
+
+        }
     }
 
 }

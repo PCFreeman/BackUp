@@ -8,6 +8,7 @@ public class Shapes : MonoBehaviour {
     public int points;
     public int timeBonus;
     private TouchLogic.Shapes shapeType;
+    public int timeLimit;
 
 
     private void Start()

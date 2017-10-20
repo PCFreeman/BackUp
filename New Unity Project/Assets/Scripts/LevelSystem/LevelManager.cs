@@ -42,7 +42,7 @@ public class LevelManager : MonoBehaviour {
     void Start ()
     {
         mLevelIndex = 0;
-        currentLevel = currentLevel = Instantiate(mLevels[mLevelIndex], new Vector3(0.0f, 0.0f, -20.0f), Quaternion.identity);
+        //currentLevel = (GameObject)Instantiate(mLevels[mLevelIndex], new Vector3(0.0f, 0.0f, -20.0f), Quaternion.identity);
         
         mNumOfShapesTry = (int)currentLevel.GetComponent<Level>().MaxShapesTry;
         mNumShapesToNext = (int)currentLevel.GetComponent<Level>().ShapesToNext;
@@ -51,12 +51,13 @@ public class LevelManager : MonoBehaviour {
 	
     public void DecreaseShapesTry()
     {
-        if(mNumOfShapesTry > 1)
+        if(mNumOfShapesTry >= 1)
         {
             mNumOfShapesTry--;
         }
         else
         {
+            Debug.Assert(false, "Game Over!");
             //Game Over;
         }        
     }
@@ -70,13 +71,48 @@ public class LevelManager : MonoBehaviour {
         else
         {
             //Call Animation
-
+            Debug.Log("Next Level");
 
             Destroy(currentLevel);
             mLevelIndex++;
-            currentLevel = Instantiate(mLevels[mLevelIndex], new Vector3(0.0f, 0.0f, -20.0f), Quaternion.identity);
+            if(mLevelIndex != mLevels.Count)
+            {
+                currentLevel = Instantiate(mLevels[mLevelIndex], new Vector3(0.0f, 0.0f, -20.0f), Quaternion.identity);
+            }
+            else
+            {
+                Debug.Assert(false);
+            }
+            mNumShapesToNext = (int)currentLevel.GetComponent<Level>().ShapesToNext;
+            mNumOfShapesTry = (int)currentLevel.GetComponent<Level>().MaxShapesTry;
+            TouchManager.mTouchManager.GenerateShapesList();
         }
     }
 
 
+    //Get Functions
+
+    public GameObject GetCurrentLevel()
+    {
+        if(currentLevel == null)
+        {
+            currentLevel = (GameObject)Instantiate(mLevels[mLevelIndex], new Vector3(0.0f, 0.0f, -20.0f), Quaternion.identity);
+        }
+        return currentLevel;
+    }
+
+    public int GetCurrentLevelIndex()
+    {
+        return mLevelIndex + 1;
+    }
+
+    public int GetToNext()
+    {
+        return mNumShapesToNext;
+    }
+
+    public int GetNumTry()
+    {
+        return mNumOfShapesTry;
+    }
 }
