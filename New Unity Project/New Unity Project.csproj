@@ -95,6 +95,7 @@
     <Compile Include="Assets\Scripts\LevelSystem\Level.cs" />
     <Compile Include="Assets\Scripts\LevelSystem\LevelManager.cs" />
     <Compile Include="Assets\Scripts\Shapes.cs" />
+    <Compile Include="Assets\Scripts\TPointsManager.cs" />
     <Compile Include="Assets\Scripts\TShapes.cs" />
     <Compile Include="Assets\Scripts\TouchManager for Tutorial\TColliders.cs" />
     <Compile Include="Assets\Scripts\TouchManager for Tutorial\TDrawTouch.cs" />
@@ -113,12 +114,13 @@
     <Compile Include="Assets\Scripts\TouchManager\TouchManager.cs" />
     <Compile Include="Assets\Scripts\TouchManager\TouchSence.cs" />
     <Compile Include="Assets\Scripts\UI\Animation\AnimationMagager.cs" />
+    <Compile Include="Assets\Scripts\UI\Animation\TAnimationMagager.cs" />
     <Compile Include="Assets\Scripts\UI\Animation\transtion.cs" />
     <Compile Include="Assets\Scripts\UI\BackGround.cs" />
     <Compile Include="Assets\Scripts\UI\Firstscreen.cs" />
     <Compile Include="Assets\Scripts\UI\InGameSetting.cs" />
     <Compile Include="Assets\Scripts\UI\ScreenResolution.cs" />
-    <Compile Include="Assets\Scripts\UI\TUIManage.cs" />
+    <Compile Include="Assets\Scripts\UI\Tutorial\TUIManage.cs" />
     <Compile Include="Assets\Scripts\UI\UIManage.cs" />
     <Compile Include="Assets\TManager.cs" />
   </ItemGroup>

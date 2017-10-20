@@ -109,8 +109,8 @@ public class TTouchLogic
     {
         Debug.Log("Start Triangle Check");
 
-        float distanceBetweenPointsX = PointsManager.mPointsManager.GetDistanceBetweenLinePoints();
-        float distanceBetweenPointsY = PointsManager.mPointsManager.GetDistanceBetweenLines();
+        float distanceBetweenPointsX = TPointsManager.mTPointsManager.GetDistanceBetweenLinePoints();
+        float distanceBetweenPointsY = TPointsManager.mTPointsManager.GetDistanceBetweenLines();
 
         Debug.Log(points.Count);
 
@@ -408,8 +408,8 @@ public class TTouchLogic
     {
         Debug.Log("Start Triangle Check");
 
-        float distanceBetweenPointsX = PointsManager.mPointsManager.GetDistanceBetweenLinePoints();
-        float distanceBetweenPointsY = PointsManager.mPointsManager.GetDistanceBetweenLines();
+        float distanceBetweenPointsX = TPointsManager.mTPointsManager.GetDistanceBetweenLinePoints();
+        float distanceBetweenPointsY = TPointsManager.mTPointsManager.GetDistanceBetweenLines();
 
         Debug.Log(points.Count);
 
@@ -713,8 +713,8 @@ public class TTouchLogic
 
         Debug.Log("Start Triangle Rectangle Check");
 
-        float distanceBetweenPointsX = PointsManager.mPointsManager.GetDistanceBetweenLinePoints();
-        float distanceBetweenPointsY = PointsManager.mPointsManager.GetDistanceBetweenLines();
+        float distanceBetweenPointsX = TPointsManager.mTPointsManager.GetDistanceBetweenLinePoints();
+        float distanceBetweenPointsY = TPointsManager.mTPointsManager.GetDistanceBetweenLines();
 
         Debug.Log(points.Count);
 
@@ -940,8 +940,8 @@ public class TTouchLogic
     {
         Debug.Log("Start Square Check");
 
-        float distanceBetweenPointsX = PointsManager.mPointsManager.GetDistanceBetweenLinePoints();
-        float distanceBetweenPointsY = PointsManager.mPointsManager.GetDistanceBetweenLines();
+        float distanceBetweenPointsX = TPointsManager.mTPointsManager.GetDistanceBetweenLinePoints();
+        float distanceBetweenPointsY = TPointsManager.mTPointsManager.GetDistanceBetweenLines();
 
         Debug.Log(points.Count);
 
@@ -968,7 +968,7 @@ public class TTouchLogic
         for (int i = 0; i < (points.Count - 1); ++i)
         {
 
-            for (int j = 0; j < PointsManager.mPointsManager.numberLines; ++j)
+            for (int j = 0; j < TPointsManager.mTPointsManager.numberLines; ++j)
             {
                 if (Lines.Count == j)
                 {
@@ -1072,8 +1072,8 @@ public class TTouchLogic
         Debug.Assert(numHorizontalPoints >= 2 && numVerticalPoints >= 2, "[checkRectangle] wrong size!");
 
 
-        float distanceBetweenPointsX = PointsManager.mPointsManager.GetDistanceBetweenLinePoints();
-        float distanceBetweenPointsY = PointsManager.mPointsManager.GetDistanceBetweenLines();
+        float distanceBetweenPointsX = TPointsManager.mTPointsManager.GetDistanceBetweenLinePoints();
+        float distanceBetweenPointsY = TPointsManager.mTPointsManager.GetDistanceBetweenLines();
 
         Debug.Log(points.Count);
 
@@ -1100,7 +1100,7 @@ public class TTouchLogic
         for (int i = 0; i < (points.Count - 1); ++i)
         {
 
-            for (int j = 0; j < PointsManager.mPointsManager.numberLines; ++j)
+            for (int j = 0; j < TPointsManager.mTPointsManager.numberLines; ++j)
             {
                 if (Lines.Count == j)
                 {

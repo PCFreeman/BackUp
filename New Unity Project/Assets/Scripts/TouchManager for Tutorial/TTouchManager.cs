@@ -86,7 +86,8 @@ public class TTouchManager : MonoBehaviour
 
         NumberOfShapesInstantiedMax = 3;                //Number of Shapes showing in screen
         GenerateShapesList();
-        InstantiateShapes();
+        //InstantiateShapes();
+
 
         mTColliders.mCurrentShape = GetCurrentShape();
 

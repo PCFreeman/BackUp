@@ -7,9 +7,8 @@ public class TManager : MonoBehaviour {
 
     public GameObject First;
     public GameObject Second;
-    public GameObject Third;
-    public GameObject Fourth;
     public GameObject PointArea;
+    public GameObject RB;
     public static TManager mTutorial = null;
     public float MovingSpeed;
     bool Check;
@@ -50,11 +49,20 @@ public class TManager : MonoBehaviour {
         Check = false;
         First.SetActive(true);
         Second.SetActive(true);
-        Third.SetActive(true);
-        Fourth.SetActive(true);
-      
+
+        //TTouchManager.mTTouchManager.InstantiateShapes();
+
+
+
     }
 
+    void EnablEverything()
+    {
+
+        PointArea.SetActive(true);
+        TTouchManager.mTTouchManager.InstantiateShapes();
+        RB.SetActive(true);
+    }
     void Fanimation()
     {
         StartCoroutine(move(First, First.transform.position,
@@ -68,39 +76,18 @@ public class TManager : MonoBehaviour {
            First.transform.position - new Vector3(0, 300, 0),
            MovingSpeed));
 
-     StartCoroutine(move(Second, Second.transform.position,
-           Second.transform.position - new Vector3(0, 270, 0),
-           MovingSpeed));
-        count++;
-    }
+        EnablEverything();
 
-    void Tanimation()
-    {
         StartCoroutine(move(Second, Second.transform.position,
-    Second.transform.position + new Vector3(0, 270, 0),
-    MovingSpeed));
-
-        StartCoroutine(move(Third, Third.transform.position,
-     Third.transform.position - new Vector3(250, 0, 0),
+     Second.transform.position + new Vector3(130, 0, 0),
      MovingSpeed));
         count++;
     }
 
-    void Ftanimation()
-    {
-        StartCoroutine(move(Third, Third.transform.position,
-     Third.transform.position + new Vector3(250, 0, 0),
-     MovingSpeed));
-        PointArea.SetActive(true);
-        StartCoroutine(move(Fourth, Fourth.transform.position,
-     Fourth.transform.position + new Vector3(130, 0, 0),
-     MovingSpeed));
-        count++;
-    }
     void AnimationEnd()
     {
-        StartCoroutine(move(Fourth, Fourth.transform.position,
-     Fourth.transform.position - new Vector3(130, 0, 0),
+        StartCoroutine(move(Second, Second.transform.position,
+     Second.transform.position - new Vector3(130, 0, 0),
      MovingSpeed));
         Check = true;
     }
@@ -119,12 +106,6 @@ public class TManager : MonoBehaviour {
                         Sanimation();
                         break;
                     case 3:
-                        Tanimation();
-                        break;
-                    case 4:
-                        Ftanimation();
-                        break;
-                    case 5:
                         AnimationEnd();
                         break;
                 }
