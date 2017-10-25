@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour {
 
@@ -16,6 +17,7 @@ public class LevelManager : MonoBehaviour {
     //Level variables
     private int mNumOfShapesTry;
     private int mNumShapesToNext;
+
 
 
     //Functions
@@ -64,9 +66,13 @@ public class LevelManager : MonoBehaviour {
 
     public void DecreaseShapesToNext()
     {
+
+
         if (mNumShapesToNext > 1)
         {
+
             mNumShapesToNext--;
+            TouchManager.mTouchManager.DeleteCurrentShape(false); //Delete current shape and Instantiate a new one
         }
         else
         {
@@ -85,8 +91,12 @@ public class LevelManager : MonoBehaviour {
             }
             mNumShapesToNext = (int)currentLevel.GetComponent<Level>().ShapesToNext;
             mNumOfShapesTry = (int)currentLevel.GetComponent<Level>().MaxShapesTry;
-            TouchManager.mTouchManager.GenerateShapesList();
+
+            TouchManager.mTouchManager.DeleteCurrentShape(true); //Delete current shape and Instantiate a new one
         }
+
+        
+
     }
 
 
@@ -115,4 +125,21 @@ public class LevelManager : MonoBehaviour {
     {
         return mNumOfShapesTry;
     }
+
+    
+    public void UpdateNextLevel()
+    {
+        GameObject.Find("NextLevel").GetComponent<Text>().text = mNumShapesToNext.ToString();
+    }
+
+    public void UpdateShapesTry()
+    {
+        GameObject.Find("shapesTry").GetComponent<Text>().text = mNumOfShapesTry.ToString();
+    }
+
+    public void UpdateShapesTimeLimit(float timeLimit)
+    {
+        GameObject.Find("ShapeTLimit").GetComponent<Text>().text = Mathf.FloorToInt(timeLimit % 60f).ToString();
+    }
+
 }

@@ -65,8 +65,8 @@ public class DrawTouch : MonoBehaviour {
                 thisLine.name = "Line";
             }
 
-            //Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);           //Use This for Mouse test
+            Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            //Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);           //Use This for Mouse test
 
             float rayDistance;
             if (objectPlane.Raycast(mRay, out rayDistance))    //This check the contact of RayCast with plane and return the distance
@@ -79,8 +79,8 @@ public class DrawTouch : MonoBehaviour {
         {
             
 
-            //Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);           //Use This for Mouse test
+            Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            //Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);           //Use This for Mouse test
 
             float rayDistance;
             if (objectPlane.Raycast(mRay, out rayDistance))    //This check the contact of RayCast with plane and return the distance
@@ -151,9 +151,11 @@ public class DrawTouch : MonoBehaviour {
             TouchManager.mTouchManager.pointsSelected = TouchManager.mTouchManager.GetCollidedObjects();
 
             Debug.Log("points selected = " + TouchManager.mTouchManager.pointsSelected.ToString()); 
+
+
             // Check if the line makes the corect shape
-            //if (TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchLogic.Shapes.TriangleRectangle3UpRight, ref TouchManager.mTouchManager.pointsSelected))
-            if(TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().GetShpeType(), ref TouchManager.mTouchManager.pointsSelected))
+            if (TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchLogic.Shapes.Triangle5X3YDown, ref TouchManager.mTouchManager.pointsSelected))
+            //if(TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().GetShpeType(), ref TouchManager.mTouchManager.pointsSelected))
             {
                 curShape = TouchManager.mTouchManager.GetCurrentShape();
                 firstPoint = TouchManager.mTouchManager.pointsSelected[0];
@@ -167,7 +169,6 @@ public class DrawTouch : MonoBehaviour {
                Debug.Log("Correct Shape");
 
                AnimationMagager.mAnimation.ShapeMoveOut(TouchManager.mTouchManager.GetShapesIniatialized());
-               TouchManager.mTouchManager.DeleteCurrentShape(); //Delete current shape and Instantiate a new one
 
 
                //Destroy(thisLine);
@@ -225,6 +226,10 @@ public class DrawTouch : MonoBehaviour {
 
             Destroy(thisLine);
         }
+
+        LevelManager.mLevelManager.UpdateNextLevel();
+        LevelManager.mLevelManager.UpdateShapesTry();
+        LevelManager.mLevelManager.UpdateShapesTimeLimit(timeLimit);
 
         DecrementTime();
     }
@@ -301,12 +306,9 @@ public class DrawTouch : MonoBehaviour {
             Debug.Assert(false,"Shape time finished");
 
             AnimationMagager.mAnimation.ShapeMoveOut(TouchManager.mTouchManager.GetShapesIniatialized());
-            TouchManager.mTouchManager.DeleteCurrentShape(); //Delete current shape and Instantiate a new one
+            TouchManager.mTouchManager.DeleteCurrentShape(false); //Delete current shape and Instantiate a new one
 
             timeLimit = TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().timeLimit;
-
-            LevelManager.mLevelManager.DecreaseShapesTry();
-
 
 
         }

@@ -14,10 +14,21 @@ public class TouchManager : MonoBehaviour {
     public GameObject Triangle5x3Down;
     public GameObject Triangle5x3Right;
     public GameObject Triangle5x3Left;
+
     public GameObject TriangleRectangle3UpLeft;
     public GameObject TriangleRectangle3DownLeft;
     public GameObject TriangleRectangle3UpRight;
     public GameObject TriangleRectangle3DownRight;
+
+    public GameObject TriangleRectangle4UpLeft;
+    public GameObject TriangleRectangle4DownLeft;
+    public GameObject TriangleRectangle4UpRight;
+    public GameObject TriangleRectangle4DownRight;
+
+    public GameObject TriangleRectangle5UpLeft;
+    public GameObject TriangleRectangle5DownLeft;
+    public GameObject TriangleRectangle5UpRight;
+    public GameObject TriangleRectangle5DownRight;
 
     public GameObject Square2x2;
     public GameObject Square3x3;
@@ -87,7 +98,7 @@ public class TouchManager : MonoBehaviour {
         mColliders.Initialize();
 
         NumberOfShapesInstantiedMax = 3;                //Number of Shapes showing in screen
-        GenerateShapesList();
+        GenerateShapesList(true);
         InstantiateShapes();
 
         mColliders.mCurrentShape = GetCurrentShape();
@@ -115,32 +126,19 @@ public class TouchManager : MonoBehaviour {
 
 
 
-    public void GenerateShapesList()
+    public void GenerateShapesList(bool nextLevel)
     {
-        currentLevel = LevelManager.mLevelManager.GetCurrentLevel();
-
-        foreach(GameObject shape in currentLevel.GetComponent<Level>().mShapes)
+        if(nextLevel)
         {
-            mShapes.Add(shape);
+            currentLevel = LevelManager.mLevelManager.GetCurrentLevel();
+
+            foreach (GameObject shape in currentLevel.GetComponent<Level>().mShapes)
+            {
+                mShapes.Add(shape);
+            }
+
         }
 
-        //mShapes.Add(Triangle5x3Up);
-        //mShapes.Add(Triangle5x3Down);
-        //mShapes.Add(Triangle5x3Right);
-        //mShapes.Add(Triangle5x3Left);
-        //mShapes.Add(TriangleRectangle3UpLeft);
-        //mShapes.Add(TriangleRectangle3DownLeft);
-        //mShapes.Add(TriangleRectangle3UpRight);
-        //mShapes.Add(TriangleRectangle3DownRight);
-        //
-        //mShapes.Add(Square2x2);
-        //mShapes.Add(Square3x3);
-        //mShapes.Add(Square4x4);
-        //
-        //mShapes.Add(Rectangle2x3);
-        //mShapes.Add(Rectangle3x2);
-        //mShapes.Add(Rectangle3x4);
-        //mShapes.Add(Rectangle4x3);
 
         if (mShapesList.Count == 0)
         { 
@@ -152,7 +150,7 @@ public class TouchManager : MonoBehaviour {
         }
         else
         {
-            mShapesList.RemoveRange((int)NumberOfShapesInstantiedMax, (int)(mShapesList.Count - NumberOfShapesInstantiedMax));
+            mShapesList.RemoveRange((int)NumberOfShapesInstantiedMax - 1, mShapesList.Count - ((int)NumberOfShapesInstantiedMax - 1));
             //Complete List with random shapes
             for (int i = 0; i < NumberOfShapes - mShapesList.Count; ++i)
             {
@@ -224,18 +222,13 @@ public class TouchManager : MonoBehaviour {
         return mShapesInstantied[0];
     }
 
-    public void DeleteCurrentShape()
+    public void DeleteCurrentShape(bool nextLevel)
     {
+        GenerateShapesList(nextLevel);
         Destroy(mShapesInstantied[0],3.0f);
         mShapesInstantied.Remove(mShapesInstantied[0]);
         mShapesList.RemoveAt(0);
         InstantiateShapes();
-
-
-        if (mShapesList.Count <= 5)
-        {
-            GenerateShapesList();
-        }
 
     }
 
@@ -253,6 +246,8 @@ public class TouchManager : MonoBehaviour {
     {
         return (int)NumberOfShapesInstantiedMax;
     }
+
+
 
 
 }

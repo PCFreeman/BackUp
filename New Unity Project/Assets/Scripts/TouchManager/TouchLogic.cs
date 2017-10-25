@@ -6,7 +6,6 @@ using UnityEngine;
 
 //This class will hold functions for touch logic. No need to have Start and Update. Will be element of TouchManager
 
-
 public class TouchLogic {
         
 	public enum Shapes
@@ -15,10 +14,21 @@ public class TouchLogic {
         Triangle5X3YDown,
         Triangle5X3YRight,
         Triangle5X3YLeft,
+
         TriangleRectangle3DownLeft,
         TriangleRectangle3UpLeft,
         TriangleRectangle3UpRight,
         TriangleRectangle3DownRight,
+
+        TriangleRectangle4DownLeft,
+        TriangleRectangle4UpLeft,
+        TriangleRectangle4UpRight,
+        TriangleRectangle4DownRight,
+
+        TriangleRectangle5DownLeft,
+        TriangleRectangle5UpLeft,
+        TriangleRectangle5UpRight,
+        TriangleRectangle5DownRight,
 
 
         Square2x2,
@@ -44,18 +54,19 @@ public class TouchLogic {
 
         switch(shape)
         {
-            case Shapes.Triangle5X3YUp:                                     // Up means the direction that it points
-                return CheckTriangle5X3Y(ref points,true);
+            case Shapes.Triangle5X3YUp:                                     // Points Down
+                return CheckIsoscelesTriangleVertical(ref points,true,5,3);
                 break;
             case Shapes.Triangle5X3YDown:                                  
-                return CheckTriangle5X3Y(ref points, false);                // Down means the direction that it points
+                return CheckIsoscelesTriangleVertical(ref points, false, 5, 3);  // Points Up
                 break;
             case Shapes.Triangle5X3YRight:
-                return CheckTriangle5X3YSides(ref points, false);           // Right means the direction that it points
+                return CheckTriangle5X3YSides(ref points, false);           // Points Left
                 break;
             case Shapes.Triangle5X3YLeft:
-                return CheckTriangle5X3YSides(ref points, true);           // Left means the direction that it points
+                return CheckTriangle5X3YSides(ref points, true);           // Points Right
                 break;
+
             case Shapes.TriangleRectangle3DownLeft:                         // Left means the side of the 90 degree angle
                 return CheckTriangleRectangle(ref points, false, true, 3);    // Down means the position of the 90 degree angle compared with the rest
                 break;
@@ -67,6 +78,32 @@ public class TouchLogic {
                 break;
             case Shapes.TriangleRectangle3DownRight:
                 return CheckTriangleRectangle(ref points, false, false, 3);
+                break;
+
+            case Shapes.TriangleRectangle4DownLeft:                         // Left means the side of the 90 degree angle
+                return CheckTriangleRectangle(ref points, false, true, 4);    // Down means the position of the 90 degree angle compared with the rest
+                break;
+            case Shapes.TriangleRectangle4UpLeft:
+                return CheckTriangleRectangle(ref points, true, true, 4);
+                break;
+            case Shapes.TriangleRectangle4UpRight:
+                return CheckTriangleRectangle(ref points, true, false, 4);
+                break;
+            case Shapes.TriangleRectangle4DownRight:
+                return CheckTriangleRectangle(ref points, false, false, 4);
+                break;
+
+            case Shapes.TriangleRectangle5DownLeft:                         // Left means the side of the 90 degree angle
+                return CheckTriangleRectangle(ref points, false, true, 5);    // Down means the position of the 90 degree angle compared with the rest
+                break;
+            case Shapes.TriangleRectangle5UpLeft:
+                return CheckTriangleRectangle(ref points, true, true, 5);
+                break;
+            case Shapes.TriangleRectangle5UpRight:
+                return CheckTriangleRectangle(ref points, true, false, 5);
+                break;
+            case Shapes.TriangleRectangle5DownRight:
+                return CheckTriangleRectangle(ref points, false, false, 5);
                 break;
 
             case Shapes.Square2x2:
@@ -98,11 +135,246 @@ public class TouchLogic {
 
         return false;
     }
+    
+
+    private bool CheckIsoscelesTriangleVertical(ref List<GameObject> points, bool isUp, int numBaseDots, int numHeightDots)
+    {
+
+        float distanceBetweenPoints = PointsManager.mPointsManager.GetDistanceBetweenLinePoints();
+
+        //Check number of points
+        if (points.Count < ((numBaseDots + (numBaseDots - 2) ) + 1) || points.Count > ((numBaseDots + (numBaseDots - 2)) + 1))
+        {
+            return false;
+        }
+
+        //Check if shape was closed
+        if (points[0].transform.position != points[points.Count - 1].transform.position)
+        {
+            return false;
+        }
+
+        List<List<GameObject>> Lines = new List<List<GameObject>>();
+
+        new List<List<GameObject>>();
+
+        for (int i = 0; i < numHeightDots; ++i)
+        {
+            Lines.Add(new List<GameObject>());
+        }
+
+        int lineIndex = 0;
+        for (int i = 0; i < (points.Count - 1); ++i)
+        {
+            if (Lines[0].Count == 0)
+            {
+                Lines[lineIndex++].Add(points[i]);
+            }
+            else
+            {
+                bool check = false;
+                foreach (List<GameObject> line in Lines)
+                {
+                    if (line.Count == 0)
+                    {
+                        break;
+                    }
+                    if (line[0].transform.position.y == points[i].transform.position.y)
+                    {
+                        line.Add(points[i]);
+                        check = true;
+                        break;
+                    }
+                }
+
+                if (check == false)
+                {
+                    Lines[lineIndex++].Add(points[i]);
+                }
+            }
+
+        }
+
+        Lines.Sort(sortList);
+
+        
+        for (int i = 0; i < Lines.Count - 1; ++i)
+        {
+            int check = 2;
+            if(i == 0)
+            {
+                check = numBaseDots;
+            }
+            if(i == Lines.Count - 1)
+            {
+                check = 1;
+            }
+
+            if (Lines[i].Count != check)
+            {
+                return false;
+            }
+        }
+
+
+        //Sort all lines
+        foreach (List<GameObject> line in Lines)
+        {
+            line.Sort(sortLine);
+        }
+
+        if(isUp) //Pointing down
+        {
+
+            for (int i = 0; i < Lines.Count - 1; ++i)
+            {
+                //Check if Triangle is Down 
+                if (Lines[i][0].transform.position.y < Lines[i + 1][0].transform.position.y)
+                {
+                    return false;
+                }
+            }
+
+            //Check dots y distance
+            bool check = true;
+            for (int i = 1, j = 1, multiplierCheck = (int)(numBaseDots * 0.5f); i < numBaseDots - 1;++i)
+            {
+               if(check == true)
+                {
+                    if((Lines[0][i].transform.position.y - Lines [j][0].transform.position.y) != (distanceBetweenPoints * j))
+                    {
+                        return false;
+                    }
+
+                    if (j == multiplierCheck)
+                    {
+                        check = false;
+                        --j;
+                    }
+                    else
+                    {
+                        ++j;
+                    }                    
+                }
+               else
+                {
+                    if ((Lines[0][i].transform.position.y - Lines[j][1].transform.position.y) != (distanceBetweenPoints * j))
+                    {
+                        return false;
+                    }
+
+                    --j;
+                }               
+            }
+
+            //Check dots x distance
+            for(int i = 0, distanceMultiplier = numBaseDots - 3; i < Lines.Count - 1; ++i)
+            {
+
+                for(int j = 0; j < Lines[i].Count - 1;++j)
+                {
+                    int multiplier = 1;
+                    if(i > 0)
+                    {
+                        multiplier = distanceMultiplier;
+                    }
+
+                    if((Lines[i][j+1].transform.position.x - Lines[i][j].transform.position.x) != (distanceBetweenPoints * multiplier))
+                    {
+                        return false;
+                    }
 
 
 
+                    if(multiplier > 1)
+                    {
+                        distanceMultiplier -= 2; 
+                    }
+
+                }
 
 
+            }
+
+        }
+        else //Pointing Up
+        {
+
+            for (int i = 0; i < Lines.Count - 1; ++i)
+            {
+                //Check if Triangle is Up 
+                if (Lines[i][0].transform.position.y > Lines[i + 1][0].transform.position.y)
+                {
+                    return false;
+                }
+            }
+
+            //Check dots y distance
+            bool check = true;
+            for (int i = 1, j = 1, multiplierCheck = (int)(numBaseDots * 0.5f); i < numBaseDots - 1;++i)
+            {
+               if(check == true)
+                {
+                    if((Lines[j][0].transform.position.y - Lines[0][i].transform.position.y) != (distanceBetweenPoints * j))
+                    {
+                        return false;
+                    }
+
+                    if (j == multiplierCheck)
+                    {
+                        check = false;
+                        --j;
+                    }
+                    else
+                    {
+                        ++j;
+                    }                    
+                }
+               else
+                {
+                    if ((Lines[j][1].transform.position.y - Lines[0][i].transform.position.y) != (distanceBetweenPoints * j))
+                    {
+                        return false;
+                    }
+
+                    --j;
+                }               
+            }
+
+
+            //Check dots x distance
+            for (int i = 0, distanceMultiplier = numBaseDots - 3; i < Lines.Count - 1; ++i)
+            {
+
+                for (int j = 0; j < Lines[i].Count - 1; ++j)
+                {
+                    int multiplier = 1;
+                    if (i > 0)
+                    {
+                        multiplier = distanceMultiplier;
+                    }
+
+                    if ((Lines[i][j + 1].transform.position.x - Lines[i][j].transform.position.x) != (distanceBetweenPoints * multiplier))
+                    {
+                        return false;
+                    }
+
+                    if (multiplier > 1)
+                    {
+                        distanceMultiplier -= 2;
+                    }
+
+                }
+
+
+            }
+
+        }
+
+
+
+        return true;
+    }
 
     private bool CheckTriangle5X3Y(ref List<GameObject> points, bool isUp)
     {
