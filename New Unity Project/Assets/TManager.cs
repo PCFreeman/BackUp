@@ -7,8 +7,13 @@ public class TManager : MonoBehaviour {
 
     public GameObject First;
     public GameObject Second;
+    public GameObject Third;
+    public GameObject Fourth;
     public GameObject PointArea;
     public GameObject RB;
+    public GameObject mHand;
+    private float mOriginPos;
+    private float mCurrentPos;
     public static TManager mTutorial = null;
     public float MovingSpeed;
     bool Check;
@@ -43,22 +48,31 @@ public class TManager : MonoBehaviour {
         Object.transform.position = ePosition;
     }
 
-
     void Start()
     {
         Check = false;
         First.SetActive(true);
         Second.SetActive(true);
-
+        Third.SetActive(true);
+        mOriginPos = mHand.transform.position.y;
         //TTouchManager.mTTouchManager.InstantiateShapes();
 
 
 
     }
+    void HandMove()
+    {
+        mCurrentPos = mHand.transform.position.y;
+        if (mOriginPos - mCurrentPos >= 200.0f)
+        {
+            mHand.transform.position = new Vector3(-45.0f, 233.0f, -25.0f);
+        }
+        mHand.transform.Translate(0.0f, -1.5f, 0.0f);
+    }
+
 
     void EnablEverything()
     {
-
         PointArea.SetActive(true);
         TTouchManager.mTTouchManager.InstantiateShapes();
         RB.SetActive(true);
@@ -84,15 +98,35 @@ public class TManager : MonoBehaviour {
         count++;
     }
 
-    void AnimationEnd()
+    void Tanimation()
     {
         StartCoroutine(move(Second, Second.transform.position,
      Second.transform.position - new Vector3(130, 0, 0),
      MovingSpeed));
+        mHand.SetActive(true);
+
+        StartCoroutine(move(Third, Third.transform.position,
+    Third.transform.position + new Vector3(130, 0, 0),
+    MovingSpeed));
         Check = true;
     }
+
+    public void AnimatioonEnd()
+    {
+        StartCoroutine(move(Third, Third.transform.position,
+   Third.transform.position - new Vector3(130, 0, 0),
+   MovingSpeed));
+        mHand.SetActive(false);
+
+    }
+    public void AfterDraw()
+    {
+        Fourth.SetActive(true);
+    }
+
     // Update is called once per frame
     void Update () {
+        HandMove();
         if (Check == false)
         {
             if (Input.GetMouseButtonDown(0))
@@ -106,7 +140,7 @@ public class TManager : MonoBehaviour {
                         Sanimation();
                         break;
                     case 3:
-                        AnimationEnd();
+                        Tanimation();
                         break;
                 }
                 

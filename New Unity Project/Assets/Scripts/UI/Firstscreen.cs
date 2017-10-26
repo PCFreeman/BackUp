@@ -11,7 +11,6 @@ public class Firstscreen : MonoBehaviour {
     public GameObject EndlessWindow;
     public GameObject TimedWindow;
     public GameObject ChallengeWindow;
-    public GameObject ZenWindow;
     public GameObject Setting;
     public GameObject setbutton;
     public GameObject Mode;
@@ -98,7 +97,10 @@ public class Firstscreen : MonoBehaviour {
     {
         AudioController.sInstance.MuteMainBGM();
     }
-
+    public void GotoTutorial()
+    {
+        SceneManager.LoadScene(4);
+    }
     ////Peter's code play SFX
     public void PlaySFX()
     {

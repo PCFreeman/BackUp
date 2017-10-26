@@ -11,12 +11,8 @@ public class TUIManage : MonoBehaviour {
     public float timeMax;
     public float timeLeft;
     public Text Timer;
-    public Text FhScore;
-    public Text FScore;
     public GameObject Set;
     public GameObject mGameOverScreen;
-    public GameObject mG1;
-    public GameObject mG2;
     float Mins;
     float Secs;
 
@@ -40,7 +36,7 @@ public class TUIManage : MonoBehaviour {
         //DontDestroyOnLoad(gameObject);
 
 
-        SetHighscore();
+       // SetHighscore();
         Time.timeScale = 1f;
         //Start Score
          Score = 103;
@@ -88,13 +84,10 @@ public class TUIManage : MonoBehaviour {
         {
             if (Input.GetMouseButtonDown(0))
             {
-                mG1.SetActive(false);
-                mG2.SetActive(true);
+                SceneManager.LoadScene(0);
             }
         }
-        GameManager.mGameManager.SetHighScore(Score);
-        FScore.text = "Your Score: " + Score.ToString();
-		FhScore.text = "Highest Score: " + GameManager.mGameManager.GetHighScore().ToString();
+       // GameManager.mGameManager.SetHighScore(Score);
         Time.timeScale = 0f;
         GameObject.Find("SettingButton").GetComponent<Button>().enabled = false;      
     }
@@ -117,10 +110,14 @@ public class TUIManage : MonoBehaviour {
         {
             timeLeft -= Time.deltaTime;
         }
-        else
-        {        
-			OpenGameOverScreen();
+        if(Score>=120)
+        {
+            OpenGameOverScreen();
         }
+   //     else
+   //     {        
+			//OpenGameOverScreen();
+   //     }
    
 
     }

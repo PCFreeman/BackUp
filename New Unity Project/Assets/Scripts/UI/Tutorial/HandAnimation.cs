@@ -10,7 +10,7 @@ public class HandAnimation : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        mHand.SetActive(false);
+        mHand.SetActive(true);
         mOriginPos = mHand.transform.position.y;
         //mHand.SetActive(false);
     }

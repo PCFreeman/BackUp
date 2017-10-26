@@ -219,7 +219,11 @@ public class TTouchManager : MonoBehaviour
 
     public void DeleteCurrentShape()
     {
-        Destroy(mShapesInstantied[0], 3.0f);
+        TManager.mTutorial.AnimatioonEnd();
+        Destroy(mShapesInstantied[0], 1.0f);
+
+        TManager.mTutorial.AfterDraw(); ;
+
         mShapesInstantied.Remove(mShapesInstantied[0]);
         mShapesList.RemoveAt(0);
         InstantiateShapes();
