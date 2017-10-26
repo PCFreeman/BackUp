@@ -110,7 +110,7 @@ public class TUIManage : MonoBehaviour {
         {
             timeLeft -= Time.deltaTime;
         }
-        if(Score>=120)
+        if(Score>=150)
         {
             OpenGameOverScreen();
         }
