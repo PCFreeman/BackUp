@@ -7,8 +7,10 @@ public class AudioController : MonoBehaviour
 {
     public AudioSource SFX;
     public MainBGM mBGM;
+    public EndlessBGM eBGM;
     //public AudioSource mBGM;
     public AudioClip[] mCurrentSFXClip;
+    public static bool isMute = false;
 
     public static AudioController sInstance;
 
@@ -16,6 +18,7 @@ public class AudioController : MonoBehaviour
     {
         SFX = GetComponent<AudioSource>();
         mBGM = GameObject.Find("MainBackgroundMusic").GetComponent<MainBGM>();
+        //mBGM = GameObject.Find("EndlessBGM").GetComponent<EndlessBGM>();
         //Check if instance already exist
         if (sInstance == null)
         {
@@ -50,6 +53,17 @@ public class AudioController : MonoBehaviour
 
     public void MuteMainBGM()
     {
+        //if (!isMute)
+        //    isMute = true;
+
+        //if (isMute)
+        //    isMute = false;
+
         mBGM.mainBGM.mute = !mBGM.mainBGM.mute;
+    }
+
+    public bool GetMute()
+    {
+        return isMute;
     }
 }
