@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Firstscreen : MonoBehaviour {
 
@@ -15,13 +16,20 @@ public class Firstscreen : MonoBehaviour {
     public GameObject setbutton;
     public GameObject Mode;
     public GameObject Question;
+    private bool MusicCheck;
+    public Sprite turnoff;
+    public Sprite turnon;
+    public Button button;
+
     //Peter's Code cliksound
     //private AudioController mAudio;
     void Start()
 	{
-		//Peter's Code cliksound
-		//mAudio = GameObject.Find ("SFX").GetComponent<AudioController> ();
-	}
+        //Peter's Code cliksound
+        //mAudio = GameObject.Find ("SFX").GetComponent<AudioController> ();
+        MusicCheck = true;
+
+    }
 
     public void ModBack()
     {
@@ -75,8 +83,8 @@ public class Firstscreen : MonoBehaviour {
 
     public void CloseButton()
     {
-        PlaySFX();
-        EndlessWindow.SetActive(false);
+           PlaySFX();
+            EndlessWindow.SetActive(false);
             TimedWindow.SetActive(false);
             ChallengeWindow.SetActive(false);
             Mode.SetActive(true);
@@ -95,7 +103,21 @@ public class Firstscreen : MonoBehaviour {
     }
     public void MusicSwitch()
     {
-        AudioController.sInstance.MuteMainBGM();
+        if(MusicCheck==true)
+        {
+            button.image.overrideSprite = turnoff;
+            MusicCheck = false;
+            AudioController.sInstance.MuteMainBGM();
+            
+
+        }
+        else
+        {
+            button.image.overrideSprite = turnon;
+            AudioController.sInstance.MuteMainBGM();
+            MusicCheck = true;
+        }
+      
     }
     public void GotoTutorial()
     {
