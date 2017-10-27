@@ -57,6 +57,7 @@ public class TUIManage : MonoBehaviour {
         Set.SetActive(false);
         Time.timeScale = 1f;
     }
+
     public void BacktoMainMenu()
     {
         SceneManager.LoadScene(0);
@@ -112,7 +113,7 @@ public class TUIManage : MonoBehaviour {
         }
         if(Score>=150)
         {
-            OpenGameOverScreen();
+            Invoke("OpenGameOverScreen", 2f);
         }
    //     else
    //     {        

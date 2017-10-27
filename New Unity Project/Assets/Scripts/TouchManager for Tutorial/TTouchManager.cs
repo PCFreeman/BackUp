@@ -25,6 +25,7 @@ public class TTouchManager : MonoBehaviour
     public GameObject Rectangle3x2;
     public GameObject Rectangle4x3;
 
+    private bool check;
 
     //Touch Manager 
 
@@ -70,6 +71,7 @@ public class TTouchManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        check = true;
         Debug.Log("[TouchManager]Manager successfully started.");
 
         mTColliders = new TColliders();
@@ -90,6 +92,7 @@ public class TTouchManager : MonoBehaviour
 
 
         mTColliders.mCurrentShape = GetCurrentShape();
+       
 
     }
 
@@ -117,6 +120,7 @@ public class TTouchManager : MonoBehaviour
 
     private void GenerateShapesList()
     {
+
         mShapes.Add(Triangle5x3Up);
         mShapes.Add(Triangle5x3Down);
         mShapes.Add(Triangle5x3Right);
@@ -134,6 +138,7 @@ public class TTouchManager : MonoBehaviour
         mShapes.Add(Rectangle3x2);
         mShapes.Add(Rectangle3x4);
         mShapes.Add(Rectangle4x3);
+
 
         if (mShapesList.Count == 0)
         {
@@ -158,13 +163,20 @@ public class TTouchManager : MonoBehaviour
 
     public void InstantiateShapes()
     {
+       
         for (int i = mShapesInstantied.Count; i < NumberOfShapesInstantiedMax; ++i)
         {
+            if (i == 0)
+            {
+                mShapesList[i]= Square2x2;
+            }
+
             mShapesInstantied.Add(GameObject.Instantiate(mShapesList[i], new Vector3(0.0f, 0.0f, -20.0f), Quaternion.identity));
 
-            mShapesInstantied[i].transform.SetParent(GameObject.Find("ShapeSpawnPlace").transform, false);
+                mShapesInstantied[i].transform.SetParent(GameObject.Find("ShapeSpawnPlace").transform, false);
 
-            mShapesInstantied[i].GetComponent<RectTransform>().sizeDelta = new Vector2(210.0f, 210.0f);
+                mShapesInstantied[i].GetComponent<RectTransform>().sizeDelta = new Vector2(210.0f, 210.0f);
+            
         }
 
         mShapesInstantied[0].GetComponent<RectTransform>().sizeDelta = new Vector2(210.0f, 210.0f);
