@@ -29,6 +29,8 @@ public class Firstscreen : MonoBehaviour {
         //mAudio = GameObject.Find ("SFX").GetComponent<AudioController> ();
         MusicCheck = true;
 
+
+
     }
 
     public void ModBack()

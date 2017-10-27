@@ -18,6 +18,10 @@ public class UIManage : MonoBehaviour {
     public GameObject mG1;
     public GameObject mGC;
     public GameObject mG2;
+    public Sprite turnoff;
+    public Sprite turnon;
+    public Button button;
+    private bool MusicCheck;
     float Mins;
     float Secs;
 
@@ -52,6 +56,29 @@ public class UIManage : MonoBehaviour {
 
     }
 
+    private void Start()
+    {
+        MusicCheck = true;
+
+    }
+    public void MusicSwitch()
+    {
+        if (MusicCheck == true)
+        {
+            button.image.overrideSprite = turnoff;
+            MusicCheck = false;
+            AudioController.sInstance.MuteMainBGM();
+
+
+        }
+        else
+        {
+            button.image.overrideSprite = turnon;
+            AudioController.sInstance.MuteMainBGM();
+            MusicCheck = true;
+        }
+
+    }
     public void settingMenu()
     {
         TouchManager.mTouchManager.GetComponent<DrawTouch>().DestroyLine();
@@ -85,7 +112,6 @@ public class UIManage : MonoBehaviour {
    
     public void OpenGameOverScreen()
     {
-        mGC.SetActive(false);
         mGameOverScreen.SetActive(true);
         if (mGameOverScreen.activeInHierarchy)
         {
@@ -105,8 +131,10 @@ public class UIManage : MonoBehaviour {
 
     public void OpenGameOverScreenMoves()//----------------------------------------------------Rafel
     {
-        mG1.SetActive(false);
         mGameOverScreen.SetActive(true);
+        mG1.SetActive(false);
+        mGC.SetActive(true);
+        
         if (mGameOverScreen.activeInHierarchy)
         {
             if (Input.GetMouseButtonDown(0))

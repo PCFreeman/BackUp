@@ -59,7 +59,9 @@ public class LevelManager : MonoBehaviour {
         }
         else
         {
+            UIManage.instance.OpenGameOverScreenMoves();
             Debug.Assert(false, "Game Over!");
+
             //Game Over;
         }        
     }

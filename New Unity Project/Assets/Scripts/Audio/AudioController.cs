@@ -45,6 +45,14 @@ public class AudioController : MonoBehaviour
         SFX.clip = mCurrentSFXClip[1];
         SFX.Play();
     }
+
+    public void ErrorSFX()
+    {
+        SFX.clip = mCurrentSFXClip[3];
+        SFX.Play();
+    }
+    
+
     public void GameOverSFX()
     {
         SFX.clip = mCurrentSFXClip[2];
@@ -66,4 +74,5 @@ public class AudioController : MonoBehaviour
     {
         return isMute;
     }
+
 }
