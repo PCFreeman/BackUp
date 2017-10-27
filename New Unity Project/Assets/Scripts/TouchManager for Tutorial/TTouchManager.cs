@@ -160,6 +160,10 @@ public class TTouchManager : MonoBehaviour
     {
         for (int i = mShapesInstantied.Count; i < NumberOfShapesInstantiedMax; ++i)
         {
+            if(i==0)
+            {
+                mShapesList[i]=Square2x2; 
+            }
             mShapesInstantied.Add(GameObject.Instantiate(mShapesList[i], new Vector3(0.0f, 0.0f, -20.0f), Quaternion.identity));
 
             mShapesInstantied[i].transform.SetParent(GameObject.Find("ShapeSpawnPlace").transform, false);
