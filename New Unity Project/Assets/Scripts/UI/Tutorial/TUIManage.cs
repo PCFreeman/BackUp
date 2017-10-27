@@ -57,6 +57,7 @@ public class TUIManage : MonoBehaviour {
         Set.SetActive(false);
         Time.timeScale = 1f;
     }
+
     public void BacktoMainMenu()
     {
         SceneManager.LoadScene(0);

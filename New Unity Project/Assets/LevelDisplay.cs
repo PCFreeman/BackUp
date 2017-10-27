@@ -30,7 +30,7 @@ public class LevelDisplay : MonoBehaviour
         LevelMovement(ref passing);
     }
 
-    void LevelMovement(ref uint lvl)
+    public void LevelMovement(ref uint lvl)
     {
         string mLvlNumber = lvl.ToString();
         if(mLvlNumber.Length == 1)
