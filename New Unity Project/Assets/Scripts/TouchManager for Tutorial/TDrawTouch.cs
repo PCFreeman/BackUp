@@ -178,7 +178,7 @@ public class TDrawTouch : MonoBehaviour
 
                 ResetCollider();
 
-                TTouchManager.mTTouchManager.mTColliders.mCurrentShape = TTouchManager.mTTouchManager.GetCurrentShape();
+                
 
 
                 //TTouchManager.mTTouchManager.mColliders.pointCount = 0;

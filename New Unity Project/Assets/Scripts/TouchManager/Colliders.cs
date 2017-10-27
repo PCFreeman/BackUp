@@ -23,7 +23,7 @@ public class Colliders : MonoBehaviour {
         {
             switch (mCurrentShape.GetComponent<Shapes>().GetShpeType())
             {
-                case TouchLogic.Shapes.Triangle5X3YUp:
+                case TouchLogic.Shapes.Triangle5X3Up:
 
                     break;
 

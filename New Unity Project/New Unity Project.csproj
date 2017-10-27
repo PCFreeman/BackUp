@@ -76,6 +76,12 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Audio\AudioController.cs" />
@@ -91,7 +97,6 @@
     <Compile Include="Assets\Scripts\Shapes.cs" />
     <Compile Include="Assets\Scripts\TPointsManager.cs" />
     <Compile Include="Assets\Scripts\TShapes.cs" />
-    <Compile Include="Assets\Scripts\TouchManager for Tutorial\TColliders.cs" />
     <Compile Include="Assets\Scripts\TouchManager for Tutorial\TDrawTouch.cs" />
     <Compile Include="Assets\Scripts\TouchManager for Tutorial\TLineCollider.cs" />
     <Compile Include="Assets\Scripts\TouchManager for Tutorial\TLineTouch.cs" />

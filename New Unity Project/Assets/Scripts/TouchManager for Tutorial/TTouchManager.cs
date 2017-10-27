@@ -30,7 +30,7 @@ public class TTouchManager : MonoBehaviour
 
     public static TTouchManager mTTouchManager = null;
 
-    public TColliders mTColliders;
+    
     public TTouchLogic mTTouchLogic;
     public TDrawTouch mTDrawTouch;
     private List<GameObject> mShapes;           //All types of Shapes
@@ -72,7 +72,7 @@ public class TTouchManager : MonoBehaviour
     {
         Debug.Log("[TouchManager]Manager successfully started.");
 
-        mTColliders = new TColliders();
+        
         mTTouchLogic = new TTouchLogic();
         Debug.Log("TouchLogic   " + mTTouchLogic.ToString());
 
@@ -82,14 +82,14 @@ public class TTouchManager : MonoBehaviour
         mShapesInstantied = new List<GameObject>();
 
         mTDrawTouch.Initialize();
-        mTColliders.Initialize();
+        
 
         NumberOfShapesInstantiedMax = 3;                //Number of Shapes showing in screen
         GenerateShapesList();
         //InstantiateShapes();
 
 
-        mTColliders.mCurrentShape = GetCurrentShape();
+        
 
     }
 
