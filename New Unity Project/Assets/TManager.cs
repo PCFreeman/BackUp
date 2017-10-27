@@ -50,11 +50,13 @@ public class TManager : MonoBehaviour {
 
     void Start()
     {
+        Fanimation();
         Check = false;
         First.SetActive(true);
         Second.SetActive(true);
         Third.SetActive(true);
         mOriginPos = mHand.transform.position.y;
+        
         //TTouchManager.mTTouchManager.InstantiateShapes();
 
 

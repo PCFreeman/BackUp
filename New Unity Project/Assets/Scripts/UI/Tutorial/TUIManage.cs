@@ -112,7 +112,7 @@ public class TUIManage : MonoBehaviour {
         }
         if(Score>=150)
         {
-            OpenGameOverScreen();
+            Invoke("OpenGameOverScreen", 2f);
         }
    //     else
    //     {        
