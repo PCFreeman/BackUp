@@ -6,6 +6,7 @@ public class TouchManager : MonoBehaviour {
 
     private GameObject currentLevel;
 
+    public GameObject mLevelAnimation;
 
 
     //All shapes go here
@@ -60,6 +61,12 @@ public class TouchManager : MonoBehaviour {
     private List<GameObject> GOs;
 
 
+    //Probability Variables
+    private int totalProbability;
+    private List<int> mShapesProbabilities;
+    private List<float> mShapesProbabilitiesPercentage;
+
+
     private void Awake()
     {
         //mDrawTouch = GameObject.Find("TouchManager").GetComponent<DrawTouch>();
@@ -78,6 +85,9 @@ public class TouchManager : MonoBehaviour {
         }
         //Sets this to not be destroyed when reloading scene
         //DontDestroyOnLoad(gameObject);
+
+        totalProbability = 0;
+
     }
 
         
@@ -93,6 +103,10 @@ public class TouchManager : MonoBehaviour {
         mShapes = new List<GameObject>();
         mShapesList = new List<GameObject>();
         mShapesInstantied = new List<GameObject>();
+
+        mShapesProbabilities = new List<int>();
+        mShapesProbabilitiesPercentage = new List<float>();
+
 
         mDrawTouch.Initialize();
         mColliders.Initialize();
@@ -137,27 +151,37 @@ public class TouchManager : MonoBehaviour {
                 mShapes.Add(shape);
             }
 
-        }
+            GetCurrentTotalProbability();
 
+            //Delete Old shapes from mShapesList, leave all instatiated shapes
 
-        if (mShapesList.Count == 0)
-        { 
-            //Generate List with random shapes
-            for (int i = 0; i < NumberOfShapes; ++i)
+            if(mShapesList.Count > (int)NumberOfShapesInstantiedMax)
             {
-                mShapesList.Add(mShapes[Random.Range(0, mShapes.Count - 1)]);
+                mShapesList.RemoveRange((int)NumberOfShapesInstantiedMax, (int)(mShapesList.Count - NumberOfShapesInstantiedMax));
             }
-        }
-        else
+
+            
+        } 
+
+        
+
+        //Complete List with random shapes
+        for (int i = 0; i < NumberOfShapes - mShapesList.Count; ++i)
         {
-            mShapesList.RemoveRange((int)NumberOfShapesInstantiedMax - 1, mShapesList.Count - ((int)NumberOfShapesInstantiedMax - 1));
-            //Complete List with random shapes
-            for (int i = 0; i < NumberOfShapes - mShapesList.Count; ++i)
+            float shapePercentage = Random.Range(0, 100);            
+
+            int j;
+            float total = mShapesProbabilitiesPercentage[0];
+            for (j = 0; total < shapePercentage; )
             {
-                mShapesList.Add(mShapes[Random.Range(0, mShapes.Count - 1)]);
+                total += mShapesProbabilitiesPercentage[j + 1];
+                ++j;
             }
 
+            mShapesList.Add(mShapes[j]);
         }
+
+       
         Debug.Log("Size of Shapes List" + mShapesList.Count);
     }
 
@@ -248,6 +272,28 @@ public class TouchManager : MonoBehaviour {
     }
 
 
+
+    private void GetCurrentTotalProbability()
+    {
+        foreach (GameObject go in currentLevel.GetComponent<Level>().mShapes)
+        {
+            int prob = go.GetComponent<Shapes>().probability;
+            totalProbability += prob;
+            mShapesProbabilities.Add(prob);
+        }
+
+        CalculateShapesProbabilitiesProbability();
+    }
+
+    private void CalculateShapesProbabilitiesProbability()
+    {
+        mShapesProbabilitiesPercentage.Clear();
+
+        for (int i = 0; i < mShapesProbabilities.Count; ++i)
+        {
+            mShapesProbabilitiesPercentage.Add((float)(mShapesProbabilities[i] * 100 ) / (float)totalProbability);
+        }
+    }
 
 
 }

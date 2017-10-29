@@ -34,6 +34,14 @@ public class DrawTouch : MonoBehaviour {
         curShape = new GameObject();
 
         timeLimit = -5;
+
+
+        //Show level 1 animation
+
+        // ref here is bullshit! no need to use it is just an UINT that is never changed inside function
+        uint firstLevel = 1;
+        //=========================================TouchManager.mTouchManager.mLevelAnimation.GetComponent<LevelDisplay>().LevelMovement(ref firstLevel);
+
     }
 
     // Update is called once per frame

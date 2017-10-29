@@ -8,7 +8,12 @@ public class Shapes : MonoBehaviour {
     public int points;
     public int timeBonus;
     private TouchLogic.Shapes shapeType;
-    public int timeLimit;
+
+    public float timeLimit;
+    public float minTimeLimit;
+    public float maxTimeLimit;
+
+    public int probability;
 
 
     private void Start()
@@ -21,5 +26,28 @@ public class Shapes : MonoBehaviour {
         return shapeType; 
     }
 
+    public void DecrementTimeLimit(float t)
+    {
+        if((timeLimit - t) >= minTimeLimit)
+        {
+            timeLimit -= t;
+        }
+        else
+        {
+            timeLimit = minTimeLimit;
+        }
+    }
+
+    public void IncrementTimeLimit(float t)
+    {
+        if ((timeLimit + t) <= maxTimeLimit)
+        {
+            timeLimit += t;
+        }
+        else
+        {
+            timeLimit = maxTimeLimit;
+        }
+    }
 
 }
