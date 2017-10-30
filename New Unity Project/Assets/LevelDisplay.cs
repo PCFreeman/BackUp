@@ -35,13 +35,22 @@ public class LevelDisplay : MonoBehaviour
         //    Debug.Log("Start Pos: " + mStartPos);
         //    Debug.Log("End Pos: " + mEndPos);
         //    Debug.Log(Vector3.Distance(mStartPos, mEndPos));
-        LevelMovement(ref passing);
+       // LevelMovement(ref passing);
         //}
     }
 
     public void LevelMovement(ref uint lvl)
     {
-        AudioController.sInstance.LevelUpSFX();
+        //AudioController.sInstance.LevelUpSFX();
+
+        if(lvl!=1&&!UIManage.instance.particle.gameObject.activeInHierarchy)
+        {
+            UIManage.instance.particle.gameObject.SetActive(true);
+        }
+        else
+        {
+            UIManage.instance.particle.Play();
+        }     
         string mLvlNumber = lvl.ToString();
 
         //TextMovement

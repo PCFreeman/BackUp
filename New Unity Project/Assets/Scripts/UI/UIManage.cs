@@ -18,12 +18,14 @@ public class UIManage : MonoBehaviour {
     public GameObject mG1;
     public GameObject mGC;
     public GameObject mG2;
+    public GameObject mG3;
     public Sprite turnoff;
     public Sprite turnon;
     public Button button;
     private bool MusicCheck;
     float Mins;
     float Secs;
+    public ParticleSystem particle;
 
 
     private int Score;
@@ -92,8 +94,15 @@ public class UIManage : MonoBehaviour {
     }
     public void BacktoMainMenu()
     {
-        SceneManager.LoadScene(0);
+        mGameOverScreen.SetActive(true);
+        mG1.SetActive(false);
+        mG3.SetActive(true);
+         
        
+    }
+    public void BacktoMainMenuButton()
+    {
+        SceneManager.LoadScene(0);
     }
     public void Retry()
     {
@@ -156,7 +165,7 @@ public class UIManage : MonoBehaviour {
 
     void Update()
     {
-        
+
         Mins = Mathf.FloorToInt(timeLeft / 60f);
         Secs = Mathf.FloorToInt(timeLeft % 60f);
         if (timeLeft > 0) {

@@ -249,7 +249,7 @@ public class TouchManager : MonoBehaviour {
     public void DeleteCurrentShape(bool nextLevel)
     {
         GenerateShapesList(nextLevel);
-        Destroy(mShapesInstantied[0],3.0f);
+        Destroy(mShapesInstantied[0]);
         mShapesInstantied.Remove(mShapesInstantied[0]);
         mShapesList.RemoveAt(0);
         InstantiateShapes();

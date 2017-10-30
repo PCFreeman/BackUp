@@ -80,7 +80,7 @@ public class TUIManage : MonoBehaviour {
    
     public void OpenGameOverScreen()
     {
-       
+
         mGameOverScreen.SetActive(true);
         if (mGameOverScreen.activeInHierarchy)
         {
@@ -100,6 +100,7 @@ public class TUIManage : MonoBehaviour {
 
     void Update()
     {
+       
         
         Mins = Mathf.FloorToInt(timeLeft / 60f);
         Secs = Mathf.FloorToInt(timeLeft % 60f);
@@ -114,7 +115,7 @@ public class TUIManage : MonoBehaviour {
         }
         if(Score>=150)
         {
-            OpenGameOverScreen();
+           OpenGameOverScreen();
         }
    //     else
    //     {        
