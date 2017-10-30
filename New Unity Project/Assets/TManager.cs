@@ -33,7 +33,7 @@ public class TManager : MonoBehaviour {
             Destroy(gameObject);
         }
         //Sets this to not be destroyed when reloading scene
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
     }
 
@@ -108,7 +108,7 @@ public class TManager : MonoBehaviour {
         mHand.SetActive(true);
 
         StartCoroutine(move(Third, Third.transform.position,
-    Third.transform.position + new Vector3(130, 0, 0),
+    Third.transform.position + new Vector3(125, 0, 0),
     MovingSpeed));
         Check = true;
     }
@@ -116,7 +116,7 @@ public class TManager : MonoBehaviour {
     public void AnimatioonEnd()
     {
         StartCoroutine(move(Third, Third.transform.position,
-   Third.transform.position - new Vector3(130, 0, 0),
+   Third.transform.position - new Vector3(125, 0, 0),
    MovingSpeed));
         mHand.SetActive(false);
 

@@ -30,13 +30,13 @@ public class LevelDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            Debug.Log("Start Pos: " + mStartPos);
-            Debug.Log("End Pos: " + mEndPos);
-            Debug.Log(Vector3.Distance(mStartPos, mEndPos));
-            LevelMovement(ref passing);
-        }
+        //if (Input.GetKeyDown(KeyCode.B))
+        //{
+        //    Debug.Log("Start Pos: " + mStartPos);
+        //    Debug.Log("End Pos: " + mEndPos);
+        //    Debug.Log(Vector3.Distance(mStartPos, mEndPos));
+        LevelMovement(ref passing);
+        //}
     }
 
     public void LevelMovement(ref uint lvl)
@@ -44,7 +44,7 @@ public class LevelDisplay : MonoBehaviour
         string mLvlNumber = lvl.ToString();
 
         //TextMovement
-        StartCoroutine(MovingClock());
+       // StartCoroutine(MovingClock());
 
         //change uint to string
         //get check how many digits and get each digit then assign correct sprit
