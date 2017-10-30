@@ -95,7 +95,7 @@ public class LevelManager : MonoBehaviour {
             mNumOfShapesTry = (int)currentLevel.GetComponent<Level>().MaxShapesTry;
 
             // ref here is bullshit! no need to use it is just an UINT that is never changed inside function
-            //================================TouchManager.mTouchManager.mLevelAnimation.GetComponent<LevelDisplay>().LevelMovement(ref currentLevel.GetComponent<Level>().levelIndex); 
+            TouchManager.mTouchManager.mLevelAnimation.GetComponent<LevelDisplay>().LevelMovement(ref currentLevel.GetComponent<Level>().levelIndex); 
 
             TouchManager.mTouchManager.DeleteCurrentShape(true); //Delete current shape and Instantiate a new one
         }

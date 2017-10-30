@@ -40,7 +40,7 @@ public class DrawTouch : MonoBehaviour {
 
         // ref here is bullshit! no need to use it is just an UINT that is never changed inside function
         uint firstLevel = 1;
-        //=========================================TouchManager.mTouchManager.mLevelAnimation.GetComponent<LevelDisplay>().LevelMovement(ref firstLevel);
+        TouchManager.mTouchManager.mLevelAnimation.GetComponent<LevelDisplay>().LevelMovement(ref firstLevel);
 
     }
 
