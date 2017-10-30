@@ -96,6 +96,8 @@
     <Compile Include="Assets\Scripts\LevelSystem\Level.cs" />
     <Compile Include="Assets\Scripts\LevelSystem\LevelManager.cs" />
     <Compile Include="Assets\Scripts\Shapes.cs" />
+    <Compile Include="Assets\Scripts\TPointsManager.cs" />
+    <Compile Include="Assets\Scripts\TShapes.cs" />
     <Compile Include="Assets\Scripts\TouchManager for Tutorial\TDrawTouch.cs" />
     <Compile Include="Assets\Scripts\TouchManager for Tutorial\TLineCollider.cs" />
     <Compile Include="Assets\Scripts\TouchManager for Tutorial\TLineTouch.cs" />
@@ -124,6 +126,7 @@
     <Compile Include="Assets\Scripts\UI\Tutorial\TShapes.cs" />
     <Compile Include="Assets\Scripts\UI\Tutorial\TUIManage.cs" />
     <Compile Include="Assets\Scripts\UI\UIManage.cs" />
+    <Compile Include="Assets\TManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Asset\{60d88351-a2c2-41dd-8d42-d2e5ec447dba}.xml" />
