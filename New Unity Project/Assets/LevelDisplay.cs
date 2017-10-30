@@ -41,6 +41,7 @@ public class LevelDisplay : MonoBehaviour
 
     public void LevelMovement(ref uint lvl)
     {
+        AudioController.sInstance.LevelUpSFX();
         string mLvlNumber = lvl.ToString();
 
         //TextMovement

@@ -18,7 +18,7 @@ public class AudioController : MonoBehaviour
     {
         SFX = GetComponent<AudioSource>();
         mBGM = GameObject.Find("MainBackgroundMusic").GetComponent<MainBGM>();
-        //mBGM = GameObject.Find("EndlessBGM").GetComponent<EndlessBGM>();
+        eBGM = GameObject.Find("EndlessBGM").GetComponent<EndlessBGM>();
         //Check if instance already exist
         if (sInstance == null)
         {
@@ -45,27 +45,30 @@ public class AudioController : MonoBehaviour
         SFX.clip = mCurrentSFXClip[1];
         SFX.Play();
     }
-
-    public void ErrorSFX()
-    {
-        SFX.clip = mCurrentSFXClip[3];
-        SFX.Play();
-    }
-    
-
     public void GameOverSFX()
     {
         SFX.clip = mCurrentSFXClip[2];
         SFX.Play();
     }
+    public void ErrorSFX()
+    {
+        SFX.clip = mCurrentSFXClip[3];
+        SFX.Play();
+    }
+    public void LevelUpSFX()
+    {
+        SFX.clip = mCurrentSFXClip[4];
+        SFX.Play();
+    }
 
+    public void TimeNearEnd()
+    {
+        SFX.clip = mCurrentSFXClip[5];
+        SFX.Play();
+    }
     public void MuteMainBGM()
     {
-        //if (!isMute)
-        //    isMute = true;
-
-        //if (isMute)
-        //    isMute = false;
+        Scene scene = SceneManager.GetActiveScene();
 
         mBGM.mainBGM.mute = !mBGM.mainBGM.mute;
     }

@@ -12,12 +12,13 @@ public class TManager : MonoBehaviour {
     public GameObject PointArea;
     public GameObject RB;
     public GameObject mHand;
-    private float mOriginPos;
-    private float mCurrentPos;
+    public GameObject[] movingPoints;
+    public Vector3 moveDir;
     public static TManager mTutorial = null;
     public float MovingSpeed;
     bool Check;
     private int count = 1;
+    private int moveIndex = 1;
     private void Awake()
     {
 
@@ -55,7 +56,7 @@ public class TManager : MonoBehaviour {
         First.SetActive(true);
         Second.SetActive(true);
         Third.SetActive(true);
-        mOriginPos = mHand.transform.position.y;
+        mHand.transform.position = movingPoints[0].transform.position;
         
         //TTouchManager.mTTouchManager.InstantiateShapes();
 
@@ -64,12 +65,14 @@ public class TManager : MonoBehaviour {
     }
     void HandMove()
     {
-        mCurrentPos = mHand.transform.position.y;
-        if (mOriginPos - mCurrentPos >= 200.0f)
+        moveDir = movingPoints[moveIndex].transform.position - mHand.transform.position;
+        mHand.transform.Translate(Vector3.Normalize(moveDir));
+        if(Vector3.Distance(mHand.transform.position, movingPoints[moveIndex].transform.position) == 0)
         {
-            mHand.transform.position = new Vector3(-45.0f, 233.0f, -25.0f);
+            moveIndex++;
+            if (moveIndex >= movingPoints.Length)
+                moveIndex = 0;
         }
-        mHand.transform.Translate(0.0f, -1.5f, 0.0f);
     }
 
 
