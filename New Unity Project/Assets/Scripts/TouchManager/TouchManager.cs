@@ -235,7 +235,7 @@ public class TouchManager : MonoBehaviour {
 
     }
 
-    public List<GameObject> GetShapesIniatialized()  // ==================     Freeman use it /////// Move shapes 132 px up          /////    TouchManager.mTouchManager.GetShapesIniatialized();
+    public List<GameObject> GetShapesIniatialized()    
     {
         return mShapesInstantied;
     }
