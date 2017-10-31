@@ -13,12 +13,12 @@ public class UIManage : MonoBehaviour {
     public Text Timer;
     public Text FhScore;
     public Text FScore;
+    public Text Left;
     public GameObject Set;
     public GameObject mGameOverScreen;
     public GameObject mG1;
-    public GameObject mGC;
+    public Text mGC;
     public GameObject mG2;
-    public GameObject mG3;
     public Sprite turnoff;
     public Sprite turnon;
     public Button button;
@@ -47,7 +47,7 @@ public class UIManage : MonoBehaviour {
         //DontDestroyOnLoad(gameObject);
 
 
-        //SetHighscore();
+        SetHighscore();
         Time.timeScale = 1f;
         //Start Score
          Score = 103;
@@ -96,9 +96,12 @@ public class UIManage : MonoBehaviour {
     {
         mGameOverScreen.SetActive(true);
         mG1.SetActive(false);
-        mG3.SetActive(true);
-         
-       
+        mG2.SetActive(true);
+        Left.gameObject.SetActive(true);
+        ShowScoreInGameOver(Score);
+
+
+
     }
     public void BacktoMainMenuButton()
     {
@@ -121,47 +124,41 @@ public class UIManage : MonoBehaviour {
    
     public void OpenGameOverScreen()
     {
+        
         mGameOverScreen.SetActive(true);
         if (mGameOverScreen.activeInHierarchy)
         {
             if (Input.GetMouseButtonDown(0))
             {
                 mG1.SetActive(false);
-                mGC.SetActive(false);
                 mG2.SetActive(true);
             }
         }
-        GameManager.mGameManager.SetHighScore(Score);
-        FScore.text = "Your Score: " + Score.ToString();
+        ShowScoreInGameOver(Score);
+    }
+
+    void ShowScoreInGameOver(int s)
+    {
+        GameManager.mGameManager.SetHighScore(s);
+        FScore.text = "Your Score: " + s.ToString();
 		FhScore.text = "Highest Score: " + GameManager.mGameManager.GetHighScore().ToString();
         Time.timeScale = 0f;
         GameObject.Find("SettingButton").GetComponent<Button>().enabled = false;      
     }
-
     public void OpenGameOverScreenMoves()//----------------------------------------------------Rafel
     {
+       
         mGameOverScreen.SetActive(true);
         mG1.SetActive(false);
-        mGC.SetActive(true);
-        
-        if (mGameOverScreen.activeInHierarchy)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                mGC.SetActive(false);
-                mG2.SetActive(true);
-            }
-        }
-        GameManager.mGameManager.SetHighScore(Score);
-        FScore.text = "Your Score: " + Score.ToString();
-        FhScore.text = "Highest Score: " + GameManager.mGameManager.GetHighScore().ToString();
-        Time.timeScale = 0f;
-        GameObject.Find("SettingButton").GetComponent<Button>().enabled = false;
+        mG2.SetActive(true);
+        mGC.gameObject.SetActive(true);
+
+        ShowScoreInGameOver(Score);
     }
-    //public void SetHighscore()
-    //{
-    //    GameObject.Find("HNumber").GetComponent<Text>().text = "     " + GameManager.mGameManager.GetHighScore().ToString();
-    //}
+    public void SetHighscore()
+    {
+        GameObject.Find("HNumber").GetComponent<Text>().text = "     " + GameManager.mGameManager.GetHighScore().ToString();
+    }
 
     void Update()
     {
