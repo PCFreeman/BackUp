@@ -168,17 +168,19 @@ public class UIManage : MonoBehaviour {
 
         Mins = Mathf.FloorToInt(timeLeft / 60f);
         Secs = Mathf.FloorToInt(timeLeft % 60f);
-        if (timeLeft > 0) {
-			timeLeft -= Time.deltaTime;
-
-			Timer.text = " " + Mins + ":" + Secs;
-        }
-        else if (timeLeft > -1 && timeLeft < 0)
+        if (timeLeft > 0)
         {
             timeLeft -= Time.deltaTime;
+
+            Timer.text = " " + Mins + ":" + Secs;
+            if (timeLeft < 10&&timeLeft>9)
+            {
+                AudioController.sInstance.TimeNearEnd();
+            }
         }
         else
         {
+            AudioController.sInstance.GameOverSFX();
             OpenGameOverScreen();
         }
    

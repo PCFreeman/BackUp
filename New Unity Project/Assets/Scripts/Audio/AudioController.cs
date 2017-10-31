@@ -18,7 +18,7 @@ public class AudioController : MonoBehaviour
     {
         SFX = GetComponent<AudioSource>();
         mBGM = GameObject.Find("MainBackgroundMusic").GetComponent<MainBGM>();
-        eBGM = GameObject.Find("EndlessBGM").GetComponent<EndlessBGM>();
+       // eBGM = GameObject.Find("EndlessBGM").GetComponent<EndlessBGM>();
         //Check if instance already exist
         if (sInstance == null)
         {
