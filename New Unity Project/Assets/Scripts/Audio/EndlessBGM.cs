@@ -9,7 +9,7 @@ public class EndlessBGM : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        mController = GameObject.Find("Audio").GetComponent<AudioController>();
+        //mController = GameObject.Find("Audio").GetComponent<AudioController>();
         endlessBGM = GetComponent<AudioSource>();
         endlessBGM.Play();
     }
