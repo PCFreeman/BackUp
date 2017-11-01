@@ -38,6 +38,14 @@ public class AudioTest : MonoBehaviour
         {
             AudioController.sInstance.LevelUpSFX();
         }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            AudioController.sInstance.MuteEndlessBGM();
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            AudioController.sInstance.MuteSFX();
+        }
 
     }
 }

@@ -7,7 +7,7 @@ public class AudioController : MonoBehaviour
 {
     public AudioSource SFX;
     public MainBGM mBGM;
-    public EndlessBGM eBGM;
+    public AudioSource eBGM;
     //public AudioSource mBGM;
     public AudioClip[] mCurrentSFXClip;
     public static bool isMute = false;
@@ -31,7 +31,7 @@ public class AudioController : MonoBehaviour
             Destroy(gameObject);
         }
         //Sets this to not be destroyed when reloading scene
-        //DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     public void ClickSFX()
@@ -68,9 +68,25 @@ public class AudioController : MonoBehaviour
     }
     public void MuteMainBGM()
     {
-        Scene scene = SceneManager.GetActiveScene();
 
         mBGM.mainBGM.mute = !mBGM.mainBGM.mute;
+    }
+
+    public void MuteEndlessBGM()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        Debug.Log(scene.name);
+        if (scene.name == "Endless")
+        {
+            Debug.Log("InEndlessScene!!!");
+            eBGM = GameObject.Find("EndlessBGM").GetComponent<AudioSource>();
+            eBGM.mute = !eBGM.mute;
+        }
+    }
+
+    public void MuteSFX()
+    {
+        SFX.mute = !SFX.mute;
     }
 
     public bool GetMute()
