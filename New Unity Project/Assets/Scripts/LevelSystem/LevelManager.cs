@@ -59,6 +59,8 @@ public class LevelManager : MonoBehaviour {
         }
         else
         {
+            AudioController.sInstance.GameOverSFX();
+
             UIManage.instance.OpenGameOverScreenMoves();
             Debug.Assert(false, "Game Over!");
 
@@ -78,6 +80,9 @@ public class LevelManager : MonoBehaviour {
         }
         else
         {
+
+            AudioController.sInstance.LevelUpSFX();
+
             //Call Animation
             Debug.Log("Next Level");
 

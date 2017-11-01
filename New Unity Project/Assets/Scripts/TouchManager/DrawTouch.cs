@@ -165,6 +165,9 @@ public class DrawTouch : MonoBehaviour {
             //if (TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchLogic.Shapes.Triangle3X2YRight, ref TouchManager.mTouchManager.pointsSelected))
             if(TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().GetShpeType(), ref TouchManager.mTouchManager.pointsSelected))
             {
+
+                AudioController.sInstance.SuccessMoveSFX();
+
                 curShape = TouchManager.mTouchManager.GetCurrentShape();
                 firstPoint = TouchManager.mTouchManager.pointsSelected[0];
 
@@ -210,15 +213,17 @@ public class DrawTouch : MonoBehaviour {
             }
             else
             {
-               Debug.Log("Wrong Shape");
+                Debug.Log("Wrong Shape");
 
-               //Destroi the line , may add some stuff in future to make player know that made mistake
-               //Destroy(thisLine);
-               Debug.Log("GOs 2 size = " + TouchManager.mTouchManager.pointsSelected.Count.ToString());
-               foreach (GameObject GO in TouchManager.mTouchManager.pointsSelected)
-               {
-                   GO.GetComponent<SpriteRenderer>().color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-               }
+                AudioController.sInstance.ErrorSFX();
+
+                //Destroi the line , may add some stuff in future to make player know that made mistake
+                //Destroy(thisLine);
+                Debug.Log("GOs 2 size = " + TouchManager.mTouchManager.pointsSelected.Count.ToString());
+                foreach (GameObject GO in TouchManager.mTouchManager.pointsSelected)
+                {
+                    GO.GetComponent<SpriteRenderer>().color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+                }
 
                 ResetCollider();
 
