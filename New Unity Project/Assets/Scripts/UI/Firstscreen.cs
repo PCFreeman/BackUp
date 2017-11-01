@@ -129,7 +129,7 @@ public class Firstscreen : MonoBehaviour {
     public void PlaySFX()
     {
 
-        //AudioController.sInstance.ClickSFX();
+        AudioController.sInstance.ClickSFX();
     }
 
     public void SettingMenu()
