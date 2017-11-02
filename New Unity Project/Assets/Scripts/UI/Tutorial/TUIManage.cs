@@ -53,7 +53,12 @@ public class TUIManage : MonoBehaviour {
 
 
     }
+    private void Start()
+    {
+        MusicCheck = true;
+        SoundCheck = true;
 
+    }
     public void settingMenu()
     {
         Set.SetActive(true);

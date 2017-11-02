@@ -27,7 +27,8 @@ public class Firstscreen : MonoBehaviour {
 
     //Peter's Code cliksound
     //private AudioController mAudio;
-    void Start()
+
+        void Start()
 	{
         //Peter's Code cliksound
         //mAudio = GameObject.Find ("SFX").GetComponent<AudioController> ();
