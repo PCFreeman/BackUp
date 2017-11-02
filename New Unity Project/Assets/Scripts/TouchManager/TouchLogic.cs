@@ -10,10 +10,10 @@ public class TouchLogic {
         
 	public enum Shapes
     {
-        Triangle5X3Up,
-        Triangle5X3Down,
-        Triangle5X3Right,
-        Triangle5X3Left,
+        Triangle5X3YUp,
+        Triangle5X3YDown,
+        Triangle5X3YRight,
+        Triangle5X3YLeft,
 
         Triangle3X2Up,
         Triangle3X2Down,
@@ -60,16 +60,16 @@ public class TouchLogic {
 
         switch(shape)
         {
-            case Shapes.Triangle5X3Up:                                     // Points Down
+            case Shapes.Triangle5X3YUp:                                     // Points Down
                 return CheckIsoscelesTriangleVertical(ref points,true,5,3);
                 break;
-            case Shapes.Triangle5X3Down:                                  
+            case Shapes.Triangle5X3YDown:                                  
                 return CheckIsoscelesTriangleVertical(ref points, false, 5, 3);  // Points Up
                 break;
-            case Shapes.Triangle5X3Right:
+            case Shapes.Triangle5X3YRight:
                 return CheckIsoscelesTriangleHorizontal(ref points, false, 5, 3);          // Points Left
                 break;
-            case Shapes.Triangle5X3Left:
+            case Shapes.Triangle5X3YLeft:
                 return CheckIsoscelesTriangleHorizontal(ref points, true, 5, 3);           // Points Right
                 break;
 

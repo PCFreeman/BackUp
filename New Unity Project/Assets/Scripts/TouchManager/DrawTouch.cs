@@ -16,6 +16,8 @@ public class DrawTouch : MonoBehaviour {
 
     private float timeLimit;
 
+    private float timeColor = 0.0f;
+
     private bool LastShapeCorect;
 
     public void Awake()
@@ -51,6 +53,23 @@ public class DrawTouch : MonoBehaviour {
         {
             timeLimit = TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().timeLimit;
         }
+        
+        if(LastShapeCorect)
+        {
+            timeColor += Time.deltaTime;
+            if(timeColor >= 1.0f)
+            {
+                foreach (GameObject GO in TouchManager.mTouchManager.pointsSelected)
+                {
+                    GO.GetComponent<SpriteRenderer>().color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+                }
+
+                TouchManager.mTouchManager.pointsSelected.Clear();
+                LastShapeCorect = false;
+                timeColor = 0.0f;
+            }
+        }
+
 
 
         //This function can be use for Touch or mouse click
@@ -65,6 +84,7 @@ public class DrawTouch : MonoBehaviour {
 
                 TouchManager.mTouchManager.pointsSelected.Clear();
                 LastShapeCorect = false;
+                timeColor = 0.0f;
             }
 
             if(thisLine == null)
