@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class AudioController : MonoBehaviour
 {
     public AudioSource SFX;
-    public MainBGM mBGM;
+    public AudioSource mBGM;
     public AudioSource eBGM;
     //public AudioSource mBGM;
     public AudioClip[] mCurrentSFXClip;
@@ -17,8 +17,8 @@ public class AudioController : MonoBehaviour
     void Awake()
     {
         SFX = GetComponent<AudioSource>();
-        mBGM = GameObject.Find("MainBackgroundMusic").GetComponent<MainBGM>();
-       // eBGM = GameObject.Find("EndlessBGM").GetComponent<EndlessBGM>();
+        //mBGM = GameObject.Find("MainBackgroundMusic").GetComponent<MainBGM>();
+        //eBGM = GameObject.Find("EndlessBGM").GetComponent<EndlessBGM>();
         //Check if instance already exist
         if (sInstance == null)
         {
@@ -69,7 +69,13 @@ public class AudioController : MonoBehaviour
     public void MuteMainBGM()
     {
 
-        mBGM.mainBGM.mute = !mBGM.mainBGM.mute;
+        Scene scene = SceneManager.GetActiveScene();
+        Debug.Log(scene.name);
+        if (scene.name == "Main")
+        {
+            mBGM = GameObject.Find("MainBackgroundMusic").GetComponent<AudioSource>();
+            mBGM.mute = !mBGM.mute;
+        }
     }
 
     public void MuteEndlessBGM()
@@ -78,7 +84,6 @@ public class AudioController : MonoBehaviour
         Debug.Log(scene.name);
         if (scene.name == "Endless")
         {
-            Debug.Log("InEndlessScene!!!");
             eBGM = GameObject.Find("EndlessBGM").GetComponent<AudioSource>();
             eBGM.mute = !eBGM.mute;
         }

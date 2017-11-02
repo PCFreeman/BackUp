@@ -15,7 +15,14 @@ public class TUIManage : MonoBehaviour {
     public GameObject mGameOverScreen;
     float Mins;
     float Secs;
-
+    public Sprite turnoffSound;
+    public Sprite turnonSound;
+    public Button Soundbutton;
+    private bool SoundCheck;
+    public Sprite turnoff;
+    public Sprite turnon;
+    public Button button;
+    private bool MusicCheck;
 
     private int Score;
 
@@ -58,6 +65,38 @@ public class TUIManage : MonoBehaviour {
         Time.timeScale = 1f;
     }
 
+    public void MusicSwitch()
+    {
+        if (MusicCheck == true)
+        {
+            button.image.overrideSprite = turnoff;
+            MusicCheck = false;
+            AudioController.sInstance.MuteEndlessBGM();
+        }
+        else
+        {
+            button.image.overrideSprite = turnon;
+            AudioController.sInstance.MuteEndlessBGM();
+            MusicCheck = true;
+        }
+
+    }
+
+    public void SoundSwitch()
+    {
+        if (SoundCheck == true)
+        {
+            Soundbutton.image.overrideSprite = turnoffSound;
+            SoundCheck = false;
+            AudioController.sInstance.MuteSFX();
+        }
+        else
+        {
+            Soundbutton.image.overrideSprite = turnonSound;
+            AudioController.sInstance.MuteSFX();
+            SoundCheck = true;
+        }
+    }
     public void BacktoMainMenu()
     {
         SceneManager.LoadScene(0);

@@ -26,7 +26,10 @@ public class UIManage : MonoBehaviour {
     float Mins;
     float Secs;
     public ParticleSystem particle;
-
+    public Sprite turnoffSound;
+    public Sprite turnonSound;
+    public Button Soundbutton;
+    private bool SoundCheck;
 
     private int Score;
 
@@ -61,6 +64,7 @@ public class UIManage : MonoBehaviour {
     private void Start()
     {
         MusicCheck = true;
+        SoundCheck = true;
 
     }
     public void MusicSwitch()
@@ -69,17 +73,31 @@ public class UIManage : MonoBehaviour {
         {
             button.image.overrideSprite = turnoff;
             MusicCheck = false;
-            AudioController.sInstance.MuteMainBGM();
-
-
+            AudioController.sInstance.MuteEndlessBGM();
         }
         else
         {
             button.image.overrideSprite = turnon;
-            AudioController.sInstance.MuteMainBGM();
+            AudioController.sInstance.MuteEndlessBGM();
             MusicCheck = true;
         }
 
+    }
+
+    public void SoundSwitch()
+    {
+        if (SoundCheck == true)
+        {
+            Soundbutton.image.overrideSprite = turnoffSound;
+            SoundCheck = false;
+            AudioController.sInstance.MuteSFX();
+        }
+        else
+        {
+            Soundbutton.image.overrideSprite = turnonSound;
+            AudioController.sInstance.MuteSFX();
+            SoundCheck = true;
+        }
     }
     public void settingMenu()
     {
@@ -99,8 +117,6 @@ public class UIManage : MonoBehaviour {
         mG2.SetActive(true);
         Left.gameObject.SetActive(true);
         ShowScoreInGameOver(Score);
-
-
 
     }
     public void BacktoMainMenuButton()
