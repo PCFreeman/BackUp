@@ -78,12 +78,12 @@ public class TUIManage : MonoBehaviour {
         {
             button.image.overrideSprite = turnoff;
             MusicCheck = false;
-            AudioController.sInstance.MuteEndlessBGM();
+            AudioController.sInstance.MuteTutorialBGM();
         }
         else
         {
             button.image.overrideSprite = turnon;
-            AudioController.sInstance.MuteEndlessBGM();
+            AudioController.sInstance.MuteTutorialBGM();
             MusicCheck = true;
         }
 
