@@ -30,7 +30,7 @@ public class UIManage : MonoBehaviour {
     public Sprite turnonSound;
     public Button Soundbutton;
     private bool SoundCheck;
-
+    public GameObject Touch;
     private int Score;
 
     private void Awake()
@@ -104,11 +104,13 @@ public class UIManage : MonoBehaviour {
         TouchManager.mTouchManager.GetComponent<DrawTouch>().DestroyLine();
         Set.SetActive(true);
         Time.timeScale = 0f;
+        Touch.SetActive(false);
     }
     public void SettingMenuBack()
     {
         Set.SetActive(false);
         Time.timeScale = 1f;
+        Touch.SetActive(true);
     }
     public void BacktoMainMenu()
     {

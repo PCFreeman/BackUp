@@ -23,8 +23,8 @@ public class TUIManage : MonoBehaviour {
     public Sprite turnon;
     public Button button;
     private bool MusicCheck;
-
     private int Score;
+    public GameObject Touch;
 
     private void Awake()
     {
@@ -58,11 +58,13 @@ public class TUIManage : MonoBehaviour {
     {
         Set.SetActive(true);
         Time.timeScale = 0f;
+        Touch.SetActive(false);
     }
     public void SettingMenuBack()
     {
         Set.SetActive(false);
         Time.timeScale = 1f;
+        Touch.SetActive(true);
     }
 
     public void MusicSwitch()
