@@ -19,7 +19,11 @@ public class Firstscreen : MonoBehaviour {
     private bool MusicCheck;
     public Sprite turnoff;
     public Sprite turnon;
+    public Sprite turnoffSound;
+    public Sprite turnonSound;
     public Button button;
+    public Button Soundbutton;
+    private bool SoundCheck;
 
     //Peter's Code cliksound
     //private AudioController mAudio;
@@ -28,9 +32,7 @@ public class Firstscreen : MonoBehaviour {
         //Peter's Code cliksound
         //mAudio = GameObject.Find ("SFX").GetComponent<AudioController> ();
         MusicCheck = true;
-
-
-
+        SoundCheck = true;
     }
 
     public void ModBack()
@@ -82,14 +84,29 @@ public class Firstscreen : MonoBehaviour {
         ChallengeWindow.SetActive(true);
 
     }
+    public void SoundSwitch()
+    {
+        if (SoundCheck == true)
+        {
+            Soundbutton.image.overrideSprite = turnonSound;
+            SoundCheck = false;
+            AudioController.sInstance.MuteSFX();
+        }
+        else
+        {
+            Soundbutton.image.overrideSprite = turnoffSound;
+            AudioController.sInstance.MuteSFX();
+            SoundCheck = true;
+        }
+    }
 
     public void CloseButton()
     {
            PlaySFX();
-            EndlessWindow.SetActive(false);
-            TimedWindow.SetActive(false);
-            ChallengeWindow.SetActive(false);
-            Mode.SetActive(true);
+           EndlessWindow.SetActive(false);
+           TimedWindow.SetActive(false);
+           ChallengeWindow.SetActive(false);
+           Mode.SetActive(true);
     }
     public void PlayEndless()
     {
