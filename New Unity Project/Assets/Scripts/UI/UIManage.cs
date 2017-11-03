@@ -123,11 +123,11 @@ public class UIManage : MonoBehaviour {
     }
     public void BacktoMainMenuButton()
     {
-        SceneManager.LoadScene(0);
+        StartCoroutine(LoadingManager.instance.LoadingScreen(0));
     }
     public void Retry()
     {
-        SceneManager.LoadScene(2);
+        StartCoroutine(LoadingManager.instance.LoadingScreen(2));
     }
     public void AddScore(int pluse)
     {
