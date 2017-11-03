@@ -111,7 +111,8 @@ public class Firstscreen : MonoBehaviour {
     }
     public void PlayEndless()
     {
-        StartCoroutine(LoadingManager.instance.LoadingScreen(2));
+        SceneManager.LoadScene(2);
+        //StartCoroutine(LoadingManager.instance.LoadingScreen(2));
     }
     public void PlayTimed()
     {
@@ -119,7 +120,8 @@ public class Firstscreen : MonoBehaviour {
     }
     public void GotoTutorial()
     {
-        StartCoroutine(LoadingManager.instance.LoadingScreen(4));
+        SceneManager.LoadScene(4);
+       // StartCoroutine(LoadingManager.instance.LoadingScreen(4));
     }
     public void PlayChallenge()
     {
