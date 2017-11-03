@@ -6,9 +6,10 @@ using UnityEngine;
 
 //This class will hold functions for touch logic. No need to have Start and Update. Will be element of TouchManager
 
-public class TouchLogic {
-        
-	public enum Shapes
+public class TouchLogic
+{
+
+    public enum Shapes
     {
         Triangle5X3YUp,
         Triangle5X3YDown,
@@ -47,7 +48,12 @@ public class TouchLogic {
         Rectangle4x3,
 
         Diamond2x2,
-        Diamond3x3
+        Diamond3x3,
+
+        CShapeRight,
+        CShapeUp,
+        CShapeLeft,
+        CShapeDown
 
 
         //Add here all shapes of our game
@@ -58,12 +64,12 @@ public class TouchLogic {
 
         Debug.Log("Shape = " + shape.ToString());
 
-        switch(shape)
+        switch (shape)
         {
             case Shapes.Triangle5X3YUp:                                     // Points Down
-                return CheckIsoscelesTriangleVertical(ref points,true,5,3);
+                return CheckIsoscelesTriangleVertical(ref points, true, 5, 3);
                 break;
-            case Shapes.Triangle5X3YDown:                                  
+            case Shapes.Triangle5X3YDown:
                 return CheckIsoscelesTriangleVertical(ref points, false, 5, 3);  // Points Up
                 break;
             case Shapes.Triangle5X3YRight:
@@ -89,11 +95,11 @@ public class TouchLogic {
             case Shapes.TriangleRectangle3DownLeft:                         // Left means the side of the 90 degree angle
                 return CheckTriangleRectangle(ref points, false, true, 3);    // Down means the position of the 90 degree angle compared with the rest
                 break;
-            case Shapes.TriangleRectangle3UpLeft:                        
+            case Shapes.TriangleRectangle3UpLeft:
                 return CheckTriangleRectangle(ref points, true, true, 3);
                 break;
-            case Shapes.TriangleRectangle3UpRight:                         
-                return CheckTriangleRectangle(ref points, true, false, 3);   
+            case Shapes.TriangleRectangle3UpRight:
+                return CheckTriangleRectangle(ref points, true, false, 3);
                 break;
             case Shapes.TriangleRectangle3DownRight:
                 return CheckTriangleRectangle(ref points, false, false, 3);
@@ -136,16 +142,22 @@ public class TouchLogic {
                 break;
 
             case Shapes.Rectangle2x3:
-                return CheckRectangle(ref points, 2,3);
+                return CheckRectangle(ref points, 2, 3);
                 break;
             case Shapes.Rectangle3x2:
-                return CheckRectangle(ref points, 3,2);
+                return CheckRectangle(ref points, 3, 2);
                 break;
             case Shapes.Rectangle3x4:
-                return CheckRectangle(ref points, 3, 4 );
+                return CheckRectangle(ref points, 3, 4);
                 break;
             case Shapes.Rectangle4x3:
                 return CheckRectangle(ref points, 4, 3);
+                break;
+
+            //Add all C shapes - Peter
+            case Shapes.CShapeRight:
+            case Shapes.CShapeLeft:
+                return CheckCShapeSide(ref points);
                 break;
             default:
                 Debug.Log("[TouchLogic]Shape name does not exit.");
@@ -154,7 +166,7 @@ public class TouchLogic {
 
         return false;
     }
-    
+
 
     private bool CheckIsoscelesTriangleVertical(ref List<GameObject> points, bool isUp, int numBaseDots, int numHeightDots)
     {
@@ -162,7 +174,7 @@ public class TouchLogic {
         float distanceBetweenPoints = PointsManager.mPointsManager.GetDistanceBetweenLinePoints();
 
         //Check number of points
-        if (points.Count < ((numBaseDots + (numBaseDots - 2) ) + 1) || points.Count > ((numBaseDots + (numBaseDots - 2)) + 1))
+        if (points.Count < ((numBaseDots + (numBaseDots - 2)) + 1) || points.Count > ((numBaseDots + (numBaseDots - 2)) + 1))
         {
             return false;
         }
@@ -174,8 +186,6 @@ public class TouchLogic {
         }
 
         List<List<GameObject>> Lines = new List<List<GameObject>>();
-
-        new List<List<GameObject>>();
 
         for (int i = 0; i < numHeightDots; ++i)
         {
@@ -216,15 +226,15 @@ public class TouchLogic {
 
         Lines.Sort(sortList);
 
-        
+
         for (int i = 0; i < Lines.Count - 1; ++i)
         {
             int check = 2;
-            if(i == 0)
+            if (i == 0)
             {
                 check = numBaseDots;
             }
-            if(i == Lines.Count - 1)
+            if (i == Lines.Count - 1)
             {
                 check = 1;
             }
@@ -242,7 +252,7 @@ public class TouchLogic {
             line.Sort(sortLine);
         }
 
-        if(isUp) //Pointing down
+        if (isUp) //Pointing down
         {
 
             for (int i = 0; i < Lines.Count - 1; ++i)
@@ -256,11 +266,11 @@ public class TouchLogic {
 
             //Check dots y distance
             bool check = true;
-            for (int i = 1, j = 1, multiplierCheck = (int)(numBaseDots * 0.5f); i < numBaseDots - 1;++i)
+            for (int i = 1, j = 1, multiplierCheck = (int)(numBaseDots * 0.5f); i < numBaseDots - 1; ++i)
             {
-               if(check == true)
+                if (check == true)
                 {
-                    if((Lines[0][i].transform.position.y - Lines [j][0].transform.position.y) != (distanceBetweenPoints * j))
+                    if ((Lines[0][i].transform.position.y - Lines[j][0].transform.position.y) != (distanceBetweenPoints * j))
                     {
                         return false;
                     }
@@ -273,9 +283,9 @@ public class TouchLogic {
                     else
                     {
                         ++j;
-                    }                    
+                    }
                 }
-               else
+                else
                 {
                     if ((Lines[0][i].transform.position.y - Lines[j][1].transform.position.y) != (distanceBetweenPoints * j))
                     {
@@ -283,31 +293,31 @@ public class TouchLogic {
                     }
 
                     --j;
-                }               
+                }
             }
 
             //Check dots x distance
-            for(int i = 0, distanceMultiplier = numBaseDots - 3; i < Lines.Count - 1; ++i)
+            for (int i = 0, distanceMultiplier = numBaseDots - 3; i < Lines.Count - 1; ++i)
             {
 
-                for(int j = 0; j < Lines[i].Count - 1;++j)
+                for (int j = 0; j < Lines[i].Count - 1; ++j)
                 {
                     int multiplier = 1;
-                    if(i > 0)
+                    if (i > 0)
                     {
                         multiplier = distanceMultiplier;
                     }
 
-                    if((Lines[i][j+1].transform.position.x - Lines[i][j].transform.position.x) != (distanceBetweenPoints * multiplier))
+                    if ((Lines[i][j + 1].transform.position.x - Lines[i][j].transform.position.x) != (distanceBetweenPoints * multiplier))
                     {
                         return false;
                     }
 
 
 
-                    if(multiplier > 1)
+                    if (multiplier > 1)
                     {
-                        distanceMultiplier -= 2; 
+                        distanceMultiplier -= 2;
                     }
 
                 }
@@ -330,11 +340,11 @@ public class TouchLogic {
 
             //Check dots y distance
             bool check = true;
-            for (int i = 1, j = 1, multiplierCheck = (int)(numBaseDots * 0.5f); i < numBaseDots - 1;++i)
+            for (int i = 1, j = 1, multiplierCheck = (int)(numBaseDots * 0.5f); i < numBaseDots - 1; ++i)
             {
-               if(check == true)
+                if (check == true)
                 {
-                    if((Lines[j][0].transform.position.y - Lines[0][i].transform.position.y) != (distanceBetweenPoints * j))
+                    if ((Lines[j][0].transform.position.y - Lines[0][i].transform.position.y) != (distanceBetweenPoints * j))
                     {
                         return false;
                     }
@@ -347,9 +357,9 @@ public class TouchLogic {
                     else
                     {
                         ++j;
-                    }                    
+                    }
                 }
-               else
+                else
                 {
                     if ((Lines[j][1].transform.position.y - Lines[0][i].transform.position.y) != (distanceBetweenPoints * j))
                     {
@@ -357,7 +367,7 @@ public class TouchLogic {
                     }
 
                     --j;
-                }               
+                }
             }
 
 
@@ -463,7 +473,7 @@ public class TouchLogic {
             {
                 check = 1;
             }
-           
+
             if (Lines[i].Count != check)
             {
                 return false;
@@ -491,7 +501,7 @@ public class TouchLogic {
                 }
 
                 //Check X distance
-                if( i != 0 && i != Lines.Count - 2)
+                if (i != 0 && i != Lines.Count - 2)
                 {
                     if (check == true)
                     {
@@ -499,7 +509,7 @@ public class TouchLogic {
                         {
                             return false;
                         }
-            
+
                         if (j == multiplierCheck)
                         {
                             check = false;
@@ -516,7 +526,7 @@ public class TouchLogic {
                         {
                             return false;
                         }
-            
+
                         --j;
                     }
 
@@ -526,9 +536,9 @@ public class TouchLogic {
             }
 
             //Compare Y distance
-            for(int i = 1, j = numBaseDots - 3; i < (int)(numBaseDots * 0.5f); ++i, j -= 2)
+            for (int i = 1, j = numBaseDots - 3; i < (int)(numBaseDots * 0.5f); ++i, j -= 2)
             {
-                if((Lines[i][1].transform.position.y - Lines[(Lines.Count - 1) - i][1].transform.position.y) != distanceBetweenPoints * j)
+                if ((Lines[i][1].transform.position.y - Lines[(Lines.Count - 1) - i][1].transform.position.y) != distanceBetweenPoints * j)
                 {
                     return false;
                 }
@@ -543,7 +553,7 @@ public class TouchLogic {
             for (int i = 0, j = 1, multiplierCheck = (int)(numBaseDots * 0.5f); i < Lines.Count - 1; ++i)
             {
                 //Check if Triangle is left 
-                if(i == Lines.Count - 2)
+                if (i == Lines.Count - 2)
                 {
                     if (Lines[i][1].transform.position.x != Lines[i + 1][0].transform.position.x)
                     {
@@ -565,7 +575,7 @@ public class TouchLogic {
                         return false;
                     }
                 }
-                
+
 
                 //Check X distance
                 if (i != 0 && i != Lines.Count - 2)
@@ -629,7 +639,7 @@ public class TouchLogic {
 
         int totalNumDots = numDots + 1;
 
-        for(int i = 1; i < numDots - 1; ++i)
+        for (int i = 1; i < numDots - 1; ++i)
         {
             totalNumDots += 2;
         }
@@ -652,15 +662,15 @@ public class TouchLogic {
         //Check for UP
         List<List<GameObject>> Lines = new List<List<GameObject>>();
 
-        for(int i = 0; i < numDots; ++i)
+        for (int i = 0; i < numDots; ++i)
         {
             Lines.Add(new List<GameObject>());
         }
 
         int lineIndex = 0;
-        for(int i = 0; i < (points.Count - 1); ++i)
+        for (int i = 0; i < (points.Count - 1); ++i)
         {
-            if(Lines[0].Count == 0)
+            if (Lines[0].Count == 0)
             {
                 Lines[lineIndex++].Add(points[i]);
             }
@@ -669,11 +679,11 @@ public class TouchLogic {
                 bool check = false;
                 foreach (List<GameObject> line in Lines)
                 {
-                    if(line.Count == 0)
+                    if (line.Count == 0)
                     {
                         break;
                     }
-                    if(line[0].transform.position.y == points[i].transform.position.y)
+                    if (line[0].transform.position.y == points[i].transform.position.y)
                     {
                         line.Add(points[i]);
                         check = true;
@@ -681,7 +691,7 @@ public class TouchLogic {
                     }
                 }
 
-                if(check == false)
+                if (check == false)
                 {
                     Lines[lineIndex++].Add(points[i]);
                 }
@@ -689,7 +699,7 @@ public class TouchLogic {
 
         }
 
-        if(isUp)
+        if (isUp)
         {
             Lines.Sort(sortListUp);
         }
@@ -697,19 +707,19 @@ public class TouchLogic {
         {
             Lines.Sort(sortListDown);
         }
-        
 
-        for(int i = 0; i < Lines.Count - 1; ++i)
+
+        for (int i = 0; i < Lines.Count - 1; ++i)
         {
-            if(i == 0 && Lines[i].Count != numDots)
+            if (i == 0 && Lines[i].Count != numDots)
             {
                 return false;
             }
-            else if(i == (numDots - 1) && Lines[i].Count != 1)
+            else if (i == (numDots - 1) && Lines[i].Count != 1)
             {
                 return false;
             }
-            else if(i != (numDots - 1) && i != 0 && Lines[i].Count != 2)
+            else if (i != (numDots - 1) && i != 0 && Lines[i].Count != 2)
             {
                 return false;
             }
@@ -717,7 +727,7 @@ public class TouchLogic {
 
 
         //Sort all lines
-        foreach(List<GameObject> line in Lines)
+        foreach (List<GameObject> line in Lines)
         {
             line.Sort(sortLine);
         }
@@ -725,10 +735,10 @@ public class TouchLogic {
 
 
 
-        if(isUp)  //goes Up
+        if (isUp)  //goes Up
         {
-            
-            for(int i = 0; i < Lines.Count - 1; ++i)
+
+            for (int i = 0; i < Lines.Count - 1; ++i)
             {
                 //Check if Triangle is Down (different of the triangle5x3)
                 if (Lines[i][0].transform.position.y < Lines[i + 1][0].transform.position.y)
@@ -751,7 +761,7 @@ public class TouchLogic {
         }
 
 
-        if(isLeft)  //goes left
+        if (isLeft)  //goes left
         {
 
             for (int i = 0; i < Lines.Count - 1; ++i)
@@ -789,7 +799,7 @@ public class TouchLogic {
                 {
                     return false;
                 }
-                if(Lines[i + 1].Count > 1)
+                if (Lines[i + 1].Count > 1)
                 {
                     if ((Lines[i][Lines[i].Count - 2].transform.position.y - Lines[i + 1][1].transform.position.y) != distanceBetweenPointsY)
                     {
@@ -818,9 +828,9 @@ public class TouchLogic {
                     }
                 }
 
-                
+
             }
-            
+
         }
 
         if (isLeft)  //goes right
@@ -835,7 +845,7 @@ public class TouchLogic {
                 }
 
 
-                for(int i = 1; i < Lines.Count; ++i)
+                for (int i = 1; i < Lines.Count; ++i)
                 {
                     //Check dots position
                     if (Lines[0][0].transform.position.x != Lines[i][0].transform.position.x)
@@ -843,15 +853,15 @@ public class TouchLogic {
                         return false;
                     }
 
-                    if(i != Lines.Count - 1)
+                    if (i != Lines.Count - 1)
                     {
                         //Check dots position
                         if (Lines[0][Lines[0].Count - (i + 1)].transform.position.x != Lines[i][1].transform.position.x)
                         {
                             return false;
                         }
-                    }                    
-                } 
+                    }
+                }
             }
 
             //Other Lines
@@ -895,7 +905,7 @@ public class TouchLogic {
                     {
                         return false;
                     }
-                    
+
                 }
             }
 
@@ -913,7 +923,7 @@ public class TouchLogic {
                 {
                     return false;
                 }
-           
+
             }
 
 
@@ -974,8 +984,8 @@ public class TouchLogic {
             }
 
         }
-        
-        for (int i = 0; i < numSidePoints;++i)
+
+        for (int i = 0; i < numSidePoints; ++i)
         {
             Lines[i].Sort(sortLine);
         }
@@ -1003,9 +1013,9 @@ public class TouchLogic {
 
         //Necessary Checks For Y axis
 
-        for(int i = 0; i < (Lines.Count - 1);++i)
+        for (int i = 0; i < (Lines.Count - 1); ++i)
         {
-            if((Lines[i][0].transform.position.y - Lines[i + 1][0].transform.position.y) != distanceBetweenPointsY)
+            if ((Lines[i][0].transform.position.y - Lines[i + 1][0].transform.position.y) != distanceBetweenPointsY)
             {
                 return false;
             }
@@ -1016,9 +1026,9 @@ public class TouchLogic {
 
         //First Line
 
-        for (int i = 0; i < (Lines[0].Count - 1);++i)
+        for (int i = 0; i < (Lines[0].Count - 1); ++i)
         {
-            if((Lines[0][i + 1].transform.position.x - Lines[0][i].transform.position.x) != distanceBetweenPointsX)
+            if ((Lines[0][i + 1].transform.position.x - Lines[0][i].transform.position.x) != distanceBetweenPointsX)
             {
                 return false;
             }
@@ -1033,11 +1043,11 @@ public class TouchLogic {
             }
         }
 
-        if(numSidePoints > 2)
+        if (numSidePoints > 2)
         {
             for (int i = 1; i < (Lines.Count - 1); ++i)
             {
-                if((Lines[i][1].transform.position.x - Lines[i][0].transform.position.x) != (distanceBetweenPointsX * (numSidePoints - 1)))
+                if ((Lines[i][1].transform.position.x - Lines[i][0].transform.position.x) != (distanceBetweenPointsX * (numSidePoints - 1)))
                 {
                     return false;
                 }
@@ -1107,7 +1117,7 @@ public class TouchLogic {
 
         }
 
-        if(Lines.Count != numVerticalPoints)
+        if (Lines.Count != numVerticalPoints)
         {
             return false;
         }
@@ -1235,15 +1245,15 @@ public class TouchLogic {
         Lines.Sort(sortListY);
 
         //Check first and last lines size
-        if(Lines[0].Count != 1 && Lines[Lines.Count - 1].Count != 1)
+        if (Lines[0].Count != 1 && Lines[Lines.Count - 1].Count != 1)
         {
             return false;
         }
 
         //Check other lines size
-        for(int i = 1; i < Lines.Count - 1; ++i)
+        for (int i = 1; i < Lines.Count - 1; ++i)
         {
-            if(Lines[i].Count != 2)
+            if (Lines[i].Count != 2)
             {
                 return false;
             }
@@ -1260,19 +1270,19 @@ public class TouchLogic {
 
         //Top Side
 
-        int startPos =  Mathf.FloorToInt(Lines.Count * 0.5f);
+        int startPos = Mathf.FloorToInt(Lines.Count * 0.5f);
 
 
-        for(int i = startPos; i > 0; --i)
+        for (int i = startPos; i > 0; --i)
         {
             //Check first element (left element) distance to first of line on top
-            if((Lines[i - 1][0].transform.position.y - Lines[i][0].transform.position.y) != distanceBetweenPoints)
+            if ((Lines[i - 1][0].transform.position.y - Lines[i][0].transform.position.y) != distanceBetweenPoints)
             {
                 return false;
             }
 
             //Check Second element (right element) distance to second of line on top (protect against last line check)
-            if ( i > 1 && (Lines[i - 1][1].transform.position.y - Lines[i][1].transform.position.y) != distanceBetweenPoints)
+            if (i > 1 && (Lines[i - 1][1].transform.position.y - Lines[i][1].transform.position.y) != distanceBetweenPoints)
             {
                 return false;
             }
@@ -1314,6 +1324,65 @@ public class TouchLogic {
         return true;
     }
 
+    private bool CheckCShapeSide(ref List<GameObject> playerPoints)
+    {
+        int mCountLine0 = 0;
+        int mCountLine1 = 0;
+        int mCountLine2 = 0;
+        int mCountLine3 = 0;
+        int mCountLine4 = 0;
+        float distanceBetweenPoints = PointsManager.mPointsManager.GetDistanceBetweenLinePoints();
+        List<GameObject> tempList = new List<GameObject>();
+
+        //Check number of points
+        if (playerPoints.Count != 19)
+        {
+            return false;
+        }
+
+        //Check if shape was closed
+        if (playerPoints[0].transform.position != playerPoints[playerPoints.Count - 1].transform.position)
+        {
+            return false;
+        }
+        //List<List<GameObject>> Lines = new List<List<GameObject>>();
+        //Check number of points in line
+        for (int i = 0; i < playerPoints.Count - 1; ++i)
+        {
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[0][0].transform.position.y)
+            {
+                tempList.Add(playerPoints[i]);
+                mCountLine0++;
+            }
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[1][0].transform.position.y)
+            {
+                tempList.Add(playerPoints[i]);
+                mCountLine1++;
+            }
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[2][0].transform.position.y)
+            {
+                tempList.Add(playerPoints[i]);
+                mCountLine2++;
+            }
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[3][0].transform.position.y)
+            {
+                tempList.Add(playerPoints[i]);
+                mCountLine3++;
+            }
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[4][0].transform.position.y)
+            {
+                tempList.Add(playerPoints[i]);
+                mCountLine4++;
+            }
+            if (Vector3.Distance(playerPoints[i].transform.position, playerPoints[i + 1].transform.position) != distanceBetweenPoints)
+                return false;
+        }
+
+        if (mCountLine0 == 2 && mCountLine1 == 4 && mCountLine2 == 4 && mCountLine3 == 4 && mCountLine4 == 4)
+            return true;
+        else
+            return false;
+    }
 
 
     //=========================================================================
@@ -1412,7 +1481,7 @@ public class TouchLogic {
                 }
                 else
                 {
-                    
+
                     return 0;
 
                 }
@@ -1422,7 +1491,7 @@ public class TouchLogic {
 
 
     }
-    
+
     //Decrescent order
     public int sortListUp(List<GameObject> list1, List<GameObject> list2)
     {
@@ -1476,7 +1545,7 @@ public class TouchLogic {
                     {
                         return 0;
                     }
-                    
+
                 }
 
             }
