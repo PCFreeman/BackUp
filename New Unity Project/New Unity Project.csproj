@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\LevelDisplay.cs" />
+    <Compile Include="Assets\LoadingManager.cs" />
     <Compile Include="Assets\Scripts\Audio\AudioController.cs" />
     <Compile Include="Assets\Scripts\Audio\AudioTest.cs" />
     <Compile Include="Assets\Scripts\Audio\EndlessBGM.cs" />

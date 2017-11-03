@@ -111,11 +111,16 @@ public class Firstscreen : MonoBehaviour {
     }
     public void PlayEndless()
     {
-        SceneManager.LoadScene(2);
+
+        //StartCoroutine(LoadingManager.instance.LoadingScreen(3));
     }
     public void PlayTimed()
     {
-        SceneManager.LoadScene(3);
+        StartCoroutine(LoadingManager.instance.LoadingScreen(2));
+    }
+    public void GotoTutorial()
+    {
+       StartCoroutine(LoadingManager.instance.LoadingScreen(3));
     }
     public void PlayChallenge()
     {
@@ -138,10 +143,6 @@ public class Firstscreen : MonoBehaviour {
             MusicCheck = true;
         }
       
-    }
-    public void GotoTutorial()
-    {
-        SceneManager.LoadScene(4);
     }
     ////Peter's code play SFX
     public void PlaySFX()
