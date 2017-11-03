@@ -50,7 +50,7 @@ public class UIManage : MonoBehaviour {
         //DontDestroyOnLoad(gameObject);
 
 
-        SetHighscore();
+        //SetHighscore();
         Time.timeScale = 1f;
         //Start Score
          Score = 103;
@@ -178,6 +178,20 @@ public class UIManage : MonoBehaviour {
         GameObject.Find("HNumber").GetComponent<Text>().text = "     " + GameManager.mGameManager.GetHighScore().ToString();
     }
 
+    public void UpdateNextLevel(int l)
+    {
+        GameObject.Find("NextLevel").GetComponent<Text>().text = l.ToString();
+    }
+
+    public void UpdateShapesTry(int n)
+    {
+        GameObject.Find("shapesTry").GetComponent<Text>().text = n.ToString();
+    }
+
+    public void UpdateShapesTimeLimit(float timeLimit)
+    {
+        GameObject.Find("ShapeTLimit").GetComponent<Text>().text = Mathf.FloorToInt(timeLimit % 60f).ToString();
+    }
     void Update()
     {
 
