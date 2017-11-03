@@ -276,9 +276,6 @@ public class PointsManager : MonoBehaviour {
             }
 
         }
-
-
-
     }
 
     private void GeneratePoints(GameObject line)
@@ -320,12 +317,7 @@ public class PointsManager : MonoBehaviour {
                     pointTemp.transform.position = new Vector3(pointTemp.transform.position.x + xOffset, line.transform.position.y, pointTemp.transform.position.z);
 
                 }
-
-
                 pointsList.Add(pointTemp);  //Temp list
-
-
-
             }
         }
         else  //Even number of points
