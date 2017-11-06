@@ -8,6 +8,7 @@ public class AudioController : MonoBehaviour
     public AudioSource SFX;
     public AudioSource mBGM;
     public AudioSource eBGM;
+    public AudioSource tBGM;
     //public AudioSource mBGM;
     public AudioClip[] mCurrentSFXClip;
     public static bool isMute = false;
@@ -86,6 +87,17 @@ public class AudioController : MonoBehaviour
         {
             eBGM = GameObject.Find("EndlessBGM").GetComponent<AudioSource>();
             eBGM.mute = !eBGM.mute;
+        }
+    }
+
+    public void MuteTutorialBGM()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        Debug.Log(scene.name);
+        if (scene.name == "Tutorial")
+        {
+            tBGM = GameObject.Find("TutorialSound").GetComponent<AudioSource>();
+            tBGM.mute = !tBGM.mute;
         }
     }
 

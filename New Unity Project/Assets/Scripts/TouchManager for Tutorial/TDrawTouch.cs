@@ -146,6 +146,8 @@ public class TDrawTouch : MonoBehaviour
             //if (TTouchManager.mTTouchManager.mTouchLogic.checkShapes(TouchLogic.Shapes.TriangleRectangle3UpRight, ref TTouchManager.mTTouchManager.pointsSelected))
             if (TTouchManager.mTTouchManager.mTTouchLogic.checkShapes(TTouchManager.mTTouchManager.GetCurrentShape().GetComponent<TShapes>().GetShpeType(), ref TTouchManager.mTTouchManager.pointsSelected))
             {
+                AudioController.sInstance.SuccessMoveSFX();
+
                 curShape = TTouchManager.mTTouchManager.GetCurrentShape();
                 firstPoint = TTouchManager.mTTouchManager.pointsSelected[0];
 

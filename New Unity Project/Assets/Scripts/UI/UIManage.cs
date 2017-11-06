@@ -30,8 +30,11 @@ public class UIManage : MonoBehaviour {
     public Sprite turnonSound;
     public Button Soundbutton;
     private bool SoundCheck;
-
+    public GameObject Touch;
     private int Score;
+    public Text TryLimit;
+    public Text nextLevel;
+    public Text ShapeTimeLimit;
 
     private void Awake()
     {
@@ -50,7 +53,7 @@ public class UIManage : MonoBehaviour {
         //DontDestroyOnLoad(gameObject);
 
 
-        SetHighscore();
+        //SetHighscore();
         Time.timeScale = 1f;
         //Start Score
          Score = 103;
@@ -65,6 +68,7 @@ public class UIManage : MonoBehaviour {
     {
         MusicCheck = true;
         SoundCheck = true;
+        TryLimit.gameObject.SetActive(false);
 
     }
     public void MusicSwitch()
@@ -104,11 +108,13 @@ public class UIManage : MonoBehaviour {
         TouchManager.mTouchManager.GetComponent<DrawTouch>().DestroyLine();
         Set.SetActive(true);
         Time.timeScale = 0f;
+        Touch.SetActive(false);
     }
     public void SettingMenuBack()
     {
         Set.SetActive(false);
         Time.timeScale = 1f;
+        Touch.SetActive(true);
     }
     public void BacktoMainMenu()
     {
@@ -121,11 +127,11 @@ public class UIManage : MonoBehaviour {
     }
     public void BacktoMainMenuButton()
     {
-        SceneManager.LoadScene(0);
+        StartCoroutine(LoadingManager.instance.LoadingScreen(0));
     }
     public void Retry()
     {
-        SceneManager.LoadScene(2);
+        StartCoroutine(LoadingManager.instance.LoadingScreen(2));
     }
     public void AddScore(int pluse)
     {
@@ -176,6 +182,32 @@ public class UIManage : MonoBehaviour {
         GameObject.Find("HNumber").GetComponent<Text>().text = "     " + GameManager.mGameManager.GetHighScore().ToString();
     }
 
+    public void UpdateNextLevel(int l)//----------------------------------------------------Rafel
+    {
+        nextLevel.text = l.ToString();
+    }
+
+    public void UpdateShapesTry(int n)//----------------------------------------------------Rafel
+    {
+        if (TryLimit.gameObject.activeInHierarchy)
+        {
+            TryLimit.gameObject.SetActive(false);
+        }
+
+        TryLimit.gameObject.SetActive(true);
+        TryLimit.text = n.ToString();
+        Invoke("DeactiveShapesTry", 1);
+    }
+
+    public void DeactiveShapesTry()
+    {
+        TryLimit.gameObject.SetActive(false);
+    }
+
+    public void UpdateShapesTimeLimit(float timeLimit)//----------------------------------------------------Rafel
+    {
+        ShapeTimeLimit.text = Mathf.FloorToInt(timeLimit % 60f).ToString();
+    }
     void Update()
     {
 

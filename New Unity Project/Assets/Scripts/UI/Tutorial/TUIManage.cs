@@ -23,8 +23,8 @@ public class TUIManage : MonoBehaviour {
     public Sprite turnon;
     public Button button;
     private bool MusicCheck;
-
     private int Score;
+    public GameObject Touch;
 
     private void Awake()
     {
@@ -53,16 +53,23 @@ public class TUIManage : MonoBehaviour {
 
 
     }
+    private void Start()
+    {
+        MusicCheck = true;
+        SoundCheck = true;
 
+    }
     public void settingMenu()
     {
         Set.SetActive(true);
         Time.timeScale = 0f;
+        Touch.SetActive(false);
     }
     public void SettingMenuBack()
     {
         Set.SetActive(false);
         Time.timeScale = 1f;
+        Touch.SetActive(true);
     }
 
     public void MusicSwitch()
@@ -71,12 +78,12 @@ public class TUIManage : MonoBehaviour {
         {
             button.image.overrideSprite = turnoff;
             MusicCheck = false;
-            AudioController.sInstance.MuteEndlessBGM();
+            AudioController.sInstance.MuteTutorialBGM();
         }
         else
         {
             button.image.overrideSprite = turnon;
-            AudioController.sInstance.MuteEndlessBGM();
+            AudioController.sInstance.MuteTutorialBGM();
             MusicCheck = true;
         }
 
@@ -99,12 +106,12 @@ public class TUIManage : MonoBehaviour {
     }
     public void BacktoMainMenu()
     {
-        SceneManager.LoadScene(0);
-       
+        StartCoroutine(LoadingManager.instance.LoadingScreen(0));
+
     }
     public void Retry()
     {
-        SceneManager.LoadScene(2);
+        StartCoroutine(LoadingManager.instance.LoadingScreen(2));
     }
     public void AddScore(int pluse)
     {
@@ -125,7 +132,7 @@ public class TUIManage : MonoBehaviour {
         {
             if (Input.GetMouseButtonDown(0))
             {
-                SceneManager.LoadScene(0);
+                StartCoroutine(LoadingManager.instance.LoadingScreen(0));
             }
         }
        // GameManager.mGameManager.SetHighScore(Score);
