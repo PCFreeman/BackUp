@@ -50,17 +50,16 @@ public class TouchLogic
         Diamond2x2,
         Diamond3x3,
 
-<<<<<<< HEAD
         LShapeBottomRight,
         LShapeBottomLeft,
         LShapeTopRight,
-        LShapeTopLeft
-=======
+        LShapeTopLeft,
+
         CShapeRight,
         CShapeUp,
         CShapeLeft,
         CShapeDown
->>>>>>> 43f510aa2ec479c2dba3cbd5d78d08db5810c8b4
+
 
 
         //Add here all shapes of our game
@@ -161,7 +160,6 @@ public class TouchLogic
                 return CheckRectangle(ref points, 4, 3);
                 break;
 
-<<<<<<< HEAD
             case Shapes.LShapeBottomRight:
                 return CheckLShape(ref points, false, false);
                 break;
@@ -173,12 +171,11 @@ public class TouchLogic
                 break;
             case Shapes.LShapeTopLeft:
                 return CheckLShape(ref points, true, true);
-=======
+
             //Add all C shapes - Peter
             case Shapes.CShapeRight:
             case Shapes.CShapeLeft:
                 return CheckCShapeSide(ref points);
->>>>>>> 43f510aa2ec479c2dba3cbd5d78d08db5810c8b4
                 break;
             default:
                 Debug.Log("[TouchLogic]Shape name does not exit.");
@@ -1006,14 +1003,9 @@ public class TouchLogic
 
         }
 
-<<<<<<< HEAD
         Lines.Sort(sortListY);
 
-
-        for (int i = 0; i < numSidePoints;++i)
-=======
         for (int i = 0; i < numSidePoints; ++i)
->>>>>>> 43f510aa2ec479c2dba3cbd5d78d08db5810c8b4
         {
             Lines[i].Sort(sortLine);
         }
@@ -1352,7 +1344,6 @@ public class TouchLogic
         return true;
     }
 
-<<<<<<< HEAD
     private bool CheckLShape(ref List<GameObject> points, bool isTop, bool isLeft)
     {
 
@@ -1360,26 +1351,11 @@ public class TouchLogic
 
         //Check number of points
         if (points.Count != 19 ) //Hard coded because their is no plan for other size LShape
-=======
-    private bool CheckCShapeSide(ref List<GameObject> playerPoints)
-    {
-        int mCountLine0 = 0;
-        int mCountLine1 = 0;
-        int mCountLine2 = 0;
-        int mCountLine3 = 0;
-        int mCountLine4 = 0;
-        float distanceBetweenPoints = PointsManager.mPointsManager.GetDistanceBetweenLinePoints();
-        List<GameObject> tempList = new List<GameObject>();
-
-        //Check number of points
-        if (playerPoints.Count != 19)
->>>>>>> 43f510aa2ec479c2dba3cbd5d78d08db5810c8b4
         {
             return false;
         }
 
         //Check if shape was closed
-<<<<<<< HEAD
         if (points[0].transform.position != points[points.Count - 1].transform.position)
         {
             return false;
@@ -1674,7 +1650,27 @@ public class TouchLogic
 
 
         return true;
-=======
+    }
+
+
+
+    private bool CheckCShapeSide(ref List<GameObject> playerPoints)
+    {
+        int mCountLine0 = 0;
+        int mCountLine1 = 0;
+        int mCountLine2 = 0;
+        int mCountLine3 = 0;
+        int mCountLine4 = 0;
+        float distanceBetweenPoints = PointsManager.mPointsManager.GetDistanceBetweenLinePoints();
+        List<GameObject> tempList = new List<GameObject>();
+
+        //Check number of points
+        if (playerPoints.Count != 19)
+        {
+            return false;
+        }
+
+
         if (playerPoints[0].transform.position != playerPoints[playerPoints.Count - 1].transform.position)
         {
             return false;
@@ -1716,7 +1712,6 @@ public class TouchLogic
             return true;
         else
             return false;
->>>>>>> 43f510aa2ec479c2dba3cbd5d78d08db5810c8b4
     }
 
 
