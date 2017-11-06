@@ -32,6 +32,9 @@ public class UIManage : MonoBehaviour {
     private bool SoundCheck;
     public GameObject Touch;
     private int Score;
+    public Text TryLimit;
+    public Text nextLevel;
+    public Text ShapeTimeLimit;
 
     private void Awake()
     {
@@ -65,6 +68,7 @@ public class UIManage : MonoBehaviour {
     {
         MusicCheck = true;
         SoundCheck = true;
+        TryLimit.gameObject.SetActive(false);
 
     }
     public void MusicSwitch()
@@ -178,19 +182,31 @@ public class UIManage : MonoBehaviour {
         GameObject.Find("HNumber").GetComponent<Text>().text = "     " + GameManager.mGameManager.GetHighScore().ToString();
     }
 
-    public void UpdateNextLevel(int l)
+    public void UpdateNextLevel(int l)//----------------------------------------------------Rafel
     {
-        GameObject.Find("NextLevel").GetComponent<Text>().text = l.ToString();
+        nextLevel.text = l.ToString();
     }
 
-    public void UpdateShapesTry(int n)
+    public void UpdateShapesTry(int n)//----------------------------------------------------Rafel
     {
-        GameObject.Find("shapesTry").GetComponent<Text>().text = n.ToString();
+        if (TryLimit.gameObject.activeInHierarchy)
+        {
+            TryLimit.gameObject.SetActive(false);
+        }
+
+        TryLimit.gameObject.SetActive(true);
+        TryLimit.text = n.ToString();
+        Invoke("DeactiveShapesTry", 1);
     }
 
-    public void UpdateShapesTimeLimit(float timeLimit)
+    public void DeactiveShapesTry()
     {
-        GameObject.Find("ShapeTLimit").GetComponent<Text>().text = Mathf.FloorToInt(timeLimit % 60f).ToString();
+        TryLimit.gameObject.SetActive(false);
+    }
+
+    public void UpdateShapesTimeLimit(float timeLimit)//----------------------------------------------------Rafel
+    {
+        ShapeTimeLimit.text = Mathf.FloorToInt(timeLimit % 60f).ToString();
     }
     void Update()
     {
