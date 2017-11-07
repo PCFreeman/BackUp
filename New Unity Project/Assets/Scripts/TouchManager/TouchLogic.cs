@@ -55,6 +55,8 @@ public class TouchLogic
         LShapeTopRight,
         LShapeTopLeft,
 
+        Trapezoid642Top,
+
         CShapeRight,
         CShapeUp,
         CShapeLeft,
@@ -171,6 +173,12 @@ public class TouchLogic
                 break;
             case Shapes.LShapeTopLeft:
                 return CheckLShape(ref points, true, true);
+                break;
+            case Shapes.Trapezoid642Top:
+                return CheckTrapezoid(ref points,0,6,4,2);
+                break;
+                
+
 
             //Add all C shapes - Peter
             case Shapes.CShapeRight:
@@ -1638,30 +1646,41 @@ public class TouchLogic
 
             bool check = false;
             //Check y distance
-            for(int i = 1; i < baseDotsNum - 1; ++i)
+            for(int i = 1, j = Lines.Count - 2; i < baseDotsNum - 1; ++i)
             { 
                 //Check first side
-                while(!check)
+                if(!check && (Lines[0][i].transform.position.y - Lines[i][0].transform.position.y) != (distanceBetweenPoints * i))
                 {
+                    return false;
+                }
 
-                    //Check for top dots
-                    if(Lines.Count - 1 == i)
+                //Check for top dots
+                if(Lines.Count - 1 == i)
+                {
+                    int temp = i;
+
+                    while( i != (temp + (topDotsNum)))
                     {
-                        int temp = i;
+                        //Check Top side (in this case bottom)
+                        if (check && (Lines[0][i].transform.position.y - Lines[temp][1].transform.position.y) != (distanceBetweenPoints * temp))
+                        {
+                            return false;
+                        }
 
-                        //while( i != (temp + (topDotsNum - 1)))
-
+                        ++i;
                     }
 
+                    check = true;
                 }
-                
+
+
+                //Check second side
+                if (check && (Lines[0][i].transform.position.y - Lines[j][1].transform.position.y) != (distanceBetweenPoints * j))
+                {
+                    return false;
+                }
             }
-
-
         }
-
-
-
         return true;
     }
 
