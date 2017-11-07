@@ -50,10 +50,16 @@ public class TouchLogic
         Diamond2x2,
         Diamond3x3,
 
+        LShapeBottomRight,
+        LShapeBottomLeft,
+        LShapeTopRight,
+        LShapeTopLeft,
+
         CShapeRight,
         CShapeUp,
         CShapeLeft,
         CShapeDown
+
 
 
         //Add here all shapes of our game
@@ -153,6 +159,18 @@ public class TouchLogic
             case Shapes.Rectangle4x3:
                 return CheckRectangle(ref points, 4, 3);
                 break;
+
+            case Shapes.LShapeBottomRight:
+                return CheckLShape(ref points, false, false);
+                break;
+            case Shapes.LShapeBottomLeft:
+                return CheckLShape(ref points, false, true);
+                break;
+            case Shapes.LShapeTopRight:
+                return CheckLShape(ref points, true, false);
+                break;
+            case Shapes.LShapeTopLeft:
+                return CheckLShape(ref points, true, true);
 
             //Add all C shapes - Peter
             case Shapes.CShapeRight:
@@ -985,6 +1003,8 @@ public class TouchLogic
 
         }
 
+        Lines.Sort(sortListY);
+
         for (int i = 0; i < numSidePoints; ++i)
         {
             Lines[i].Sort(sortLine);
@@ -1324,6 +1344,316 @@ public class TouchLogic
         return true;
     }
 
+    private bool CheckLShape(ref List<GameObject> points, bool isTop, bool isLeft)
+    {
+
+        float distanceBetweenPoints = PointsManager.mPointsManager.GetDistanceBetweenLinePoints();
+
+        //Check number of points
+        if (points.Count != 19 ) //Hard coded because their is no plan for other size LShape
+        {
+            return false;
+        }
+
+        //Check if shape was closed
+        if (points[0].transform.position != points[points.Count - 1].transform.position)
+        {
+            return false;
+        }
+
+        List<List<GameObject>> Lines = new List<List<GameObject>>();
+
+
+        //Initialize Lines list
+        for (int i = 0; i < (points.Count - 1); ++i)
+        {
+
+            for (int j = 0; j < PointsManager.mPointsManager.numberLines; ++j)
+            {
+                if (Lines.Count == j)
+                {
+                    Lines.Add(new List<GameObject>());
+                    Lines[j].Add(points[i]);
+                    
+                    break;
+                }
+                else if (points[i].transform.position.y == Lines[j][0].transform.position.y)
+                {
+                    Lines[j].Add(points[i]);
+                    break;
+                }
+
+            }
+
+        }
+
+        //Sort Lines
+        Lines.Sort(sortListY);
+        
+        
+
+        //Sort all lines
+        foreach (List<GameObject> line in Lines)
+        {
+            line.Sort(sortLine);
+        }
+
+
+        //Top 
+        if (isTop)
+        {
+            //Check lines size
+            for (int i = 0; i < Lines.Count; ++i)
+            {
+                if (i >= 2 && i < Lines.Count)
+                {
+                    if (Lines[i].Count != 2)
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (Lines[i].Count != 6)
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        else //Bottom
+        {
+
+            //Check lines size
+            for (int i = 0; i < Lines.Count; ++i)
+            {
+                if (i >= 0 && i < 3)
+                {
+                    if (Lines[i].Count != 2)
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (Lines[i].Count != 6)
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        //Left
+        if (isLeft)
+        {
+            for (int i = 1; i < Lines.Count; ++i)
+            {
+                if (Lines[0][0].transform.position.x != Lines[i][0].transform.position.x &&
+                   Lines[0][1].transform.position.x != Lines[i][1].transform.position.x)
+                {
+                    return false;
+                }
+            }
+
+
+            //Check y position
+            for (int i = 0; i < Lines.Count - 1; ++i)
+            {
+                for (int j = 0; j < Lines[i].Count; ++j)
+                {
+                    if(j == 2 && i == 1)
+                    {
+                        break;
+                    }
+
+                    if((Lines[i][j].transform.position.y - Lines[i + 1][j].transform.position.y) != distanceBetweenPoints)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+        }
+        else //Right
+        {
+            for (int i = 1; i < Lines.Count; ++i)
+            {
+                if (Lines[0][Lines[0].Count - 2].transform.position.x != Lines[i][Lines[i].Count - 2].transform.position.x &&
+                   Lines[0][Lines[0].Count - 1].transform.position.x != Lines[i][Lines[i].Count - 1].transform.position.x)
+                {
+                    return false;
+                }
+            }
+
+            //Check y position
+            for (int i = 0; i < Lines.Count - 1; ++i)
+            {
+                for (int j = 0; j < Lines[i].Count; ++j)
+                {
+                    if (Lines[i].Count < Lines[i+1].Count)
+                    {
+                        if ((Lines[i][j].transform.position.y - Lines[i + 1][Lines[i + 1].Count - 2 + j].transform.position.y) != distanceBetweenPoints)
+                        {
+                            return false;
+                        }                        
+                    }
+
+                    if (Lines[i].Count > Lines[i + 1].Count)
+                    {
+                        if(j == Lines[i +1].Count)
+                        {
+                            break;
+                        }
+
+                        if ((Lines[i][j].transform.position.y - Lines[i + 1][Lines[i + 1].Count - 2 + j].transform.position.y) != distanceBetweenPoints)
+                        {
+                            return false;
+                        }                        
+                    }
+
+                    if ((Lines[i][j].transform.position.y - Lines[i + 1][j].transform.position.y) != distanceBetweenPoints)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+
+        }
+
+
+        //Check x position
+        foreach(List<GameObject> line in Lines)
+        {
+            for(int i = 0; i < line.Count -1; ++i)
+            {
+                if((line[i + 1].transform.position.x - line[i].transform.position.x) != distanceBetweenPoints)
+                {
+                    return false;
+                }
+            }
+        }
+            return true;
+    }
+
+    private bool CheckTrapezoid(ref List<GameObject> points, int direction, int baseDotsNum, int topDotsNum, int height)
+    {
+        //Direction:
+        // 0 : Top
+        // 1 : Bottom
+        // 2 : Left
+        // 3 : Right
+
+        Debug.Assert(direction <= 3 , "[Check Trapezoid] wrong direction!");
+
+        float distanceBetweenPoints = PointsManager.mPointsManager.GetDistanceBetweenLinePoints();
+
+        //Check number of points
+        if (points.Count != (baseDotsNum + topDotsNum + ((height - 2) * 2)) + 1) 
+        {
+            return false;
+        }
+
+        //Check if shape was closed
+        if (points[0].transform.position != points[points.Count - 1].transform.position)
+        {
+            return false;
+        }
+
+        List<List<GameObject>> Lines = new List<List<GameObject>>();
+
+
+        //Initialize Lines list
+        for (int i = 0; i < (points.Count - 1); ++i)
+        {
+
+            for (int j = 0; j < PointsManager.mPointsManager.numberLines; ++j)
+            {
+                if (Lines.Count == j)
+                {
+                    Lines.Add(new List<GameObject>());
+                    Lines[j].Add(points[i]);
+
+                    break;
+                }
+                else if (points[i].transform.position.y == Lines[j][0].transform.position.y)
+                {
+                    Lines[j].Add(points[i]);
+                    break;
+                }
+
+            }
+
+        }
+
+        //Sort Lines
+        Lines.Sort(sortListY);
+
+
+
+        //Sort all lines
+        foreach (List<GameObject> line in Lines)
+        {
+            line.Sort(sortLine);
+        }
+
+        if(direction == 0) //Top
+        {
+            //check dots in each line
+            for(int i = 0; i < Lines.Count; ++i)
+            {
+                if(i == 0 && Lines[i].Count != baseDotsNum)
+                {
+                    return false;
+                }
+                else if (i == (Lines.Count - 1) && Lines[i].Count != topDotsNum)
+                {
+                    return false;
+                }
+                else if (Lines[i].Count != 2)
+                {
+                    return false;
+                }
+            }
+
+            //check x distance
+            for (int i = 0; i < Lines.Count; ++i)
+            {
+                for(int j = 0; j < Lines[i].Count -1;++j)
+                {
+                    if(( i == 0 || i == Lines.Count -1 ) &&
+                        ((Lines[i][j + 1].transform.position.x - Lines[i][j].transform.position.x) != distanceBetweenPoints))
+                    {
+                        return false;
+                    }
+
+                    if ((i > 0 && i < Lines.Count - 1) &&
+                        ((Lines[i][j + 1].transform.position.x - Lines[i][j].transform.position.x) != (distanceBetweenPoints * (baseDotsNum -(1 +( 2 * i))))))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            //Check y distance
+            ////////////////////////////////////int m
+            //Right side
+            ////////////////////for(int i = ; i < baseDotsNum - 1; ++i)
+            ////////////////////{
+            ////////////////////    
+            ////////////////////}
+
+
+        }
+
+
+
+        return true;
+    }
+
+
+
     private bool CheckCShapeSide(ref List<GameObject> playerPoints)
     {
         int mCountLine0 = 0;
@@ -1340,7 +1670,7 @@ public class TouchLogic
             return false;
         }
 
-        //Check if shape was closed
+
         if (playerPoints[0].transform.position != playerPoints[playerPoints.Count - 1].transform.position)
         {
             return false;
@@ -1420,9 +1750,7 @@ public class TouchLogic
             }
             else
             {
-                // ...and GO2 is not null, compare the 
-                // lengths of the two strings.
-                //
+                
                 if (GO1.transform.position.x > GO2.transform.position.x)
                 {
                     return 1;
