@@ -1624,12 +1624,12 @@ public class TouchLogic
             line.Sort(sortLine);
         }
 
-        if(direction == 0) //Top
+        if (direction == 0) //Top
         {
             //check dots in each line
-            for(int i = 0; i < Lines.Count; ++i)
+            for (int i = 0; i < Lines.Count; ++i)
             {
-                if(i == 0 && Lines[i].Count != baseDotsNum)
+                if (i == 0 && Lines[i].Count != baseDotsNum)
                 {
                     return false;
                 }
@@ -1646,16 +1646,16 @@ public class TouchLogic
             //check x distance
             for (int i = 0; i < Lines.Count; ++i)
             {
-                for(int j = 0; j < Lines[i].Count -1;++j)
+                for (int j = 0; j < Lines[i].Count - 1; ++j)
                 {
-                    if(( i == 0 || i == Lines.Count -1 ) &&
+                    if ((i == 0 || i == Lines.Count - 1) &&
                         ((Lines[i][j + 1].transform.position.x - Lines[i][j].transform.position.x) != distanceBetweenPoints))
                     {
                         return false;
                     }
 
                     if ((i > 0 && i < Lines.Count - 1) &&
-                        ((Lines[i][j + 1].transform.position.x - Lines[i][j].transform.position.x) != (distanceBetweenPoints * (baseDotsNum -(1 +( 2 * i))))))
+                        ((Lines[i][j + 1].transform.position.x - Lines[i][j].transform.position.x) != (distanceBetweenPoints * (baseDotsNum - (1 + (2 * i))))))
                     {
                         return false;
                     }
@@ -1664,23 +1664,23 @@ public class TouchLogic
 
             bool check = false;
             //Check y distance
-            for(int i = 1, j = Lines.Count - 2; i < baseDotsNum - 1; ++i)
-            { 
+            for (int i = 1, j = Lines.Count - 2; i < baseDotsNum - 1; ++i)
+            {
                 //Check first side
-                if(!check && (Lines[0][i].transform.position.y - Lines[i][0].transform.position.y) != (distanceBetweenLines * i))
+                if (!check && (Lines[0][i].transform.position.y - Lines[i][0].transform.position.y) != (distanceBetweenLines * i))
                 {
                     return false;
                 }
 
                 //Check for top dots
-                if(Lines.Count - 1 == i)
+                if (Lines.Count - 1 == i)
                 {
                     int temp = i;
 
-                    while( i != (temp + (topDotsNum)))
+                    while (i != (temp + (topDotsNum)))
                     {
                         //Check Top side (in this case bottom)
-                        if (check && (Lines[0][i].transform.position.y - Lines[temp][1].transform.position.y) != (distanceBetweenLines * temp))
+                        if ((Lines[0][i].transform.position.y - Lines[temp][i - temp].transform.position.y) != (distanceBetweenLines * temp))
                         {
                             return false;
                         }
@@ -1693,7 +1693,88 @@ public class TouchLogic
 
 
                 //Check second side
-                if (check && (Lines[0][i].transform.position.y - Lines[j][1].transform.position.y) != (distanceBetweenLines * j))
+                if (check && (Lines[0][i].transform.position.y - Lines[j][1].transform.position.y) != (distanceBetweenLines * j--))
+                {
+                    return false;
+                }
+            }
+        }
+        else if (direction == 1)  //Bottom
+        {
+            //check dots in each line
+            for (int i = 0; i < Lines.Count; ++i)
+            {
+                if (i == (Lines.Count - 1) && Lines[i].Count != baseDotsNum)
+                {
+                    return false;
+                }
+                else if (i == 0 && Lines[i].Count != topDotsNum)
+                {
+                    return false;
+                }
+                else if (i != 0 && i != (Lines.Count - 1) && Lines[i].Count != 2)
+                {
+                    return false;
+                }
+            }
+
+            int multi = topDotsNum + 1;
+            //check x distance
+            for (int i = 0; i < Lines.Count; ++i)
+            {
+
+                for (int j = 0; j < Lines[i].Count - 1; ++j)
+                {
+                    if ((i == 0 || i == Lines.Count - 1) &&
+                        ((Lines[i][j + 1].transform.position.x - Lines[i][j].transform.position.x) != distanceBetweenPoints))
+                    {
+                        return false;
+                    }
+
+
+                    if ((i > 0 && i < Lines.Count - 1) &&
+                        ((Lines[i][j + 1].transform.position.x - Lines[i][j].transform.position.x) != (distanceBetweenPoints * (multi))))
+                    {
+                        return false;
+                    }
+                    else if (i > 0 && i < Lines.Count - 1)
+                    {
+                        multi += 2;
+                    }
+                }
+            }
+
+            bool check = false;
+            //Check y distance
+            for (int i = 1, j = Lines.Count - 2; i < baseDotsNum - 1; ++i)
+            {
+                //Check first side
+                if (!check && (Lines[i][0].transform.position.y - Lines[Lines.Count - 1][i].transform.position.y) != (distanceBetweenLines * i))
+                {
+                    return false;
+                }
+
+                //Check for top dots
+                if (Lines.Count - 1 == i)
+                {
+                    int temp = i;
+
+                    while (i != (temp + (topDotsNum)))
+                    {
+                        //Check Top side (in this case bottom)
+                        if ((Lines[temp][i - temp].transform.position.y - Lines[Lines.Count - 1][i].transform.position.y) != (distanceBetweenLines * temp))
+                        {
+                            return false;
+                        }
+
+                        ++i;
+                    }
+
+                    check = true;
+                }
+
+                //Check second side
+                if (check && (Lines[j][1].transform.position.y - Lines[Lines.Count - 1][i].transform.position.y) != (distanceBetweenLines * j--))
                 {
                     return false;
                 }
