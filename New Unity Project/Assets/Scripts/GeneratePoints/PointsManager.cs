@@ -144,7 +144,6 @@ public class PointsManager : MonoBehaviour {
         }     
     }
 
-
     public float GetDistanceBetweenLinePoints()
     {
         return points[0][1].transform.position.x - points[0][0].transform.position.x;

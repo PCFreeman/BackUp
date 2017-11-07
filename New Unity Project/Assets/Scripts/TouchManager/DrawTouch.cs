@@ -182,7 +182,7 @@ public class DrawTouch : MonoBehaviour {
 
 
             // Check if the line makes the corect shape
-            //if (TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchLogic.Shapes.LShapeTopLeft, ref TouchManager.mTouchManager.pointsSelected))
+            //if (TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchLogic.Shapes.Trapezoid422Top, ref TouchManager.mTouchManager.pointsSelected))
             if(TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().GetShpeType(), ref TouchManager.mTouchManager.pointsSelected))
             {
 
@@ -235,7 +235,7 @@ public class DrawTouch : MonoBehaviour {
             {
                 Debug.Log("Wrong Shape");
 
-                AudioController.sInstance.ErrorSFX();
+                //AudioController.sInstance.ErrorSFX();
 
                 //Destroi the line , may add some stuff in future to make player know that made mistake
                 //Destroy(thisLine);
