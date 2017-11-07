@@ -35,6 +35,7 @@ public class UIManage : MonoBehaviour {
     public Text TryLimit;
     public Text nextLevel;
     public Text ShapeTimeLimit;
+    private int current;
 
     private void Awake()
     {
@@ -189,14 +190,20 @@ public class UIManage : MonoBehaviour {
 
     public void UpdateShapesTry(int n)//----------------------------------------------------Rafel
     {
-        if (TryLimit.gameObject.activeInHierarchy)
+        if (current < 0)
         {
-            TryLimit.gameObject.SetActive(false);
+            current = n;
         }
 
+        if(current!=n)
+        {
         TryLimit.gameObject.SetActive(true);
         TryLimit.text = n.ToString();
         Invoke("DeactiveShapesTry", 1);
+            current = n;
+        }
+
+       
     }
 
     public void DeactiveShapesTry()
