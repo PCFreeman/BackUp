@@ -260,9 +260,9 @@ public class DrawTouch : MonoBehaviour {
             Destroy(thisLine);
         }
 
-        LevelManager.mLevelManager.UpdateNextLevel();
-        LevelManager.mLevelManager.UpdateShapesTry();
-        LevelManager.mLevelManager.UpdateShapesTimeLimit(timeLimit);
+        UIManage.instance.UpdateNextLevel(LevelManager.mLevelManager.GetToNext());
+        UIManage.instance.UpdateShapesTry(LevelManager.mLevelManager.GetNumTry());
+        UIManage.instance.UpdateShapesTimeLimit(timeLimit);
 
         DecrementTime();
     }
@@ -335,8 +335,7 @@ public class DrawTouch : MonoBehaviour {
             TouchManager.mTouchManager.pointsSelected.Clear();
 
             LevelManager.mLevelManager.DecreaseShapesTry();
-
-            Debug.Assert(false,"Shape time finished");
+                       
 
             AnimationMagager.mAnimation.ShapeMoveOut(TouchManager.mTouchManager.GetShapesIniatialized());
             TouchManager.mTouchManager.DeleteCurrentShape(false); //Delete current shape and Instantiate a new one
