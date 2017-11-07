@@ -1636,13 +1636,26 @@ public class TouchLogic
                 }
             }
 
+            bool check = false;
             //Check y distance
-            ////////////////////////////////////int m
-            //Right side
-            ////////////////////for(int i = ; i < baseDotsNum - 1; ++i)
-            ////////////////////{
-            ////////////////////    
-            ////////////////////}
+            for(int i = 1; i < baseDotsNum - 1; ++i)
+            { 
+                //Check first side
+                while(!check)
+                {
+
+                    //Check for top dots
+                    if(Lines.Count - 1 == i)
+                    {
+                        int temp = i;
+
+                        //while( i != (temp + (topDotsNum - 1)))
+
+                    }
+
+                }
+                
+            }
 
 
         }

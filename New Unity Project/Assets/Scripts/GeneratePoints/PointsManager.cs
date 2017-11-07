@@ -24,10 +24,11 @@ public class PointsManager : MonoBehaviour {
     private float ScreenYOffset;
 
     private int baseScreenResolutionHeight = 540;
-    private int pointsAreaHeightPadding = 0;
+    private int pointsAreaHeightPadding = 100;
     private float areaOffset;
     private float squaredAreaSize;
     private float pointsAreaWidth;
+    private float maxAreaWidth;
 
     private float paddingLine = 10.5f;
     private float lineHeight;
@@ -37,6 +38,9 @@ public class PointsManager : MonoBehaviour {
     private int sizePoint;
 
     private float startingXposition = -65;
+    private float startingYposition = -40;
+    private float posXoffset;
+    private float posYoffset;
 
 
     private void Awake()
@@ -63,6 +67,13 @@ public class PointsManager : MonoBehaviour {
         //Set y offset
         ScreenYOffset = Screen.height / GameObject.Find("Canvas").GetComponent<CanvasScaler>().referenceResolution.y;
         Debug.Log("Y = " + ScreenYOffset.ToString() + "    X = " + ScreenXOffset.ToString());
+
+        //Center pos offset
+        posXoffset = (startingXposition * 0.25f);
+        posYoffset = (startingYposition * ScreenYOffset);
+
+        //Max Area Width
+        maxAreaWidth = 600.0f * ScreenYOffset;
     }
     
 
@@ -96,13 +107,13 @@ public class PointsManager : MonoBehaviour {
         areaOffset = (GameObject.Find("Canvas").GetComponent<RectTransform>().rect.height) / 540.0f;
         
         //Lines Variables
-        lineHeight = (baseScreenResolutionHeight - pointsAreaHeightPadding) / numberLines;
+        lineHeight = ((baseScreenResolutionHeight - pointsAreaHeightPadding) * areaOffset) / numberLines;
  
         //Points Variables
         sizePoint = (int)(lineHeight * 0.7f);
 
         //Variables to set Points positions in a Line
-        emptyLineAreaSize = ((int)((baseScreenResolutionHeight - 10.0) - (2 * paddingLine)) - (numberPointsInLine * sizePoint)) / (numberPointsInLine - 1);
+        emptyLineAreaSize = ((int)(((baseScreenResolutionHeight - pointsAreaHeightPadding) * areaOffset )- (2 * paddingLine)) - (numberPointsInLine * sizePoint)) / (numberPointsInLine - 1);
 
         //Size if Area was squared
         squaredAreaSize = (baseScreenResolutionHeight - pointsAreaHeightPadding) * areaOffset;
@@ -179,11 +190,11 @@ public class PointsManager : MonoBehaviour {
     {    
 
         //Instantiate Points container
-        pointsArea = (GameObject)Instantiate(pointsAreaPrefab, new Vector3(Mathf.RoundToInt(startingXposition * ScreenXOffset), 0, -20), Quaternion.identity);
+        pointsArea = (GameObject)Instantiate(pointsAreaPrefab, new Vector3(Mathf.RoundToInt((startingXposition - posXoffset) * ScreenXOffset), posYoffset, -20), Quaternion.identity);
 
         pointsArea.name = "Points Area";
 
-        pointsArea.GetComponent<BoxCollider>().size = new Vector3((pointsAreaWidth - pointsAreaHeightPadding) * areaOffset,
+        pointsArea.GetComponent<BoxCollider>().size = new Vector3(pointsAreaWidth,
             (baseScreenResolutionHeight - pointsAreaHeightPadding) * areaOffset,
             pointsArea.GetComponent<BoxCollider>().size.z);
     }
@@ -199,7 +210,7 @@ public class PointsManager : MonoBehaviour {
             for (int i = 0; i < numberLines; ++i)
             {
                 //Instantiate Line
-                GameObject line = (GameObject)Instantiate(pointsLinesPrefab, new Vector3(startingXposition, 0, -20), Quaternion.identity);
+                GameObject line = (GameObject)Instantiate(pointsLinesPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), posYoffset, -20), Quaternion.identity);
 
                 //Set it as child of pointsArea
                 line.transform.parent = GameObject.Find("Points Area").transform;
@@ -250,7 +261,7 @@ public class PointsManager : MonoBehaviour {
 
 
                 //Instantiate Line
-                GameObject line = (GameObject)Instantiate(pointsLinesPrefab, new Vector3(startingXposition, 0, -20), Quaternion.identity);
+                GameObject line = (GameObject)Instantiate(pointsLinesPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), posYoffset, -20), Quaternion.identity);
 
                 //Set it as child of pointsArea
                 line.transform.parent = GameObject.Find("Points Area").transform;
@@ -258,7 +269,7 @@ public class PointsManager : MonoBehaviour {
                 line.name = "Line " + i.ToString();
 
                 //Set line size
-                line.GetComponent<BoxCollider>().size = new Vector3((int)((baseScreenResolutionHeight - 10.0) - (2 * paddingLine)), lineHeight, line.GetComponent<BoxCollider>().size.z);
+                line.GetComponent<BoxCollider>().size = new Vector3((int)((pointsAreaWidth - 10.0) - (2 * paddingLine)), lineHeight, line.GetComponent<BoxCollider>().size.z);
 
                 int yOffset = (int)((lineHeight * 0.5) + (lineHeight * lineCheck));
 
@@ -291,7 +302,7 @@ public class PointsManager : MonoBehaviour {
             {
 
                 //Instantiate Point
-                GameObject pointTemp = (GameObject)Instantiate(pointsPrefab, new Vector3(startingXposition, 0, -20), Quaternion.identity);
+                GameObject pointTemp = (GameObject)Instantiate(pointsPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), 0, -20), Quaternion.identity);
 
                 //Set it as child of Line
                 pointTemp.transform.parent = line.transform;
@@ -337,7 +348,7 @@ public class PointsManager : MonoBehaviour {
 
 
                 //Instantiate Point
-                GameObject pointTemp = (GameObject)Instantiate(pointsPrefab, new Vector3(startingXposition, 0, -20), Quaternion.identity);
+                GameObject pointTemp = (GameObject)Instantiate(pointsPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), 0, -20), Quaternion.identity);
 
                 //Set it as child of Line
                 pointTemp.transform.parent = line.transform;
@@ -369,23 +380,17 @@ public class PointsManager : MonoBehaviour {
 
     private void CheckPossibilityOfNewColumn(float distanceBetweenPoints)
     {
-        float timeWidth = GameObject.Find("Time").GetComponent<RectTransform>().rect.width;
-        float maxWidth = 650;
 
-        if ((squaredAreaSize + distanceBetweenPoints) > maxWidth)
+        if ((squaredAreaSize + distanceBetweenPoints) > maxAreaWidth)
         {
             return;
         }
 
-        float floatNumberPointsInLine = (maxWidth - squaredAreaSize) / distanceBetweenPoints;
+        float floatNumberPointsInLine = (maxAreaWidth - squaredAreaSize) / distanceBetweenPoints;
 
         numberPointsInLine += (int)Mathf.Floor(floatNumberPointsInLine);
 
-
-
         pointsAreaWidth += distanceBetweenPoints * (numberPointsInLine - numberLines);
-
-
     }
 
     private int sortLine(GameObject GO1, GameObject GO2)
