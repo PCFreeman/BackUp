@@ -116,11 +116,11 @@ public class Firstscreen : MonoBehaviour {
     }
     public void PlayTimed()
     {
-        StartCoroutine(LoadingManager.instance.LoadingScreen(2));
+        StartCoroutine(LoadingManager.instance.LoadingScreen(3));
     }
     public void GotoTutorial()
     {
-       StartCoroutine(LoadingManager.instance.LoadingScreen(3));
+       StartCoroutine(LoadingManager.instance.LoadingScreen(2));
     }
     public void PlayChallenge()
     {
