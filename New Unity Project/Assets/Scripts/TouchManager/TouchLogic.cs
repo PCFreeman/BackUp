@@ -61,9 +61,12 @@ public class TouchLogic
         Trapezoid422Top,
 
         CShapeRight,
-        CShapeUp,
         CShapeLeft,
-        CShapeDown
+        CShapeUp,
+        CShapeDown,
+
+        OctagonShape22,
+        OctagonShape23
 
 
 
@@ -178,7 +181,7 @@ public class TouchLogic
                 return CheckLShape(ref points, true, true);
                 break;
             case Shapes.Trapezoid642Top:
-                return CheckTrapezoid(ref points,0,6,4,2);
+                return CheckTrapezoid(ref points, 0, 6, 4, 2);
                 break;
             case Shapes.Trapezoid623Top:
                 return CheckTrapezoid(ref points, 0, 6, 2, 3);
@@ -198,6 +201,15 @@ public class TouchLogic
             case Shapes.CShapeLeft:
                 return CheckCShapeSide(ref points);
                 break;
+            case Shapes.CShapeUp:
+                return CheckCShapeUp(ref points);
+            case Shapes.CShapeDown:
+                return CheckCShapeUp(ref points);
+
+            case Shapes.OctagonShape22:
+                return CheckOctagon22(ref points);
+            case Shapes.OctagonShape23:
+                return CheckOctagon23(ref points);
             default:
                 Debug.Log("[TouchLogic]Shape name does not exit.");
                 break;
@@ -1375,7 +1387,7 @@ public class TouchLogic
         float distanceBetweenLines = PointsManager.mPointsManager.GetDistanceBetweenLines();
 
         //Check number of points
-        if (points.Count != 19 ) //Hard coded because their is no plan for other size LShape
+        if (points.Count != 19) //Hard coded because their is no plan for other size LShape
         {
             return false;
         }
@@ -1399,7 +1411,7 @@ public class TouchLogic
                 {
                     Lines.Add(new List<GameObject>());
                     Lines[j].Add(points[i]);
-                    
+
                     break;
                 }
                 else if (points[i].transform.position.y == Lines[j][0].transform.position.y)
@@ -1414,8 +1426,8 @@ public class TouchLogic
 
         //Sort Lines
         Lines.Sort(sortListY);
-        
-        
+
+
 
         //Sort all lines
         foreach (List<GameObject> line in Lines)
@@ -1487,12 +1499,12 @@ public class TouchLogic
             {
                 for (int j = 0; j < Lines[i].Count; ++j)
                 {
-                    if(j == 2 && i == 1)
+                    if (j == 2 && i == 1)
                     {
                         break;
                     }
 
-                    if((Lines[i][j].transform.position.y - Lines[i + 1][j].transform.position.y) != distanceBetweenLines)
+                    if ((Lines[i][j].transform.position.y - Lines[i + 1][j].transform.position.y) != distanceBetweenLines)
                     {
                         return false;
                     }
@@ -1516,17 +1528,17 @@ public class TouchLogic
             {
                 for (int j = 0; j < Lines[i].Count; ++j)
                 {
-                    if (Lines[i].Count < Lines[i+1].Count)
+                    if (Lines[i].Count < Lines[i + 1].Count)
                     {
                         if ((Lines[i][j].transform.position.y - Lines[i + 1][Lines[i + 1].Count - 2 + j].transform.position.y) != distanceBetweenLines)
                         {
                             return false;
-                        }                        
+                        }
                     }
 
                     if (Lines[i].Count > Lines[i + 1].Count)
                     {
-                        if(j == Lines[i +1].Count)
+                        if (j == Lines[i + 1].Count)
                         {
                             break;
                         }
@@ -1534,7 +1546,7 @@ public class TouchLogic
                         if ((Lines[i][j].transform.position.y - Lines[i + 1][Lines[i + 1].Count - 2 + j].transform.position.y) != distanceBetweenLines)
                         {
                             return false;
-                        }                        
+                        }
                     }
 
                     if ((Lines[i][j].transform.position.y - Lines[i + 1][j].transform.position.y) != distanceBetweenLines)
@@ -1549,17 +1561,17 @@ public class TouchLogic
 
 
         //Check x position
-        foreach(List<GameObject> line in Lines)
+        foreach (List<GameObject> line in Lines)
         {
-            for(int i = 0; i < line.Count -1; ++i)
+            for (int i = 0; i < line.Count - 1; ++i)
             {
-                if((line[i + 1].transform.position.x - line[i].transform.position.x) != distanceBetweenPoints)
+                if ((line[i + 1].transform.position.x - line[i].transform.position.x) != distanceBetweenPoints)
                 {
                     return false;
                 }
             }
         }
-            return true;
+        return true;
     }
 
     private bool CheckTrapezoid(ref List<GameObject> points, int direction, int baseDotsNum, int topDotsNum, int height)
@@ -1570,13 +1582,13 @@ public class TouchLogic
         // 2 : Left
         // 3 : Right
 
-        Debug.Assert(direction <= 3 , "[Check Trapezoid] wrong direction!");
+        Debug.Assert(direction <= 3, "[Check Trapezoid] wrong direction!");
 
         float distanceBetweenPoints = PointsManager.mPointsManager.GetDistanceBetweenLinePoints();
         float distanceBetweenLines = PointsManager.mPointsManager.GetDistanceBetweenLines();
 
         //Check number of points
-        if (points.Count != (baseDotsNum + topDotsNum + ((height - 2) * 2)) + 1) 
+        if (points.Count != (baseDotsNum + topDotsNum + ((height - 2) * 2)) + 1)
         {
             return false;
         }
@@ -1792,7 +1804,8 @@ public class TouchLogic
         int mCountLine2 = 0;
         int mCountLine3 = 0;
         int mCountLine4 = 0;
-        float distanceBetweenPoints = PointsManager.mPointsManager.GetDistanceBetweenLinePoints();
+        float distanceBetweenPointsX = PointsManager.mPointsManager.GetDistanceBetweenLinePoints();
+        float distanceBetweenPointsY = PointsManager.mPointsManager.GetDistanceBetweenLines();
         List<GameObject> tempList = new List<GameObject>();
 
         //Check number of points
@@ -1800,7 +1813,6 @@ public class TouchLogic
         {
             return false;
         }
-
 
         if (playerPoints[0].transform.position != playerPoints[playerPoints.Count - 1].transform.position)
         {
@@ -1835,16 +1847,309 @@ public class TouchLogic
                 tempList.Add(playerPoints[i]);
                 mCountLine4++;
             }
-            if (Vector3.Distance(playerPoints[i].transform.position, playerPoints[i + 1].transform.position) != distanceBetweenPoints)
-                return false;
         }
 
+        //NEEDS TO CHANGE BACK! 
+        for (int i = 0; i < playerPoints.Count - 1; ++i)
+        {
+            float distanceX = Mathf.Abs(tempList[i].transform.position.x - tempList[i + 1].transform.position.x);
+            float distanceY = Mathf.Abs(tempList[i].transform.position.y - tempList[i + 1].transform.position.y);
+            if (distanceX == distanceBetweenPointsX || distanceY == distanceBetweenPointsY)
+                continue;
+            else
+                return false;
+        }
         if (mCountLine0 == 2 && mCountLine1 == 4 && mCountLine2 == 4 && mCountLine3 == 4 && mCountLine4 == 4)
             return true;
         else
             return false;
     }
 
+    private bool CheckCShapeUp(ref List<GameObject> playerPoints)
+    {
+        int mCountLine0 = 0;
+        int mCountLine1 = 0;
+        int mCountLine2 = 0;
+        int mCountLine3 = 0;
+        int mCountLine4 = 0;
+        float distanceBetweenPointsX = PointsManager.mPointsManager.GetDistanceBetweenLinePoints();
+        float distanceBetweenPointsY = PointsManager.mPointsManager.GetDistanceBetweenLines();
+        List<GameObject> tempList = new List<GameObject>();
+
+        //Check number of points
+        if (playerPoints.Count != 19)
+        {
+            return false;
+        }
+
+        if (playerPoints[0].transform.position != playerPoints[playerPoints.Count - 1].transform.position)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < playerPoints.Count - 1; ++i)
+        {
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[0][0].transform.position.y)
+            {
+                tempList.Add(playerPoints[i]);
+                mCountLine0++;
+            }
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[1][0].transform.position.y)
+            {
+                tempList.Add(playerPoints[i]);
+                mCountLine1++;
+            }
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[2][0].transform.position.y)
+            {
+                tempList.Add(playerPoints[i]);
+                mCountLine2++;
+            }
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[3][0].transform.position.y)
+            {
+                tempList.Add(playerPoints[i]);
+                mCountLine3++;
+            }
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[4][0].transform.position.y)
+            {
+                tempList.Add(playerPoints[i]);
+                mCountLine4++;
+            }
+        }
+
+        for (int i = 0; i < playerPoints.Count - 1; ++i)
+        {
+            float distanceX = Mathf.Abs(tempList[i].transform.position.x - tempList[i + 1].transform.position.x);
+            float distanceY = Mathf.Abs(tempList[i].transform.position.y - tempList[i + 1].transform.position.y);
+            if (distanceX == distanceBetweenPointsX || distanceY == distanceBetweenPointsY)
+                continue;
+            else
+                return false;
+        }
+
+        if (mCountLine3 == 0)
+        {
+            if (mCountLine0 == 4 && mCountLine1 == 5 && mCountLine2 == 4 && mCountLine4 == 4)
+                return true;
+        }
+
+        if (mCountLine4 == 0)
+        {
+            if (mCountLine0 == 4 && mCountLine1 == 4 && mCountLine2 == 4 && mCountLine3 == 5)
+                return true;
+        }
+
+        return false;
+    }
+    private bool CheckCShapeDown(ref List<GameObject> playerPoints)
+    {
+        int mCountLine0 = 0;
+        int mCountLine1 = 0;
+        int mCountLine2 = 0;
+        int mCountLine3 = 0;
+        int mCountLine4 = 0;
+        float distanceBetweenPointsX = PointsManager.mPointsManager.GetDistanceBetweenLinePoints();
+        float distanceBetweenPointsY = PointsManager.mPointsManager.GetDistanceBetweenLines();
+        List<GameObject> tempList = new List<GameObject>();
+
+        //Check number of points
+        if (playerPoints.Count != 19)
+        {
+            return false;
+        }
+
+        if (playerPoints[0].transform.position != playerPoints[playerPoints.Count - 1].transform.position)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < playerPoints.Count - 1; ++i)
+        {
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[0][0].transform.position.y)
+            {
+                tempList.Add(playerPoints[i]);
+                mCountLine0++;
+            }
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[1][0].transform.position.y)
+            {
+                tempList.Add(playerPoints[i]);
+                mCountLine1++;
+            }
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[2][0].transform.position.y)
+            {
+                tempList.Add(playerPoints[i]);
+                mCountLine2++;
+            }
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[3][0].transform.position.y)
+            {
+                tempList.Add(playerPoints[i]);
+                mCountLine3++;
+            }
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[4][0].transform.position.y)
+            {
+                tempList.Add(playerPoints[i]);
+                mCountLine4++;
+            }
+        }
+
+        for (int i = 0; i < playerPoints.Count - 1; ++i)
+        {
+            float distanceX = Mathf.Abs(tempList[i].transform.position.x - tempList[i + 1].transform.position.x);
+            float distanceY = Mathf.Abs(tempList[i].transform.position.y - tempList[i + 1].transform.position.y);
+            if (distanceX == distanceBetweenPointsX || distanceY == distanceBetweenPointsY)
+                continue;
+            else
+                return false;
+        }
+
+        if (mCountLine3 == 0)
+        {
+            if (mCountLine0 == 4 && mCountLine1 == 4 && mCountLine2 == 4 && mCountLine4 == 5)
+                return true;
+        }
+
+        if (mCountLine4 == 0)
+        {
+            if (mCountLine0 == 4 && mCountLine1 == 4 && mCountLine2 == 5 && mCountLine3 == 4)
+                return true;
+        }
+
+        return false;
+    }
+    private bool CheckOctagon22(ref List<GameObject> playerPoints)
+    {
+        int mCountLine0 = 0;
+        int mCountLine1 = 0;
+        int mCountLine2 = 0;
+        int mCountLine3 = 0;
+        int mCountLine4 = 0;
+        float distanceBetweenPoints = PointsManager.mPointsManager.GetDistanceBetweenLinePoints();
+        List<GameObject> tempList1 = new List<GameObject>();
+        List<GameObject> tempList2 = new List<GameObject>();
+        List<GameObject> tempList3 = new List<GameObject>();
+
+        //Check number of points
+        if (playerPoints.Count != 9)
+        {
+            return false;
+        }
+
+
+        if (playerPoints[0].transform.position != playerPoints[playerPoints.Count - 1].transform.position)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < playerPoints.Count - 1; ++i)
+        {
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[0][0].transform.position.y)
+            {
+                tempList1.Add(playerPoints[i]);
+                mCountLine0++;
+            }
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[1][0].transform.position.y)
+            {
+                tempList3.Add(playerPoints[i]);
+                mCountLine1++;
+            }
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[2][0].transform.position.y)
+            {
+                tempList2.Add(playerPoints[i]);
+                mCountLine2++;
+            }
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[3][0].transform.position.y)
+            {
+                mCountLine3++;
+            }
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[4][0].transform.position.y)
+            {
+                mCountLine4++;
+            }
+        }
+
+        if(mCountLine3 == 0)
+        {
+            if (Vector3.Distance(tempList1[0].transform.position, tempList1[1].transform.position) != distanceBetweenPoints * 3)
+                return false;
+            if (Vector3.Distance(tempList2[0].transform.position, tempList2[1].transform.position) != distanceBetweenPoints * 3)
+                return false;
+            if (mCountLine0 == 2 && mCountLine1 == 2 && mCountLine2 == 2 && mCountLine4 == 2)
+                return true;
+        }
+
+        if (mCountLine4 == 0)
+        {
+            if (Vector3.Distance(tempList1[0].transform.position, tempList1[1].transform.position) != distanceBetweenPoints * 3)
+                return false;
+            if (Vector3.Distance(tempList3[0].transform.position, tempList3[1].transform.position) != distanceBetweenPoints * 3)
+                return false;
+            if (mCountLine0 == 2 && mCountLine1 == 2 && mCountLine2 == 2 && mCountLine3 == 2)
+                return true;
+        }
+
+        return false;
+    }
+
+    private bool CheckOctagon23(ref List<GameObject> playerPoints)
+    {
+        int mCountLine0 = 0;
+        int mCountLine1 = 0;
+        int mCountLine2 = 0;
+        int mCountLine3 = 0;
+        int mCountLine4 = 0;
+        float distanceBetweenPoints = PointsManager.mPointsManager.GetDistanceBetweenLinePoints();
+        List<GameObject> tempList1 = new List<GameObject>();
+        List<GameObject> tempList2 = new List<GameObject>();
+        List<GameObject> tempList3 = new List<GameObject>();
+
+        //Check number of points
+        if (playerPoints.Count != 13)
+        {
+            return false;
+        }
+        if (playerPoints[0].transform.position != playerPoints[playerPoints.Count - 1].transform.position)
+        {
+            return false;
+        }
+
+
+        for (int i = 0; i < playerPoints.Count - 1; ++i)
+        {
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[0][0].transform.position.y)
+            {
+                tempList1.Add(playerPoints[i]);
+                mCountLine0++;
+            }
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[1][0].transform.position.y)
+            {
+                tempList3.Add(playerPoints[i]);
+                mCountLine1++;
+            }
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[2][0].transform.position.y)
+            {
+                tempList2.Add(playerPoints[i]);
+                mCountLine2++;
+            }
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[3][0].transform.position.y)
+            {
+                mCountLine3++;
+            }
+            if (playerPoints[i].transform.position.y == PointsManager.mPointsManager.points[4][0].transform.position.y)
+            {
+                mCountLine4++;
+            }
+        }
+
+        if (Vector3.Distance(tempList1[0].transform.position, tempList1[1].transform.position) != distanceBetweenPoints * 4)
+            return false;
+        if (Vector3.Distance(tempList2[0].transform.position, tempList2[1].transform.position) != distanceBetweenPoints * 4)
+            return false;
+        if (Vector3.Distance(tempList3[0].transform.position, tempList3[1].transform.position) != distanceBetweenPoints * 4)
+            return false;
+        if (mCountLine0 == 2 && mCountLine1 == 2 && mCountLine2 == 2 && mCountLine3 == 3 && mCountLine4 == 3)
+            return true;
+
+        return false;
+    }
 
     //=========================================================================
     //========================  Support Functions  ============================
@@ -1881,7 +2186,7 @@ public class TouchLogic
             }
             else
             {
-                
+
                 if (GO1.transform.position.x > GO2.transform.position.x)
                 {
                     return 1;
