@@ -34,6 +34,7 @@ public class Firstscreen : MonoBehaviour {
         //mAudio = GameObject.Find ("SFX").GetComponent<AudioController> ();
         MusicCheck = true;
         SoundCheck = true;
+        Time.timeScale = 1f;
     }
 
     public void ModBack()

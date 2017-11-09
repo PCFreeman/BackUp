@@ -106,11 +106,13 @@ public class TUIManage : MonoBehaviour {
     }
     public void BacktoMainMenu()
     {
+        Time.timeScale = 1f;
         StartCoroutine(LoadingManager.instance.LoadingScreen(0));
 
     }
     public void Retry()
     {
+        Time.timeScale = 1f;
         StartCoroutine(LoadingManager.instance.LoadingScreen(2));
     }
     public void AddScore(int pluse)
@@ -132,6 +134,7 @@ public class TUIManage : MonoBehaviour {
         {
             if (Input.GetMouseButtonDown(0))
             {
+                Time.timeScale = 1f;
                 StartCoroutine(LoadingManager.instance.LoadingScreen(0));
             }
         }

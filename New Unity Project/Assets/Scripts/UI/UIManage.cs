@@ -124,15 +124,17 @@ public class UIManage : MonoBehaviour {
         mG2.SetActive(true);
         Left.gameObject.SetActive(true);
         ShowScoreInGameOver(Score);
-
+        
     }
     public void BacktoMainMenuButton()
     {
+        Time.timeScale = 1f;
         StartCoroutine(LoadingManager.instance.LoadingScreen(0));
+        
     }
     public void Retry()
     {
-        StartCoroutine(LoadingManager.instance.LoadingScreen(2));
+        StartCoroutine(LoadingManager.instance.LoadingScreen(3));
     }
     public void AddScore(int pluse)
     {
