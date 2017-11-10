@@ -65,8 +65,8 @@ public class TouchLogic
         CShapeUp,
         CShapeDown,
 
-        OctagonShape22,
-        OctagonShape23
+        Octagon22,
+        Octagon23
 
 
 
@@ -206,9 +206,9 @@ public class TouchLogic
             case Shapes.CShapeDown:
                 return CheckCShapeUp(ref points);
 
-            case Shapes.OctagonShape22:
+            case Shapes.Octagon22:
                 return CheckOctagon22(ref points);
-            case Shapes.OctagonShape23:
+            case Shapes.Octagon23:
                 return CheckOctagon23(ref points);
             default:
                 Debug.Log("[TouchLogic]Shape name does not exit.");
