@@ -25,7 +25,7 @@ public class PointsManager : MonoBehaviour {
 
     private int baseScreenResolutionHeight = 540;
     private int pointsAreaHeightPadding = 100;
-    private float areaOffset;
+    //private float areaOffset;
     private float squaredAreaSize;
     private float pointsAreaWidth;
     private float maxAreaWidth;
@@ -73,7 +73,7 @@ public class PointsManager : MonoBehaviour {
         posYoffset = (startingYposition * ScreenYOffset);
 
         //Max Area Width
-        maxAreaWidth = 600.0f * ScreenYOffset;
+        maxAreaWidth = 600.0f * ScreenXOffset;
     }
     
 
@@ -104,19 +104,19 @@ public class PointsManager : MonoBehaviour {
         numberPointsInLine = numberLines;
         
         //PointArea variables
-        areaOffset = (GameObject.Find("Canvas").GetComponent<RectTransform>().rect.height) / 540.0f;
+        //areaOffset = (GameObject.Find("Canvas").GetComponent<RectTransform>().rect.height) / 540.0f;
         
         //Lines Variables
-        lineHeight = ((baseScreenResolutionHeight - pointsAreaHeightPadding) * areaOffset) / numberLines;
+        lineHeight = ((baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset) / numberLines;
  
         //Points Variables
         sizePoint = (int)(lineHeight * 0.7f);
 
         //Variables to set Points positions in a Line
-        emptyLineAreaSize = ((int)(((baseScreenResolutionHeight - pointsAreaHeightPadding) * areaOffset )- (2 * paddingLine)) - (numberPointsInLine * sizePoint)) / (numberPointsInLine - 1);
+        emptyLineAreaSize = ((int)(((baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset) - (2 * paddingLine)) - (numberPointsInLine * sizePoint)) / (numberPointsInLine - 1);
 
         //Size if Area was squared
-        squaredAreaSize = (baseScreenResolutionHeight - pointsAreaHeightPadding) * areaOffset;
+        squaredAreaSize = (baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset;
 
         pointsAreaWidth = squaredAreaSize;
 
@@ -151,9 +151,6 @@ public class PointsManager : MonoBehaviour {
 
     public float GetDistanceBetweenLines()
     {
-        //Debug.Log("P1  = " + points[2][0].transform.position.y.ToString() + points[2][0].transform.position.x.ToString());
-        //Debug.Log("P2  = " + points[0][0].transform.position.y.ToString() + points[0][0].transform.position.x.ToString());
-
         return points[2][0].transform.position.y - points[0][0].transform.position.y;
     }
 
@@ -189,12 +186,12 @@ public class PointsManager : MonoBehaviour {
     {    
 
         //Instantiate Points container
-        pointsArea = (GameObject)Instantiate(pointsAreaPrefab, new Vector3(Mathf.RoundToInt((startingXposition - posXoffset) * ScreenXOffset), posYoffset, -20), Quaternion.identity);
+        pointsArea = (GameObject)Instantiate(pointsAreaPrefab, new Vector3(Mathf.RoundToInt((startingXposition - posXoffset)), posYoffset, -20), Quaternion.identity);
 
         pointsArea.name = "Points Area";
 
         pointsArea.GetComponent<BoxCollider>().size = new Vector3(pointsAreaWidth,
-            (baseScreenResolutionHeight - pointsAreaHeightPadding) * areaOffset,
+            (baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset,
             pointsArea.GetComponent<BoxCollider>().size.z);
     }
 

@@ -35,8 +35,13 @@ public class UIManage : MonoBehaviour {
     public Text TryLimit;
     public Text nextLevel;
     public Text ShapeTimeLimit;
-    public int current;
-
+    int current;
+    string ShapeTryString;
+    public GameObject GrounpOfShapeTryDisplay;
+    public Image Single;
+    public Image Double1;
+    public Image Double2;
+    public Sprite[] NumberPool;
     private void Awake()
     {
         //Check if instance already exist
@@ -70,6 +75,7 @@ public class UIManage : MonoBehaviour {
         MusicCheck = true;
         SoundCheck = true;
         TryLimit.gameObject.SetActive(false);
+        current = -1;
 
     }
     public void MusicSwitch()
@@ -199,17 +205,98 @@ public class UIManage : MonoBehaviour {
 
         if (current != n)
         {
-            TryLimit.gameObject.SetActive(true);
-            TryLimit.text = n.ToString();
+            GrounpOfShapeTryDisplay.gameObject.SetActive(true);
+            PicForShapesTry(n);
             Invoke("DeactiveShapesTry", 1);
             current = n;
         }
 
     }
 
+    public void PicForShapesTry(int m)
+    {
+        if(m<10)
+        {
+            Double1.gameObject.SetActive(false);
+            Double2.gameObject.SetActive(false);
+            Single.gameObject.SetActive(true);
+            Single.sprite = NumberPool[m];
+        }
+        else if(m>9)
+        {
+            ShapeTryString = m.ToString();
+            Single.gameObject.SetActive(false);
+            Double1.gameObject.SetActive(true);
+            Double2.gameObject.SetActive(true);
+            switch (ShapeTryString[0])
+            {
+                case '1':
+                    Double1.sprite = NumberPool[1];
+                    break;
+                case '2':
+                    Double1.sprite = NumberPool[2];
+                    break;
+                case '3':
+                    Double1.sprite = NumberPool[3];
+                    break;
+                case '4':
+                    Double1.sprite = NumberPool[4];
+                    break;
+                case '5':
+                    Double1.sprite = NumberPool[5];
+                    break;
+                case '6':
+                    Double1.sprite = NumberPool[6];
+                    break;
+                case '7':
+                    Double1.sprite = NumberPool[7];
+                    break;
+                case '8':
+                    Double1.sprite = NumberPool[8];
+                    break;
+                case '9':
+                    Double1.sprite = NumberPool[9];
+                    break;
+            }
+            switch (ShapeTryString[1])
+            {
+                case '0':
+                    Double2.sprite = NumberPool[0];
+                    break;
+                case '1':
+                    Double2.sprite = NumberPool[1];
+                    break;
+                case '2':
+                    Double2.sprite = NumberPool[2];
+                    break;
+                case '3':
+                    Double2.sprite = NumberPool[3];
+                    break;
+                case '4':
+                    Double2.sprite = NumberPool[4];
+                    break;
+                case '5':
+                    Double2.sprite = NumberPool[5];
+                    break;
+                case '6':
+                    Double2.sprite = NumberPool[6];
+                    break;
+                case '7':
+                    Double2.sprite = NumberPool[7];
+                    break;
+                case '8':
+                    Double2.sprite = NumberPool[8];
+                    break;
+                case '9':
+                    Double2.sprite = NumberPool[9];
+                    break;
+            }
+        }
+
+    }
     public void DeactiveShapesTry()
     {
-        TryLimit.gameObject.SetActive(false);
+        GrounpOfShapeTryDisplay.gameObject.SetActive(false);
     }
 
     public void UpdateShapesTimeLimit(float timeLimit)//----------------------------------------------------Rafel
