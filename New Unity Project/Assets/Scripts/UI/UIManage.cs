@@ -31,7 +31,7 @@ public class UIManage : MonoBehaviour {
     public Button Soundbutton;
     private bool SoundCheck;
     public GameObject Touch;
-    private int Score;
+    public int Score;
     public Text TryLimit;
     public Text nextLevel;
     public Text ShapeTimeLimit;

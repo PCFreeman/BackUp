@@ -186,7 +186,7 @@ public class PointsManager : MonoBehaviour {
     {    
 
         //Instantiate Points container
-        pointsArea = (GameObject)Instantiate(pointsAreaPrefab, new Vector3(Mathf.RoundToInt((startingXposition - posXoffset)), posYoffset, -20), Quaternion.identity);
+        pointsArea = (GameObject)Instantiate(pointsAreaPrefab, new Vector3(Mathf.RoundToInt((startingXposition - posXoffset)), posYoffset, -50), Quaternion.identity);
 
         pointsArea.name = "Points Area";
 
@@ -206,7 +206,7 @@ public class PointsManager : MonoBehaviour {
             for (int i = 0; i < numberLines; ++i)
             {
                 //Instantiate Line
-                GameObject line = (GameObject)Instantiate(pointsLinesPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), posYoffset, -20), Quaternion.identity);
+                GameObject line = (GameObject)Instantiate(pointsLinesPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), posYoffset, -50), Quaternion.identity);
 
                 //Set it as child of pointsArea
                 line.transform.parent = GameObject.Find("Points Area").transform;
@@ -298,7 +298,7 @@ public class PointsManager : MonoBehaviour {
             {
 
                 //Instantiate Point
-                GameObject pointTemp = (GameObject)Instantiate(pointsPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), 0, -20), Quaternion.identity);
+                GameObject pointTemp = (GameObject)Instantiate(pointsPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), 0, -50), Quaternion.identity);
 
                 //Set it as child of Line
                 pointTemp.transform.parent = line.transform;

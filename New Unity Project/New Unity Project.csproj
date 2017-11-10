@@ -90,6 +90,7 @@
     <Compile Include="Assets\Scripts\Audio\AudioTest.cs" />
     <Compile Include="Assets\Scripts\Audio\EndlessBGM.cs" />
     <Compile Include="Assets\Scripts\Audio\MainBGM.cs" />
+    <Compile Include="Assets\Scripts\ComboSystem.cs" />
     <Compile Include="Assets\Scripts\DebugScript.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GeneratePoints\GeneratingPoints.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Assets\Scripts\GeneratePoints\PointsMovement.cs" />
     <Compile Include="Assets\Scripts\LevelSystem\Level.cs" />
     <Compile Include="Assets\Scripts\LevelSystem\LevelManager.cs" />
+    <Compile Include="Assets\Scripts\PurchaseSystem.cs" />
     <Compile Include="Assets\Scripts\Shapes.cs" />
     <Compile Include="Assets\Scripts\TouchManager for Tutorial\TDrawTouch.cs" />
     <Compile Include="Assets\Scripts\TouchManager for Tutorial\TLineCollider.cs" />
