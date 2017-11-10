@@ -55,10 +55,24 @@ public class TouchLogic
         LShapeTopRight,
         LShapeTopLeft,
 
+        LShape532BottomRight,
+        LShape532BottomLeft,
+
+        LShape352BottomLeft,
+        LShape352BottomRight,
+
+        LShape542BottomLeft,
+
+        LShape6523BottomLeft,
+
         Trapezoid642Top,
         Trapezoid623Top,
         Trapezoid532Top,
         Trapezoid422Top,
+        Trapezoid642Bottom,
+        Trapezoid623Bottom,
+        Trapezoid532Bottom,
+        Trapezoid422Bottom,
 
         CShapeRight,
         CShapeLeft,
