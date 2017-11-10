@@ -40,6 +40,9 @@ public class TouchManager : MonoBehaviour {
     public GameObject Rectangle3x2;
     public GameObject Rectangle4x3;
 
+    public GameObject Octagon22;
+    public GameObject Octagon23;
+
 
     //Touch Manager 
 
