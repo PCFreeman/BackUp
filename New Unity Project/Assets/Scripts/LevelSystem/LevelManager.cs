@@ -136,7 +136,12 @@ public class LevelManager : MonoBehaviour {
         return mNumOfShapesTry;
     }
 
-    
+    public void AddNumTry(int n)
+    {
+        mNumOfShapesTry = mNumOfShapesTry + n;
+    }
+
+
     public void UpdateNextLevel()
     {
         GameObject.Find("NextLevel").GetComponent<Text>().text = mNumShapesToNext.ToString();
