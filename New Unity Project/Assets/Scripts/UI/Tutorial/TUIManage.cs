@@ -25,6 +25,8 @@ public class TUIManage : MonoBehaviour {
     private bool MusicCheck;
     private int Score;
     public GameObject Touch;
+ 
+
 
     private void Awake()
     {
