@@ -29,7 +29,6 @@ public class TAnimationMagager : MonoBehaviour
     private List<int> digits;
     private List<int> digits2;
     public Animator myAnimator;
-    public GameObject Example;
     public float maxSize;
     public float growFactor;
     public float waitTime;
@@ -787,6 +786,10 @@ public class TAnimationMagager : MonoBehaviour
        // StartCoroutine(MoveShape(ShapeList[0], ShapeList[0].transform.position, ShapeList[0].transform.position + new Vector3(200,0,0),ShapeMoveSpeed));
         for (int i = 1; i < TTouchManager.mTTouchManager.GetNumShapesInstantied(); i++)
         {
+            if(i==1)
+            {
+                StartCoroutine(Scale(ShapeList[i]));
+            }
             StartCoroutine(MoveShape(ShapeList[i], ShapeList[i].transform.position,ShapeList[i].transform.position + new Vector3(0, 300, 0), ShapeMoveSpeed));
         }
     }
