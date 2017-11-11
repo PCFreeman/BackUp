@@ -10,6 +10,7 @@ public class PurchaseSystem : MonoBehaviour
     public int ChanceCost = 500;
     public int TimeGain = 5;
     public int ChanceGain = 2;
+
     // Use this for initialization
     void Start()
     {
