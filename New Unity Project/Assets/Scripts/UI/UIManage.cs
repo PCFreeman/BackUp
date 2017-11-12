@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class UIManage : MonoBehaviour {
 
     public static UIManage instance;
+    public static PurchaseSystem sinstance;
+    public static ComboSystem WoboCombo;
     public float timeLeft;
     public int TimeGain = 5;
     public int ChanceGain = 2;
@@ -81,7 +83,8 @@ public class UIManage : MonoBehaviour {
         SoundCheck = true;
         TryLimit.gameObject.SetActive(false);
         current = -1;
-
+        WoboCombo = GameObject.Find("WoboComboManager").GetComponent<ComboSystem>();
+        sinstance= GameObject.Find("PurchaseManager").GetComponent<PurchaseSystem>();
     }
     public void MusicSwitch()
     {
@@ -158,25 +161,17 @@ public class UIManage : MonoBehaviour {
     }
    public void MultiplierDisplay()
     {
-        MultplierDisplay.text = ComboSystem.instance.GetMultiplier().ToString();
+        MultplierDisplay.text = WoboCombo.GetMultiplier().ToString();
     }
 
     public void PurchaseTime()
     {
-        if (Score >= 500)
-        {
-           AddTime(TimeGain);
-            Score -= 500;
-        }
+        sinstance.PurchaseTime();
     }
 
     public void PurchasChance()
     {
-        if (Score >= 500)
-        {
-            LevelManager.mLevelManager.AddNumTry(ChanceGain);
-            Score -= 500;
-        }
+        sinstance.PurchaseChance();
     }
     public void OpenGameOverScreen()
     {
