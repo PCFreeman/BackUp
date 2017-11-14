@@ -15,10 +15,17 @@ public class PointsManager : MonoBehaviour {
     public GameObject pointsAreaPrefab;
     public GameObject pointsLinesPrefab;
     public GameObject pointsPrefab;
+    public GameObject selectedPointsPrefab;
 
     private GameObject pointsArea;
     private List<GameObject> pointsLines;       // This controls the lines structures, not content
     public List<List<GameObject>> points;      //for [x][y]   ,  each X will represent a line and each Y will represent a point in a line X
+
+    private GameObject selectedPointsArea;
+    private List<GameObject> selectedPointsLines;
+    public List<List<GameObject>> selectedPoints;      //for [x][y]   ,  each X will represent a line and each Y will represent a point in a line X
+
+
 
     private float ScreenXOffset;
     private float ScreenYOffset;
@@ -75,7 +82,6 @@ public class PointsManager : MonoBehaviour {
         //Max Area Width
         maxAreaWidth = 600.0f * ScreenXOffset;
     }
-    
 
     // Use this for initialization
     void Start () {
@@ -93,6 +99,18 @@ public class PointsManager : MonoBehaviour {
 
 	}
 
+
+    public float GetScreenXOffset()
+    {
+        return ScreenXOffset;
+    }
+
+    public float GetScreenYOffset()
+    {
+        return ScreenYOffset;
+    }
+
+
     public int GetNumberOfHorizontalPoints()
     {
         return numberPointsInLine;
@@ -102,10 +120,7 @@ public class PointsManager : MonoBehaviour {
     private void GeneratePointsGrid()
     {
         numberPointsInLine = numberLines;
-        
-        //PointArea variables
-        //areaOffset = (GameObject.Find("Canvas").GetComponent<RectTransform>().rect.height) / 540.0f;
-        
+                        
         //Lines Variables
         lineHeight = ((baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset) / numberLines;
  
@@ -128,19 +143,26 @@ public class PointsManager : MonoBehaviour {
         //Initialize the List that will hold PointLines
         pointsLines = new List<GameObject>();
 
+        //Initialize the List that will hold SelectedPointLines
+        selectedPointsLines = new List<GameObject>();
+
         //Initialize the 2D List that will hold Points
         points = new List<List<GameObject>>();
-        
+
+        //Initialize the 2D List that will hold SelectedPoints
+        selectedPoints = new List<List<GameObject>>();
+
         //Change size of points prefab
         pointsPrefab.transform.localScale = new Vector3(sizePoint, sizePoint, pointsPrefab.transform.localScale.z) ;
-
+        //Change size of points prefab
+        selectedPointsPrefab.transform.localScale = new Vector3(sizePoint, sizePoint, pointsPrefab.transform.localScale.z);
 
 
         GenerateLines();
 
-        foreach(GameObject lines in pointsLines)
+        for(int i = 0; i < pointsLines.Count;++i)
         {
-            GeneratePoints(lines);
+            GeneratePoints(pointsLines[i], selectedPointsLines[i]);
         }     
     }
 
@@ -188,9 +210,17 @@ public class PointsManager : MonoBehaviour {
         //Instantiate Points container
         pointsArea = (GameObject)Instantiate(pointsAreaPrefab, new Vector3(Mathf.RoundToInt((startingXposition - posXoffset)), posYoffset, -50), Quaternion.identity);
 
+        //Instantiate Points container
+        selectedPointsArea = (GameObject)Instantiate(pointsAreaPrefab, new Vector3(Mathf.RoundToInt((startingXposition - posXoffset)), posYoffset, -50), Quaternion.identity);
+
         pointsArea.name = "Points Area";
+        selectedPointsArea.name = "Selected Points Area";
 
         pointsArea.GetComponent<BoxCollider>().size = new Vector3(pointsAreaWidth,
+            (baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset,
+            pointsArea.GetComponent<BoxCollider>().size.z);
+
+        selectedPointsArea.GetComponent<BoxCollider>().size = new Vector3(pointsAreaWidth,
             (baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset,
             pointsArea.GetComponent<BoxCollider>().size.z);
     }
@@ -208,14 +238,23 @@ public class PointsManager : MonoBehaviour {
                 //Instantiate Line
                 GameObject line = (GameObject)Instantiate(pointsLinesPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), posYoffset, -50), Quaternion.identity);
 
+                //Instantiate Selected Line
+                GameObject selectedLine = (GameObject)Instantiate(pointsLinesPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), posYoffset, -50), Quaternion.identity);
+
+
                 //Set it as child of pointsArea
                 line.transform.parent = GameObject.Find("Points Area").transform;
+                //Set it as child of pointsArea
+                selectedLine.transform.parent = GameObject.Find("Selected Points Area").transform;
 
                 line.name = "Line " + i.ToString();
+                selectedLine.name = "Selected Line " + i.ToString();
 
                 //Set line height
                 line.GetComponent<BoxCollider>().size = new Vector3((int)((pointsAreaWidth - 10.0) - (2 * paddingLine)), lineHeight, line.GetComponent<BoxCollider>().size.z);
 
+                //Set Selectedline height
+                selectedLine.GetComponent<BoxCollider>().size = new Vector3((int)((pointsAreaWidth - 10.0) - (2 * paddingLine)), lineHeight, line.GetComponent<BoxCollider>().size.z);
 
                 //Line Goes down
                 if (i % 2 == 1)
@@ -225,7 +264,7 @@ public class PointsManager : MonoBehaviour {
                     int yOffset = (int)(-(lineHeight * check));
 
                     line.transform.position = new Vector3(line.transform.position.x, line.transform.position.y + yOffset, line.transform.position.z);
-
+                    selectedLine.transform.position = new Vector3(selectedLine.transform.position.x, selectedLine.transform.position.y + yOffset, selectedLine.transform.position.z);
 
                 }
                 else //Line goes up
@@ -233,10 +272,12 @@ public class PointsManager : MonoBehaviour {
                     int yOffset = (int)(lineHeight * check);
 
                     line.transform.position = new Vector3(line.transform.position.x, line.transform.position.y + yOffset, line.transform.position.z);
+                    selectedLine.transform.position = new Vector3(selectedLine.transform.position.x, selectedLine.transform.position.y + yOffset, selectedLine.transform.position.z);
 
                 }
 
                 pointsLines.Add(line);      //Line List
+                selectedPointsLines.Add(selectedLine);
             }
         }
         else          // Even number of lines
@@ -259,13 +300,22 @@ public class PointsManager : MonoBehaviour {
                 //Instantiate Line
                 GameObject line = (GameObject)Instantiate(pointsLinesPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), posYoffset, -20), Quaternion.identity);
 
+                //Instantiate Selected Line
+                GameObject selectedLine = (GameObject)Instantiate(pointsLinesPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), posYoffset, -50), Quaternion.identity);
+
                 //Set it as child of pointsArea
                 line.transform.parent = GameObject.Find("Points Area").transform;
+                //Set it as child of pointsArea
+                selectedLine.transform.parent = GameObject.Find("Selected Points Area").transform;
 
                 line.name = "Line " + i.ToString();
+                selectedLine.name = "Selected Line " + i.ToString();
 
                 //Set line size
                 line.GetComponent<BoxCollider>().size = new Vector3((int)((pointsAreaWidth - 10.0) - (2 * paddingLine)), lineHeight, line.GetComponent<BoxCollider>().size.z);
+
+                //Set selectedLine size
+                selectedLine.GetComponent<BoxCollider>().size = new Vector3((int)((pointsAreaWidth - 10.0) - (2 * paddingLine)), lineHeight, line.GetComponent<BoxCollider>().size.z);
 
                 int yOffset = (int)((lineHeight * 0.5) + (lineHeight * lineCheck));
 
@@ -278,16 +328,20 @@ public class PointsManager : MonoBehaviour {
                 //Set line position
                 line.transform.position = new Vector3(line.transform.position.x, line.transform.position.y + yOffset, line.transform.position.z);
 
-                pointsLines.Add(line);      //Line List
+                //Set line position
+                selectedLine.transform.position = new Vector3(selectedLine.transform.position.x, selectedLine.transform.position.y + yOffset, selectedLine.transform.position.z);
 
+                pointsLines.Add(line);      //Line List
+                selectedPointsLines.Add(selectedLine);
             }
 
         }
     }
 
-    private void GeneratePoints(GameObject line)
+    private void GeneratePoints(GameObject line, GameObject selectedLine)
     {
         List<GameObject> pointsList = new List<GameObject>();
+        List<GameObject> selectedPointsList = new List<GameObject>();
 
         //Helper Variable
         int checkPoints = 0;
@@ -300,10 +354,15 @@ public class PointsManager : MonoBehaviour {
                 //Instantiate Point
                 GameObject pointTemp = (GameObject)Instantiate(pointsPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), 0, -50), Quaternion.identity);
 
+                //Instantiate Selected Point
+                GameObject selectedPointTemp = (GameObject)Instantiate(selectedPointsPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), 0, -50), Quaternion.identity);
+
                 //Set it as child of Line
                 pointTemp.transform.parent = line.transform;
+                selectedPointTemp.transform.parent = selectedLine.transform;
 
                 pointTemp.name = "Point " + j.ToString();
+                selectedPointTemp.name = "Selected Point " + j.ToString();
 
 
 
@@ -315,16 +374,18 @@ public class PointsManager : MonoBehaviour {
 
 
                     pointTemp.transform.position = new Vector3(pointTemp.transform.position.x + xOffset, line.transform.position.y, pointTemp.transform.position.z);
-
+                    selectedPointTemp.transform.position = new Vector3(selectedPointTemp.transform.position.x + xOffset, line.transform.position.y, selectedPointTemp.transform.position.z);
                 }
                 else //Line goes up
                 {
                     int xOffset = (sizePoint + emptyLineAreaSize) * checkPoints;
 
                     pointTemp.transform.position = new Vector3(pointTemp.transform.position.x + xOffset, line.transform.position.y, pointTemp.transform.position.z);
+                    selectedPointTemp.transform.position = new Vector3(selectedPointTemp.transform.position.x + xOffset, line.transform.position.y, selectedPointTemp.transform.position.z);
 
                 }
                 pointsList.Add(pointTemp);  //Temp list
+                selectedPointsList.Add(selectedPointTemp);
             }
         }
         else  //Even number of points
@@ -345,11 +406,16 @@ public class PointsManager : MonoBehaviour {
 
                 //Instantiate Point
                 GameObject pointTemp = (GameObject)Instantiate(pointsPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), 0, -20), Quaternion.identity);
+                
+                //Instantiate Selected Point
+                GameObject selectedPointTemp = (GameObject)Instantiate(selectedPointsPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), 0, -50), Quaternion.identity);
 
                 //Set it as child of Line
                 pointTemp.transform.parent = line.transform;
+                selectedPointTemp.transform.parent = selectedLine.transform;
 
                 pointTemp.name = "Point " + j.ToString();
+                selectedPointTemp.name = "Selected Point " + j.ToString();
 
                 int xOffset = (int)(((sizePoint + emptyLineAreaSize) * (0.5f)) + ((sizePoint + emptyLineAreaSize) * checkPoints));
 
@@ -362,16 +428,22 @@ public class PointsManager : MonoBehaviour {
                     line.transform.position.y,
                     pointTemp.transform.position.z);
 
+                selectedPointTemp.transform.position = new Vector3(selectedPointTemp.transform.position.x + xOffset,
+                   line.transform.position.y,
+                   selectedPointTemp.transform.position.z);
+
                 pointsList.Add(pointTemp);  //Temp list
-                                
+                selectedPointsList.Add(selectedPointTemp);
             }
         }
 
         pointsList.Sort(sortLine);
+        selectedPointsList.Sort(sortLine);
 
         checkPointsDistance(ref pointsList, (sizePoint + emptyLineAreaSize));
 
         points.Add(pointsList);     //2D List
+        selectedPoints.Add(selectedPointsList);
     }
 
     private void CheckPossibilityOfNewColumn(float distanceBetweenPoints)

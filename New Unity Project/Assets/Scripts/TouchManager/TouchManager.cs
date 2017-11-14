@@ -210,19 +210,13 @@ public class TouchManager : MonoBehaviour {
             switch (i)
             {
                 case 0:
-                    yPos = 165;
+                    yPos = Mathf.FloorToInt(165 * PointsManager.mPointsManager.GetScreenYOffset());
                     break;
                 case 1:
-                    yPos = -135;
+                    yPos = Mathf.FloorToInt(-135 * PointsManager.mPointsManager.GetScreenYOffset());
                     break;
                 case 2:
-                    yPos = -435;
-                    break;
-                case 3:
-                    yPos = -735;
-                    break;
-                case 4:
-                    yPos = -635;
+                    yPos = Mathf.FloorToInt(-435 * PointsManager.mPointsManager.GetScreenYOffset());
                     break;
                 default:
                     Debug.Assert(false, "[TouchManager] Num of shapes bigger than Max");
