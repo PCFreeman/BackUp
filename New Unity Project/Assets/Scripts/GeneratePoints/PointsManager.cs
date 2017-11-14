@@ -42,7 +42,10 @@ public class PointsManager : MonoBehaviour {
 
     private int emptyLineAreaSize;
 
-    private int sizePoint;
+    //public float sizeDotSprite;
+    private float sizePoint;
+    //private float scalePoint;
+    private float scaleSelectedPoint;
 
     private float startingXposition = -65;
     private float startingYposition = -40;
@@ -84,11 +87,13 @@ public class PointsManager : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
-
+    void Start ()
+    {
         GeneratePointsGrid();
-        Debug.Log("Teste");
-
+        Debug.Log("Canvas Width : " + GameObject.Find("Canvas").GetComponent<RectTransform>().rect.width *
+            GameObject.Find("Canvas").GetComponent<RectTransform>().localScale.x);
+        Debug.Log("Canvas Height : " + GameObject.Find("Canvas").GetComponent<RectTransform>().rect.height *
+            GameObject.Find("Canvas").GetComponent<RectTransform>().localScale.y);
     }
 	
 	// Update is called once per frame
@@ -123,12 +128,19 @@ public class PointsManager : MonoBehaviour {
                         
         //Lines Variables
         lineHeight = ((baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset) / numberLines;
- 
+
+        pointsPrefab.GetComponent<SpriteRenderer>().sprite.textureRect.size.Set(lineHeight, lineHeight);
+
+
+
+
         //Points Variables
-        sizePoint = (int)(lineHeight * 0.7f);
+        sizePoint = ((lineHeight * 0.6f));// / pointsPrefab.GetComponent<SpriteRenderer>().sprite.rect.width);
+        scaleSelectedPoint = ((lineHeight * 0.6f)*0.5f);// / selectedPointsPrefab.GetComponent<SpriteRenderer>().sprite.rect.width);
+
 
         //Variables to set Points positions in a Line
-        emptyLineAreaSize = ((int)(((baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset) - (2 * paddingLine)) - (numberPointsInLine * sizePoint)) / (numberPointsInLine - 1);
+        emptyLineAreaSize = ((int)(((baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset) - (2 * paddingLine)) - (numberPointsInLine * (int)sizePoint)) / (numberPointsInLine - 1);
 
         //Size if Area was squared
         squaredAreaSize = (baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset;
@@ -153,10 +165,10 @@ public class PointsManager : MonoBehaviour {
         selectedPoints = new List<List<GameObject>>();
 
         //Change size of points prefab
-        pointsPrefab.transform.localScale = new Vector3(sizePoint, sizePoint, pointsPrefab.transform.localScale.z) ;
+        pointsPrefab.transform.localScale = new Vector3(sizePoint, sizePoint, pointsPrefab.transform.localScale.z);
+        
         //Change size of points prefab
-        selectedPointsPrefab.transform.localScale = new Vector3(sizePoint, sizePoint, pointsPrefab.transform.localScale.z);
-
+        selectedPointsPrefab.transform.localScale = new Vector3(scaleSelectedPoint, scaleSelectedPoint, pointsPrefab.transform.localScale.z);
 
         GenerateLines();
 
@@ -223,6 +235,11 @@ public class PointsManager : MonoBehaviour {
         selectedPointsArea.GetComponent<BoxCollider>().size = new Vector3(pointsAreaWidth,
             (baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset,
             pointsArea.GetComponent<BoxCollider>().size.z);
+
+
+        pointsArea.transform.localScale = new Vector3(1.0f,1.0f,1.0f);
+
+        pointsArea.transform.parent = GameObject.Find("Canvas").transform;
     }
 
     private void GenerateLines()
@@ -370,7 +387,7 @@ public class PointsManager : MonoBehaviour {
                 {
                     checkPoints = checkPoints + 1;
 
-                    int xOffset = -((sizePoint + emptyLineAreaSize) * checkPoints);
+                    int xOffset = -((int)(sizePoint + emptyLineAreaSize) * checkPoints);
 
 
                     pointTemp.transform.position = new Vector3(pointTemp.transform.position.x + xOffset, line.transform.position.y, pointTemp.transform.position.z);
@@ -378,7 +395,7 @@ public class PointsManager : MonoBehaviour {
                 }
                 else //Line goes up
                 {
-                    int xOffset = (sizePoint + emptyLineAreaSize) * checkPoints;
+                    int xOffset = (int)(sizePoint + emptyLineAreaSize) * checkPoints;
 
                     pointTemp.transform.position = new Vector3(pointTemp.transform.position.x + xOffset, line.transform.position.y, pointTemp.transform.position.z);
                     selectedPointTemp.transform.position = new Vector3(selectedPointTemp.transform.position.x + xOffset, line.transform.position.y, selectedPointTemp.transform.position.z);
