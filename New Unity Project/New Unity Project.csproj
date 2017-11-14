@@ -76,20 +76,13 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Common">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\LevelDisplay.cs" />
-    <Compile Include="Assets\LoadingManager.cs" />
     <Compile Include="Assets\Scripts\Audio\AudioController.cs" />
     <Compile Include="Assets\Scripts\Audio\AudioTest.cs" />
     <Compile Include="Assets\Scripts\Audio\EndlessBGM.cs" />
     <Compile Include="Assets\Scripts\Audio\MainBGM.cs" />
+    <Compile Include="Assets\Scripts\ComboSystem.cs" />
     <Compile Include="Assets\Scripts\DebugScript.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GeneratePoints\GeneratingPoints.cs" />
@@ -97,6 +90,7 @@
     <Compile Include="Assets\Scripts\GeneratePoints\PointsMovement.cs" />
     <Compile Include="Assets\Scripts\LevelSystem\Level.cs" />
     <Compile Include="Assets\Scripts\LevelSystem\LevelManager.cs" />
+    <Compile Include="Assets\Scripts\PurchaseSystem.cs" />
     <Compile Include="Assets\Scripts\Shapes.cs" />
     <Compile Include="Assets\Scripts\TouchManager for Tutorial\TDrawTouch.cs" />
     <Compile Include="Assets\Scripts\TouchManager for Tutorial\TLineCollider.cs" />
@@ -119,6 +113,8 @@
     <Compile Include="Assets\Scripts\UI\BackGround.cs" />
     <Compile Include="Assets\Scripts\UI\Firstscreen.cs" />
     <Compile Include="Assets\Scripts\UI\InGameSetting.cs" />
+    <Compile Include="Assets\Scripts\UI\LevelDisplay.cs" />
+    <Compile Include="Assets\Scripts\UI\LoadingManager.cs" />
     <Compile Include="Assets\Scripts\UI\ScreenResolution.cs" />
     <Compile Include="Assets\Scripts\UI\Tutorial\HandAnimation.cs" />
     <Compile Include="Assets\Scripts\UI\Tutorial\TManager.cs" />

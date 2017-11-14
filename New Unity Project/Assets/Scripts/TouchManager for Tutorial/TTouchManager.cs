@@ -168,10 +168,10 @@ public class TTouchManager : MonoBehaviour
 
             mShapesInstantied[i].transform.SetParent(GameObject.Find("ShapeSpawnPlace").transform, false);
 
-            mShapesInstantied[i].GetComponent<RectTransform>().sizeDelta = new Vector2(210.0f, 210.0f);
+          mShapesInstantied[i].GetComponent<RectTransform>().sizeDelta = new Vector2(210.0f, 210.0f);
         }
 
-        mShapesInstantied[0].GetComponent<RectTransform>().sizeDelta = new Vector2(210.0f, 210.0f);
+        //mShapesInstantied[0].GetComponent<RectTransform>().sizeDelta = new Vector2(210.0f, 210.0f);
         mShapesInstantied[1].GetComponent<RectTransform>().sizeDelta = new Vector2(105.0f, 105.0f);
         mShapesInstantied[2].GetComponent<RectTransform>().sizeDelta = new Vector2(5.0f, 5.0f);
 

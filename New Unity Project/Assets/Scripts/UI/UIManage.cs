@@ -7,9 +7,13 @@ using UnityEngine.SceneManagement;
 public class UIManage : MonoBehaviour {
 
     public static UIManage instance;
-
-    public float timeMax;
+    public static PurchaseSystem sinstance;
+    public static ComboSystem WoboCombo;
     public float timeLeft;
+    public int TimeGain = 5;
+    public int ChanceGain = 2;
+    public int Score;
+    public Text ScoreShowedInGameOver;
     public Text Timer;
     public Text FhScore;
     public Text FScore;
@@ -31,7 +35,6 @@ public class UIManage : MonoBehaviour {
     public Button Soundbutton;
     private bool SoundCheck;
     public GameObject Touch;
-    private int Score;
     public Text TryLimit;
     public Text nextLevel;
     public Text ShapeTimeLimit;
@@ -41,7 +44,11 @@ public class UIManage : MonoBehaviour {
     public Image Single;
     public Image Double1;
     public Image Double2;
+    public Text MultplierDisplay;
     public Sprite[] NumberPool;
+    public Image imageColldown;
+    float cooldown=-1.0f;
+
     private void Awake()
     {
         //Check if instance already exist
@@ -62,7 +69,7 @@ public class UIManage : MonoBehaviour {
         //SetHighscore();
         Time.timeScale = 1f;
         //Start Score
-         Score = 103;
+         Score = 5000;
 
         GameObject.Find("Number").GetComponent<Text>().text = Score.ToString();
 
@@ -76,7 +83,8 @@ public class UIManage : MonoBehaviour {
         SoundCheck = true;
         TryLimit.gameObject.SetActive(false);
         current = -1;
-
+        WoboCombo = GameObject.Find("WoboComboManager").GetComponent<ComboSystem>();
+        sinstance= GameObject.Find("PurchaseManager").GetComponent<PurchaseSystem>();
     }
     public void MusicSwitch()
     {
@@ -123,14 +131,14 @@ public class UIManage : MonoBehaviour {
         Time.timeScale = 1f;
         Touch.SetActive(true);
     }
-    public void BacktoMainMenu()
+    public void LeftGameThroughSettingMenu()
     {
         mGameOverScreen.SetActive(true);
         mG1.SetActive(false);
         mG2.SetActive(true);
         Left.gameObject.SetActive(true);
         ShowScoreInGameOver(Score);
-        
+
     }
     public void BacktoMainMenuButton()
     {
@@ -149,23 +157,27 @@ public class UIManage : MonoBehaviour {
     }
     public void AddTime(int T)
     {
-        timeMax = timeMax + T;
         timeLeft = timeLeft + T;
     }
-   
+   public void MultiplierDisplay()
+    {
+        MultplierDisplay.text = WoboCombo.GetMultiplier().ToString();
+    }
+
+    public void PurchaseTime()
+    {
+        sinstance.PurchaseTime();
+    }
+
+    public void PurchasChance()
+    {
+        sinstance.PurchaseChance();
+    }
     public void OpenGameOverScreen()
     {
-        
+        Time.timeScale = 0f;
         mGameOverScreen.SetActive(true);
-        if (mGameOverScreen.activeInHierarchy)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                mG1.SetActive(false);
-                mG2.SetActive(true);
-            }
-        }
-        ShowScoreInGameOver(Score);
+        ScoreShowedInGameOver.text = Score.ToString();
     }
 
     void ShowScoreInGameOver(int s)
@@ -301,11 +313,30 @@ public class UIManage : MonoBehaviour {
 
     public void UpdateShapesTimeLimit(float timeLimit)//----------------------------------------------------Rafel
     {
-        ShapeTimeLimit.text = Mathf.FloorToInt(timeLimit % 60f).ToString();
+       ShapeTimeLimit.text = Mathf.FloorToInt(timeLimit % 60f).ToString();
+        if(cooldown<0)
+        {
+            cooldown = Mathf.FloorToInt(timeLimit % 60f);
+        }
+
+        if (timeLimit>=cooldown )
+        {
+            imageColldown.fillAmount = 0;
+            cooldown = Mathf.FloorToInt(timeLimit % 60f);
+        }
+
+ 
+        imageColldown.fillAmount += 1.0f / (timeLimit + (cooldown-timeLimit)) * Time.deltaTime;
+       if (imageColldown.fillAmount >= 1)
+        {
+            imageColldown.fillAmount = 0;
+            cooldown = 0;
+        }
+
     }
     void Update()
     {
-
+        GameObject.Find("Number").GetComponent<Text>().text = Score.ToString();
         Mins = Mathf.FloorToInt(timeLeft / 60f);
         Secs = Mathf.FloorToInt(timeLeft % 60f);
         if (timeLeft > 0)
