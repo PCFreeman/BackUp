@@ -790,7 +790,7 @@ public class AnimationMagager : MonoBehaviour
             {
                 StartCoroutine(Scale(ShapeList[i]));
             }
-            StartCoroutine(MoveShape(ShapeList[i], ShapeList[i].transform.position,ShapeList[i].transform.position + new Vector3(0, 300, 0), ShapeMoveSpeed));
+            StartCoroutine(MoveShape(ShapeList[i], ShapeList[i].transform.position,ShapeList[i].transform.position + new Vector3(0, 300 * PointsManager.mPointsManager.GetScreenYOffset(), 0), ShapeMoveSpeed));
         }
     }
 
