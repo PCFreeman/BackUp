@@ -47,8 +47,8 @@ public class PointsManager : MonoBehaviour {
     //private float scalePoint;
     private int scaleSelectedPoint;
 
-    private float startingXposition = -65;
-    private float startingYposition = -40;
+    private float startingXposition = -10.0f;
+    private float startingYposition = -40.0f;
     private float posXoffset;
     private float posYoffset;
 
@@ -79,7 +79,7 @@ public class PointsManager : MonoBehaviour {
         Debug.Log("Y = " + ScreenYOffset.ToString() + "    X = " + ScreenXOffset.ToString());
 
         //Center pos offset
-        posXoffset = (startingXposition * 0.25f);
+        posXoffset = (startingXposition * 0.0f);
         posYoffset = (startingYposition * ScreenYOffset);
 
         //Max Area Width
@@ -238,8 +238,6 @@ public class PointsManager : MonoBehaviour {
 
 
         pointsArea.transform.localScale = new Vector3(1.0f,1.0f,1.0f);
-
-        pointsArea.transform.parent = GameObject.Find("Canvas").transform;
     }
 
     private void GenerateLines()
