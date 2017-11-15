@@ -206,7 +206,18 @@ public class TouchLogic
             case Shapes.Trapezoid422Top:
                 return CheckTrapezoid(ref points, 0, 4, 2, 2);
                 break;
-
+            case Shapes.Trapezoid642Bottom:
+                return CheckTrapezoid(ref points, 1, 6, 4, 2);
+                break;
+            case Shapes.Trapezoid623Bottom:
+                return CheckTrapezoid(ref points, 1, 6, 2, 3);
+                break;
+            case Shapes.Trapezoid532Bottom:
+                return CheckTrapezoid(ref points, 1, 5, 3, 2);
+                break;
+            case Shapes.Trapezoid422Bottom:
+                return CheckTrapezoid(ref points, 1, 4, 2, 2);
+                break;
 
 
 
@@ -1772,10 +1783,10 @@ public class TouchLogic
 
             bool check = false;
             //Check y distance
-            for (int i = 1, j = Lines.Count - 2; i < baseDotsNum - 1; ++i)
+            for (int i = 1, j = Lines.Count - 2; i > baseDotsNum - 1; ++i)
             {
                 //Check first side
-                if (!check && (Lines[i][0].transform.position.y - Lines[Lines.Count - 1][i].transform.position.y) != (distanceBetweenLines * i))
+                if (!check && (Lines[j--][0].transform.position.y - Lines[Lines.Count - 1][i].transform.position.y) != (distanceBetweenLines * i))
                 {
                     return false;
                 }
@@ -1785,10 +1796,10 @@ public class TouchLogic
                 {
                     int temp = i;
 
-                    while (i != (temp + (topDotsNum)))
+                    while (i != ((height - 1) + (topDotsNum)))
                     {
                         //Check Top side (in this case bottom)
-                        if ((Lines[temp][i - temp].transform.position.y - Lines[Lines.Count - 1][i].transform.position.y) != (distanceBetweenLines * temp))
+                        if ((Lines[0][i - (height - 1)].transform.position.y - Lines[Lines.Count - 1][i].transform.position.y) != (distanceBetweenLines * (height - 1)))
                         {
                             return false;
                         }
@@ -1797,10 +1808,11 @@ public class TouchLogic
                     }
 
                     check = true;
+                    j = 1;
                 }
 
                 //Check second side
-                if (check && (Lines[j][1].transform.position.y - Lines[Lines.Count - 1][i].transform.position.y) != (distanceBetweenLines * j--))
+                if (check && (Lines[j][1].transform.position.y - Lines[Lines.Count - 1][i].transform.position.y) != (distanceBetweenLines * ((Lines.Count - 1) - j++)))
                 {
                     return false;
                 }

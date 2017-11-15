@@ -189,7 +189,8 @@ public class TouchManager : MonoBehaviour {
     }
 
     public void InstantiateShapes()
-    {
+    {       
+
         for (int i = mShapesInstantied.Count; i < NumberOfShapesInstantiedMax; ++i)
         {
             mShapesInstantied.Add(GameObject.Instantiate(mShapesList[i], new Vector3(0.0f,0.0f,-20.0f), Quaternion.identity));

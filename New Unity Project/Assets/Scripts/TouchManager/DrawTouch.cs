@@ -182,7 +182,7 @@ public class DrawTouch : MonoBehaviour {
 
 
             // Check if the line makes the corect shape
-            //if (TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchLogic.Shapes.Trapezoid422Top, ref TouchManager.mTouchManager.pointsSelected))
+            //if (TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchLogic.Shapes.Trapezoid422Bottom, ref TouchManager.mTouchManager.pointsSelected))
             if(TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().GetShpeType(), ref TouchManager.mTouchManager.pointsSelected))
             {
 

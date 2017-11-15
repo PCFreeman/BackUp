@@ -43,9 +43,9 @@ public class PointsManager : MonoBehaviour {
     private int emptyLineAreaSize;
 
     //public float sizeDotSprite;
-    private float sizePoint;
+    private int sizePoint;
     //private float scalePoint;
-    private float scaleSelectedPoint;
+    private int scaleSelectedPoint;
 
     private float startingXposition = -65;
     private float startingYposition = -40;
@@ -135,8 +135,8 @@ public class PointsManager : MonoBehaviour {
 
 
         //Points Variables
-        sizePoint = ((lineHeight * 0.6f));// / pointsPrefab.GetComponent<SpriteRenderer>().sprite.rect.width);
-        scaleSelectedPoint = ((lineHeight * 0.6f)*0.5f);// / selectedPointsPrefab.GetComponent<SpriteRenderer>().sprite.rect.width);
+        sizePoint = Mathf.FloorToInt(lineHeight * 0.6f);// / pointsPrefab.GetComponent<SpriteRenderer>().sprite.rect.width);
+        scaleSelectedPoint = Mathf.FloorToInt((lineHeight * 0.6f)*0.5f);// / selectedPointsPrefab.GetComponent<SpriteRenderer>().sprite.rect.width);
 
 
         //Variables to set Points positions in a Line
