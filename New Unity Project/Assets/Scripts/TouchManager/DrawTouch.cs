@@ -13,6 +13,9 @@ public class DrawTouch : MonoBehaviour {
     private GameObject coll; // line collider
     GameObject firstPoint;
     GameObject curShape;
+    public GameObject comboSystem;
+
+    bool checkTouch = false;
 
     private float timeLimit;
 
@@ -23,7 +26,6 @@ public class DrawTouch : MonoBehaviour {
     public void Awake()
     {
         coll = (GameObject)Instantiate(lineColliderPrefab, new Vector3(5000.0f, 0.0f, 0.0f), Quaternion.identity);
-
     }
 
     public void Initialize()
@@ -49,11 +51,17 @@ public class DrawTouch : MonoBehaviour {
     // Update is called once per frame
     public void update()
     {
-        if(timeLimit == -5)
+        
+
+        if (TouchManager.mTouchManager.GetCollidedObjects().Count > 0)
+        {           
+            DecrementTime();
+        }
+        else
         {
             timeLimit = TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().timeLimit;
         }
-        
+                        
         if(LastShapeCorect)
         {
             timeColor += Time.deltaTime;
@@ -75,7 +83,7 @@ public class DrawTouch : MonoBehaviour {
         //This function can be use for Touch or mouse click
         if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) || (Input.GetMouseButtonDown(0)))
         {
-            if(LastShapeCorect == true)
+            if (LastShapeCorect == true)
             {
                 foreach (GameObject GO in TouchManager.mTouchManager.pointsSelected)
                 {
@@ -187,6 +195,7 @@ public class DrawTouch : MonoBehaviour {
             {
 
                 AudioController.sInstance.SuccessMoveSFX();
+                comboSystem.GetComponent<ComboSystem>().IncreaseCount();
 
                 curShape = TouchManager.mTouchManager.GetCurrentShape();
                 firstPoint = TouchManager.mTouchManager.pointsSelected[0];
@@ -224,6 +233,7 @@ public class DrawTouch : MonoBehaviour {
 
                 LevelManager.mLevelManager.DecreaseShapesToNext();
 
+                checkTouch = false;
 
                 //TouchManager.mTouchManager.mColliders.pointCount = 0;
                 
@@ -235,7 +245,12 @@ public class DrawTouch : MonoBehaviour {
             {
                 Debug.Log("Wrong Shape");
 
-                //AudioController.sInstance.ErrorSFX();
+                if(TouchManager.mTouchManager.GetCollidedObjects().Count > 0)
+                {
+                    LevelManager.mLevelManager.DecreaseShapesTry();
+                }
+                AudioController.sInstance.ErrorSFX();
+                comboSystem.GetComponent<ComboSystem>().ResetCount();
 
                 //Destroi the line , may add some stuff in future to make player know that made mistake
                 //Destroy(thisLine);
@@ -248,11 +263,12 @@ public class DrawTouch : MonoBehaviour {
                 ResetCollider();
 
                 TouchManager.mTouchManager.pointsSelected.Clear();
+                
 
-                LevelManager.mLevelManager.DecreaseShapesTry();
+                checkTouch = false;
 
                 //TouchManager.mTouchManager.mColliders.pointCount = 0;
-                
+
             }
 
             timeLimit = TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().timeLimit;
@@ -263,8 +279,7 @@ public class DrawTouch : MonoBehaviour {
         UIManage.instance.UpdateNextLevel(LevelManager.mLevelManager.GetToNext());
         UIManage.instance.UpdateShapesTry(LevelManager.mLevelManager.GetNumTry());
         UIManage.instance.UpdateShapesTimeLimit(timeLimit);
-
-        DecrementTime();
+        
     }
 
     public void SetSelectedPoint(ref GameObject point)

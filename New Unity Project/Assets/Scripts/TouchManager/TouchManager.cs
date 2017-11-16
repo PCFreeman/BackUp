@@ -264,12 +264,15 @@ public class TouchManager : MonoBehaviour {
         return GOs;
     }
 
+    public void ResetCollidedObjects()
+    {
+        GOs.Clear();
+    }
+
     public int GetNumShapesInstantied()
     {
         return (int)NumberOfShapesInstantiedMax;
     }
-
-
 
     private void GetCurrentTotalProbability()
     {

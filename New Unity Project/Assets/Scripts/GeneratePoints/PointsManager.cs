@@ -238,6 +238,9 @@ public class PointsManager : MonoBehaviour {
 
 
         pointsArea.transform.localScale = new Vector3(1.0f,1.0f,1.0f);
+
+        pointsArea.transform.parent = GameObject.Find("Canvas").transform;
+        selectedPointsArea.transform.parent = GameObject.Find("Canvas").transform;
     }
 
     private void GenerateLines()
