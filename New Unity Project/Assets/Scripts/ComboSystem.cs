@@ -7,7 +7,7 @@ public class ComboSystem : MonoBehaviour {
     private int corretCount = 0;
     private int maxMultip = 5;
     private int currentMultip = 0;
-    public int countToLevelUp = 10;
+    public int countToLevelUp = 2;
 
         public void IncreaseCount()
     {

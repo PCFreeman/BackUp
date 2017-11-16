@@ -48,6 +48,8 @@ public class UIManage : MonoBehaviour {
     public Sprite[] NumberPool;
     public Image imageColldown;
     float cooldown=-1.0f;
+    GameObject PointsArea;
+    GameObject SelectPointArea;
 
     private void Awake()
     {
@@ -77,7 +79,7 @@ public class UIManage : MonoBehaviour {
 
     }
 
-    private void Start()
+        private void Start()
     {
         MusicCheck = true;
         SoundCheck = true;
@@ -85,6 +87,8 @@ public class UIManage : MonoBehaviour {
         current = -1;
         WoboCombo = GameObject.Find("WoboComboManager").GetComponent<ComboSystem>();
         sinstance= GameObject.Find("PurchaseManager").GetComponent<PurchaseSystem>();
+        PointsArea= GameObject.Find("Points Area");
+        SelectPointArea= GameObject.Find("Selected Points Area");
     }
     public void MusicSwitch()
     {
@@ -124,12 +128,16 @@ public class UIManage : MonoBehaviour {
         Set.SetActive(true);
         Time.timeScale = 0f;
         Touch.SetActive(false);
+        PointsArea.SetActive(false);
+        SelectPointArea.SetActive(false);
     }
     public void SettingMenuBack()
     {
         Set.SetActive(false);
         Time.timeScale = 1f;
         Touch.SetActive(true);
+        PointsArea.SetActive(true);
+        SelectPointArea.SetActive(true);
     }
     public void LeftGameThroughSettingMenu()
     {
@@ -178,6 +186,8 @@ public class UIManage : MonoBehaviour {
         Time.timeScale = 0f;
         mGameOverScreen.SetActive(true);
         ScoreShowedInGameOver.text = Score.ToString();
+        PointsArea.SetActive(false);
+        SelectPointArea.SetActive(false);
     }
 
     void ShowScoreInGameOver(int s)
@@ -189,14 +199,15 @@ public class UIManage : MonoBehaviour {
         GameObject.Find("SettingButton").GetComponent<Button>().enabled = false;      
     }
     public void OpenGameOverScreenMoves()//----------------------------------------------------Rafel
-    {
-       
+    { 
         mGameOverScreen.SetActive(true);
         mG1.SetActive(false);
         mG2.SetActive(true);
         mGC.gameObject.SetActive(true);
-
         ShowScoreInGameOver(Score);
+        PointsArea.SetActive(false);
+        SelectPointArea.SetActive(false);
+
     }
     public void SetHighscore()
     {
@@ -336,6 +347,7 @@ public class UIManage : MonoBehaviour {
     }
     void Update()
     {
+        MultiplierDisplay();
         GameObject.Find("Number").GetComponent<Text>().text = Score.ToString();
         Mins = Mathf.FloorToInt(timeLeft / 60f);
         Secs = Mathf.FloorToInt(timeLeft % 60f);
