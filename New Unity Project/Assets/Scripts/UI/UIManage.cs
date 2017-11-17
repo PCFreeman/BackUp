@@ -55,6 +55,7 @@ public class UIManage : MonoBehaviour {
     public Image mDouble1;
     public Image mDouble2;
     public GameObject mArea;
+
     private void Awake()
     {
         //Check if instance already exist
@@ -175,8 +176,8 @@ public class UIManage : MonoBehaviour {
     {
        // MultplierDisplay.text = WoboCombo.GetMultiplier().ToString();
         Multi = WoboCombo.GetMultiplier();
-       
-        if(Multi<10)
+
+        if (Multi<10)
         {
             if (Multi<1)
         {
@@ -266,7 +267,6 @@ public class UIManage : MonoBehaviour {
             }
 
         }
-
 
     }
 

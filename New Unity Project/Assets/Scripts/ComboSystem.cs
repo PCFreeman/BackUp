@@ -18,6 +18,7 @@ public class ComboSystem : MonoBehaviour {
     public void ResetCount()
     {
         corretCount = 0;
+        currentMultip = 0;
     }
     public void ResetMuktiplier()
     {
