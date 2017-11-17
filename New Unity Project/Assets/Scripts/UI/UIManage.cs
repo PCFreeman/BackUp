@@ -44,12 +44,17 @@ public class UIManage : MonoBehaviour {
     public Image Single;
     public Image Double1;
     public Image Double2;
-    public Text MultplierDisplay;
     public Sprite[] NumberPool;
     public Image imageColldown;
     float cooldown=-1.0f;
     GameObject PointsArea;
     GameObject SelectPointArea;
+    int Multi;
+    string MultiString;
+    public Image mSingle;
+    public Image mDouble1;
+    public Image mDouble2;
+    public GameObject mArea;
 
     private void Awake()
     {
@@ -161,7 +166,7 @@ public class UIManage : MonoBehaviour {
     public void AddScore(int pluse)
     {
        Score=Score + pluse;
-        GameObject.Find("Number").GetComponent<Text>().text = Score.ToString();
+       GameObject.Find("Number").GetComponent<Text>().text = Score.ToString();
     }
     public void AddTime(int T)
     {
@@ -169,7 +174,100 @@ public class UIManage : MonoBehaviour {
     }
    public void MultiplierDisplay()
     {
-        MultplierDisplay.text = WoboCombo.GetMultiplier().ToString();
+       // MultplierDisplay.text = WoboCombo.GetMultiplier().ToString();
+        Multi = WoboCombo.GetMultiplier();
+
+        if (Multi<10)
+        {
+            if (Multi<1)
+        {
+            mArea.SetActive(false);
+        }
+            else
+            {
+            mArea.SetActive(true);
+            mSingle.gameObject.SetActive(true);
+            mDouble1.gameObject.SetActive(false);
+            mDouble2.gameObject.SetActive(false);
+            mSingle.sprite = NumberPool[Multi];
+            }
+           
+        }
+        if(Multi>9)
+        {
+            mSingle.gameObject.SetActive(false);
+            mDouble1.gameObject.SetActive(true);
+            mDouble2.gameObject.SetActive(true);
+            MultiString = Multi.ToString();
+            switch (MultiString[0])
+            {
+                case '0':
+                    mDouble1.sprite = NumberPool[0];
+                    break;
+                case '1':
+                    mDouble1.sprite = NumberPool[1];
+                    break;
+                case '2':
+                    mDouble1.sprite = NumberPool[2];
+                    break;
+                case '3':
+                    mDouble1.sprite = NumberPool[3];
+                    break;
+                case '4':
+                    mDouble1.sprite = NumberPool[4];
+                    break;
+                case '5':
+                    mDouble1.sprite = NumberPool[5];
+                    break;
+                case '6':
+                    mDouble1.sprite = NumberPool[6];
+                    break;
+                case '7':
+                    mDouble1.sprite = NumberPool[7];
+                    break;
+                case '8':
+                    mDouble1.sprite = NumberPool[8];
+                    break;
+                case '9':
+                    mDouble1.sprite = NumberPool[9];
+                    break;
+            }
+            switch(MultiString[1])
+            {
+                case '0':
+                    Double2.sprite = NumberPool[0];
+                    break;
+                case '1':
+                    Double2.sprite = NumberPool[1];
+                    break;
+                case '2':
+                    Double2.sprite = NumberPool[2];
+                    break;
+                case '3':
+                    Double2.sprite = NumberPool[3];
+                    break;
+                case '4':
+                    Double2.sprite = NumberPool[4];
+                    break;
+                case '5':
+                    Double2.sprite = NumberPool[5];
+                    break;
+                case '6':
+                    Double2.sprite = NumberPool[6];
+                    break;
+                case '7':
+                    Double2.sprite = NumberPool[7];
+                    break;
+                case '8':
+                    Double2.sprite = NumberPool[8];
+                    break;
+                case '9':
+                    Double2.sprite = NumberPool[9];
+                    break;
+            }
+
+        }
+
     }
 
     public void PurchaseTime()
@@ -348,6 +446,7 @@ public class UIManage : MonoBehaviour {
     void Update()
     {
         MultiplierDisplay();
+
         GameObject.Find("Number").GetComponent<Text>().text = Score.ToString();
         Mins = Mathf.FloorToInt(timeLeft / 60f);
         Secs = Mathf.FloorToInt(timeLeft % 60f);

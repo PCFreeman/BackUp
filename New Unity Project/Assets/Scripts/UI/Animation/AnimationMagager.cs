@@ -32,7 +32,7 @@ public class AnimationMagager : MonoBehaviour
     public float maxSize;
     public float growFactor;
     public float waitTime;
-
+    List<GameObject> Temp;
     private void Awake()
     {
 
@@ -781,17 +781,18 @@ public class AnimationMagager : MonoBehaviour
 
     public void ShapeMoveOut(List<GameObject> ShapeList)
     {
-      
+        Temp = TouchManager.mTouchManager.GetShapesIniatialized();
         myAnimator.SetBool("IsOne", true);
        // StartCoroutine(MoveShape(ShapeList[0], ShapeList[0].transform.position, ShapeList[0].transform.position + new Vector3(200,0,0),ShapeMoveSpeed));
         for (int i = 1; i < TouchManager.mTouchManager.GetNumShapesInstantied(); i++)
         {
             if (i == 1)
             {
-                StartCoroutine(Scale(ShapeList[i]));
+                StartCoroutine(Scale(Temp[i]));
             }
             StartCoroutine(MoveShape(ShapeList[i], ShapeList[i].transform.position,ShapeList[i].transform.position + new Vector3(0, 300 * PointsManager.mPointsManager.GetScreenYOffset(), 0), ShapeMoveSpeed));
         }
+        //TouchManager.mTouchManager.DeleteCurrentShape(false);
     }
 
 }
