@@ -18,7 +18,6 @@ public class ScreenResolution : MonoBehaviour
         heightRatio = Screen.height / baseResolutionHeight;
         Debug.Log("HELLO FROM BACKGROUND IMGAE");
         mCamera.orthographicSize = mCamera.orthographicSize * heightRatio;
-
     }
     // Use this for initialization
     void Start()
