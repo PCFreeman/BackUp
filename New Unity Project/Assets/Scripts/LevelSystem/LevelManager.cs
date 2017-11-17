@@ -76,7 +76,7 @@ public class LevelManager : MonoBehaviour {
         {
 
             mNumShapesToNext--;
-            TouchManager.mTouchManager.DeleteCurrentShape(false); //Delete current shape and Instantiate a new one
+            //TouchManager.mTouchManager.DeleteCurrentShape(false); //Delete current shape and Instantiate a new one
         }
         else
         {
