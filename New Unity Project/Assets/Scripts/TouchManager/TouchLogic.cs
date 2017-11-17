@@ -82,8 +82,6 @@ public class TouchLogic
         Octagon22,
         Octagon23
 
-
-
         //Add here all shapes of our game
     }
 
@@ -695,7 +693,7 @@ public class TouchLogic
         //Compare Y distance
         for (int i = 1, j = numBaseDots - 3; i < (int)(numBaseDots * 0.5f); ++i, j -= 2)
         {
-            if ((Lines[i][0].transform.position.y - Lines[(Lines.Count - 1) - i][0].transform.position.y) != distanceBetweenPoints * j)
+            if ((Lines[i][0].transform.position.y - Lines[(Lines.Count - 1) - i][0].transform.position.y) != distanceBetweenLines * j)
             {
                 return false;
             }

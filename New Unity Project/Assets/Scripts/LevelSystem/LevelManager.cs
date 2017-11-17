@@ -86,15 +86,16 @@ public class LevelManager : MonoBehaviour {
             //Call Animation
             Debug.Log("Next Level");
 
-            Destroy(currentLevel);
+            
             mLevelIndex++;
-            if(mLevelIndex != mLevels.Count)
+            if(mLevelIndex < mLevels.Count)
             {
+                Destroy(currentLevel);
                 currentLevel = Instantiate(mLevels[mLevelIndex], new Vector3(0.0f, 0.0f, -20.0f), Quaternion.identity);
             }
             else
             {
-                Debug.Assert(false);
+                mLevelIndex = mLevels.Count - 1;
             }
             mNumShapesToNext = (int)currentLevel.GetComponent<Level>().ShapesToNext;
             mNumOfShapesTry = (int)currentLevel.GetComponent<Level>().MaxShapesTry;

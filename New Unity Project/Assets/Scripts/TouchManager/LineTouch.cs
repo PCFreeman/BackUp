@@ -16,8 +16,6 @@ public class LineTouch : MonoBehaviour {
 
             GOs.Add(other.gameObject);
 
-            TouchManager.mTouchManager.mColliders.mCurrentPoint = other.gameObject;
-            TouchManager.mTouchManager.mColliders.pointCount += 1; 
 
             check = true;
 

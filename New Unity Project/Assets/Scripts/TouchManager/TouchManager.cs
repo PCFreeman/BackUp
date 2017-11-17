@@ -48,7 +48,7 @@ public class TouchManager : MonoBehaviour {
 
     public static TouchManager mTouchManager = null;
 
-    public Colliders mColliders;
+
     public TouchLogic mTouchLogic;
     public DrawTouch mDrawTouch;
     private List<GameObject> mShapes;           //All types of Shapes
@@ -98,7 +98,6 @@ public class TouchManager : MonoBehaviour {
     void Start () {
         Debug.Log("[TouchManager]Manager successfully started.");
 
-        mColliders = new Colliders();
         mTouchLogic = new TouchLogic();
         Debug.Log("TouchLogic   " + mTouchLogic.ToString());
 
@@ -112,13 +111,11 @@ public class TouchManager : MonoBehaviour {
 
 
         mDrawTouch.Initialize();
-        mColliders.Initialize();
+
 
         NumberOfShapesInstantiedMax = 3;                //Number of Shapes showing in screen
         GenerateShapesList(true);
         InstantiateShapes();
-
-        mColliders.mCurrentShape = GetCurrentShape();
 
     }
 	

@@ -27,8 +27,6 @@ public class PointCollider : MonoBehaviour {
 
         TouchManager.mTouchManager.AddGameObject(this.gameObject);
 
-        TouchManager.mTouchManager.mColliders.mCurrentPoint = this.gameObject;
-        TouchManager.mTouchManager.mColliders.pointCount += 1;
 
         check = true;
 
