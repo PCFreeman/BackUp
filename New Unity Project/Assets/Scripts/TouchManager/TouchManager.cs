@@ -122,19 +122,11 @@ public class TouchManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         mDrawTouch.update();
-
-
-
-
     }
 
     void OnApplicationQuit()
     {
         Debug.Log("[TouchManager]Manager successfully finished.");
-
-
-
-
     }
 
 

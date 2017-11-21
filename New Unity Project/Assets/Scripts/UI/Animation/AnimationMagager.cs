@@ -31,7 +31,6 @@ public class AnimationMagager : MonoBehaviour
     public Animator myAnimator;
     public float maxSize;
     public float growFactor;
-    public float waitTime;
     List<GameObject> Temp;
     private void Awake()
     {

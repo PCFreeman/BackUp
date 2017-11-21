@@ -8,6 +8,7 @@ public class LoadingManager : MonoBehaviour {
     public static LoadingManager instance;
     public GameObject loadingScreenObj;
     public Slider slider;
+    public Image Loadingbar;
     AsyncOperation async;
 
     private void Awake()
@@ -39,10 +40,10 @@ public class LoadingManager : MonoBehaviour {
        
         while (async.isDone==false)
         {
-            slider.value = async.progress;
+            Loadingbar.fillAmount = async.progress;
             if(async.progress==0.9f)
             {
-                slider.value = 1f;
+                Loadingbar.fillAmount = 1f;
                 async.allowSceneActivation = true;
             }
             yield return null;
