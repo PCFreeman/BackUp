@@ -17,7 +17,7 @@ public class DrawTouch : MonoBehaviour {
 
     bool checkTouch;
 
-    private float timeLimit;
+    public float timeLimit;
 
     private float timeColor = 0.0f;
 
@@ -176,7 +176,7 @@ public class DrawTouch : MonoBehaviour {
         }
         else if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Canceled))
         {
-
+            checkTouch = false;
         }
         else if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended) || (Input.GetMouseButtonUp(0)))
         {
@@ -186,7 +186,7 @@ public class DrawTouch : MonoBehaviour {
             //TouchManager.mTouchManager.pointsSelected = LineTouch.GetCollidedObjects();
             TouchManager.mTouchManager.pointsSelected = TouchManager.mTouchManager.GetCollidedObjects();
 
-            Debug.Log("points selected = " + TouchManager.mTouchManager.pointsSelected.ToString()); 
+            //Debug.Log("points selected = " + TouchManager.mTouchManager.pointsSelected.ToString()); 
 
 
             // Check if the line makes the corect shape
@@ -261,12 +261,13 @@ public class DrawTouch : MonoBehaviour {
 
                 ResetCollider();
 
-                TouchManager.mTouchManager.pointsSelected.Clear();               
+                TouchManager.mTouchManager.pointsSelected.Clear();
+               
 
-            }            
+            }
 
             //checkTouch = false;
-
+            timeLimit = TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().timeLimit;
             Destroy(thisLine);
         }
                 
