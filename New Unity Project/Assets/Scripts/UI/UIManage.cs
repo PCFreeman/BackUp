@@ -54,6 +54,7 @@ public class UIManage : MonoBehaviour {
     public Image mDouble1;
     public Image mDouble2;
     public GameObject mArea;
+    private int cuntdown;
     private Sprite CurrentShapeImage;
     public Sprite[] WhiteNumberPool;
     public Sprite[] NumberPool;
@@ -560,25 +561,27 @@ public class UIManage : MonoBehaviour {
     public void UpdateShapesTimeLimit(float timeLimit)//----------------------------------------------------Rafel
     {
        ShapeTimeLimit.text = Mathf.FloorToInt(timeLimit % 60f).ToString();
-        if(cooldown<0)
+        if (cooldown < 0)
         {
             cooldown = Mathf.FloorToInt(timeLimit % 60f);
         }
-
-        if (timeLimit>=cooldown )
+        if(Mathf.FloorToInt(timeLimit % 60f)> cuntdown)
         {
+            cooldown = Mathf.FloorToInt(timeLimit % 60f);
             imageColldown.fillAmount = 1;
-            cooldown = Mathf.FloorToInt(timeLimit % 60f);
         }
 
- 
-        imageColldown.fillAmount -= 1.0f / (timeLimit + (cooldown-timeLimit)) * Time.deltaTime;
+        if(timeLimit<cooldown)
+         {
+            imageColldown.fillAmount -= 1.0f / (timeLimit + (cooldown-timeLimit)) * Time.deltaTime;
+         }
+
        if (imageColldown.fillAmount <=0)
         {
             imageColldown.fillAmount = 1;
-            cooldown = 0;
+            cooldown = -1;
         }
-
+        cuntdown = Mathf.FloorToInt(timeLimit % 60f);
     }
     void Update()
     {

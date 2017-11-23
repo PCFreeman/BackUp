@@ -60,8 +60,8 @@ public class AnimationMagager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        EndPositionTime = EPTime.transform.position;
-        EndPositionScore = EPScore.transform.position;
+        EndPositionTime = EPTime.transform.position - new Vector3(0,0,60);
+        EndPositionScore = EPScore.transform.position - new Vector3(0, 0, 60);
     }
 
     // Update is called once per frame
