@@ -54,7 +54,7 @@ public class TouchManager : MonoBehaviour {
     private List<GameObject> mShapes;           //All types of Shapes
     private List<GameObject> mShapesList;       //List of Shapes during GamePlay
     public uint NumberOfShapes;
-    private List<GameObject> mShapesInstantied;
+    public List<GameObject> mShapesInstantied;
     private uint NumberOfShapesInstantiedMax;
 
     public GameObject redBorder;
