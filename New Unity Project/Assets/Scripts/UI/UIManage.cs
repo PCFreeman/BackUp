@@ -55,6 +55,7 @@ public class UIManage : MonoBehaviour {
     public Image mDouble2;
     public GameObject mArea;
     private Sprite CurrentShapeImage;
+    public Sprite[] WhiteNumberPool;
     public Sprite[] NumberPool;
     public Sprite[] UpTriangle;
     public Sprite[] DownTriangle;
@@ -327,7 +328,7 @@ public class UIManage : MonoBehaviour {
             mSingle.gameObject.SetActive(true);
             mDouble1.gameObject.SetActive(false);
             mDouble2.gameObject.SetActive(false);
-            mSingle.sprite = NumberPool[Multi];
+            mSingle.sprite = WhiteNumberPool[Multi];
             }
            
         }
@@ -340,64 +341,64 @@ public class UIManage : MonoBehaviour {
             switch (MultiString[0])
             {
                 case '0':
-                    mDouble1.sprite = NumberPool[0];
+                    mDouble1.sprite = WhiteNumberPool[0];
                     break;
                 case '1':
-                    mDouble1.sprite = NumberPool[1];
+                    mDouble1.sprite = WhiteNumberPool[1];
                     break;
                 case '2':
-                    mDouble1.sprite = NumberPool[2];
+                    mDouble1.sprite = WhiteNumberPool[2];
                     break;
                 case '3':
-                    mDouble1.sprite = NumberPool[3];
+                    mDouble1.sprite = WhiteNumberPool[3];
                     break;
                 case '4':
-                    mDouble1.sprite = NumberPool[4];
+                    mDouble1.sprite = WhiteNumberPool[4];
                     break;
                 case '5':
-                    mDouble1.sprite = NumberPool[5];
+                    mDouble1.sprite = WhiteNumberPool[5];
                     break;
                 case '6':
-                    mDouble1.sprite = NumberPool[6];
+                    mDouble1.sprite = WhiteNumberPool[6];
                     break;
                 case '7':
-                    mDouble1.sprite = NumberPool[7];
+                    mDouble1.sprite = WhiteNumberPool[7];
                     break;
                 case '8':
-                    mDouble1.sprite = NumberPool[8];
+                    mDouble1.sprite = WhiteNumberPool[8];
                     break;
                 case '9':
-                    mDouble1.sprite = NumberPool[9];
+                    mDouble1.sprite = WhiteNumberPool[9];
                     break;
             }
             switch(MultiString[1])
             {
                 case '0':
-                    Double2.sprite = NumberPool[0];
+                    Double2.sprite = WhiteNumberPool[0];
                     break;
                 case '1':
-                    Double2.sprite = NumberPool[1];
+                    Double2.sprite = WhiteNumberPool[1];
                     break;
                 case '2':
-                    Double2.sprite = NumberPool[2];
+                    Double2.sprite = WhiteNumberPool[2];
                     break;
                 case '3':
-                    Double2.sprite = NumberPool[3];
+                    Double2.sprite = WhiteNumberPool[3];
                     break;
                 case '4':
-                    Double2.sprite = NumberPool[4];
+                    Double2.sprite = WhiteNumberPool[4];
                     break;
                 case '5':
-                    Double2.sprite = NumberPool[5];
+                    Double2.sprite = WhiteNumberPool[5];
                     break;
                 case '6':
-                    Double2.sprite = NumberPool[6];
+                    Double2.sprite = WhiteNumberPool[6];
                     break;
                 case '7':
-                    Double2.sprite = NumberPool[7];
+                    Double2.sprite = WhiteNumberPool[7];
                     break;
                 case '8':
-                    Double2.sprite = NumberPool[8];
+                    Double2.sprite = WhiteNumberPool[8];
                     break;
                 case '9':
                     Double2.sprite = NumberPool[9];
