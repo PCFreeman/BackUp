@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Shapes : MonoBehaviour {
 
+
     public int points;
     public int timeBonus;
     private TouchLogic.Shapes shapeType;
@@ -26,27 +27,27 @@ public class Shapes : MonoBehaviour {
         return shapeType; 
     }
 
-    public void DecrementTimeLimit(float t)
+    public float DecrementTimeLimit(float totalReduceTime)
     {
-        if((timeLimit - t) >= minTimeLimit)
+        if((timeLimit - totalReduceTime) >= minTimeLimit)
         {
-            timeLimit -= t;
+            return (timeLimit - totalReduceTime);
         }
         else
         {
-            timeLimit = minTimeLimit;
+            return minTimeLimit;
         }
     }
 
-    public void IncrementTimeLimit(float t)
+    public float IncrementTimeLimit(float totalIncrementTime)
     {
-        if ((timeLimit + t) <= maxTimeLimit)
+        if ((timeLimit + totalIncrementTime) <= maxTimeLimit)
         {
-            timeLimit += t;
+            return (timeLimit + totalIncrementTime);
         }
         else
         {
-            timeLimit = maxTimeLimit;
+            return maxTimeLimit;
         }
     }
 

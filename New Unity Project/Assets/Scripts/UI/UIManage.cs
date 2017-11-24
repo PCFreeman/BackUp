@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class UIManage : MonoBehaviour {
+public class UIManage : MonoBehaviour
+{
 
     public static UIManage instance;
     public static PurchaseSystem sinstance;
@@ -45,16 +46,18 @@ public class UIManage : MonoBehaviour {
     public Image Double1;
     public Image Double2;
     public Image imageColldown;
-    float cooldown=-1.0f;
+    float cooldown = -1.0f;
     GameObject PointsArea;
     GameObject SelectPointArea;
-    int Multi;
+    private int Multi;
+    private int Multi2;
     string MultiString;
     public Image mSingle;
     public Image mDouble1;
     public Image mDouble2;
     public GameObject mArea;
     private float countdown;
+    private float MuliteCountDown;
     private Sprite CurrentShapeImage;
     public Sprite[] WhiteNumberPool;
     public Sprite[] NumberPool;
@@ -74,6 +77,8 @@ public class UIManage : MonoBehaviour {
     public Sprite[] TrapDown;
     public Sprite[] Dimon;
     public Sprite[] Square;
+    public Sprite[] Rec1;
+    public Sprite[] Rec2;
     public Sprite[] CDBackGroundPool;
     private void Awake()
     {
@@ -95,7 +100,7 @@ public class UIManage : MonoBehaviour {
         //SetHighscore();
         Time.timeScale = 1f;
         //Start Score
-         Score = 5000;
+        Score = 5000;
 
         GameObject.Find("Number").GetComponent<Text>().text = Score.ToString();
 
@@ -103,16 +108,17 @@ public class UIManage : MonoBehaviour {
 
     }
 
-        private void Start()
+    private void Start()
     {
         MusicCheck = true;
         SoundCheck = true;
         TryLimit.gameObject.SetActive(false);
         current = -1;
         WoboCombo = GameObject.Find("WoboComboManager").GetComponent<ComboSystem>();
-        sinstance= GameObject.Find("PurchaseManager").GetComponent<PurchaseSystem>();
-        PointsArea= GameObject.Find("Points Area");
-        SelectPointArea= GameObject.Find("Selected Points Area");
+        sinstance = GameObject.Find("PurchaseManager").GetComponent<PurchaseSystem>();
+        PointsArea = GameObject.Find("Points Area");
+        SelectPointArea = GameObject.Find("Selected Points Area");
+        MuliteCountDown = 5.0f;
     }
     public void MusicSwitch()
     {
@@ -139,42 +145,42 @@ public class UIManage : MonoBehaviour {
     public Sprite SearchForCDBackGround()
     {
         CurrentShapeImage = TouchManager.mTouchManager.GetCurrentShape().GetComponent<Image>().sprite;
-        
-        for (int tu = 0; tu < UpTriangle.Length;++tu)
+
+        for (int tu = 0; tu < UpTriangle.Length; ++tu)
+        {
+            if (CurrentShapeImage == UpTriangle[tu])
             {
-                if(CurrentShapeImage == UpTriangle[tu])
-                {
-                    return CDBackGroundPool[11];
-                }
+                return CDBackGroundPool[11];
             }
+        }
         for (int td = 0; td < DownTriangle.Length; ++td)
+        {
+            if (CurrentShapeImage == DownTriangle[td])
             {
-                if (CurrentShapeImage == DownTriangle[td])
-                {
-                    return CDBackGroundPool[12];
-                }
+                return CDBackGroundPool[12];
             }
+        }
         for (int tl = 0; tl < LeftTriangle.Length; ++tl)
+        {
+            if (CurrentShapeImage == LeftTriangle[tl])
             {
-                if (CurrentShapeImage == LeftTriangle[tl])
-                {
-                    return CDBackGroundPool[13];
-                }
+                return CDBackGroundPool[13];
             }
+        }
         for (int tr = 0; tr < RightTriangle.Length; ++tr)
+        {
+            if (CurrentShapeImage == RightTriangle[tr])
             {
-                if (CurrentShapeImage == RightTriangle[tr])
-                {
-                    return CDBackGroundPool[14];
-                }
+                return CDBackGroundPool[14];
             }
+        }
         for (int trdr = 0; trdr < TriangleRectangleDownRight.Length; ++trdr)
+        {
+            if (CurrentShapeImage == TriangleRectangleDownRight[trdr])
             {
-                if (CurrentShapeImage == TriangleRectangleDownRight[trdr])
-                {
-                    return CDBackGroundPool[8];
-                }
+                return CDBackGroundPool[8];
             }
+        }
         for (int trdl = 0; trdl < TriangleRectangleDownLeft.Length; ++trdl)
         {
             if (CurrentShapeImage == TriangleRectangleDownLeft[trdl])
@@ -238,16 +244,29 @@ public class UIManage : MonoBehaviour {
                 return CDBackGroundPool[0];
             }
         }
-        for (int s = 0;s < Square.Length; ++s)
+        for (int s = 0; s < Square.Length; ++s)
+        {
+            if (CurrentShapeImage == Square[s])
             {
-                if (CurrentShapeImage == Square[s])
-                {
-                    return CDBackGroundPool[10];
-                }
+                return CDBackGroundPool[10];
             }
+        }
+        for (int r1 = 0; r1 < Rec1.Length; ++r1)
+        {
+            if (CurrentShapeImage == Rec1[r1])
+            {
+                return CDBackGroundPool[18];
+            }
+        }
+        for (int r2 = 0; r2 < Rec2.Length; ++r2)
+        {
+            if (CurrentShapeImage == Rec2[r2])
+            {
+                return CDBackGroundPool[17];
+            }
+        }
 
 
-        
         return null;
     }
 
@@ -297,7 +316,7 @@ public class UIManage : MonoBehaviour {
     {
         Time.timeScale = 1f;
         StartCoroutine(LoadingManager.instance.LoadingScreen(0));
-        
+
     }
     public void Retry()
     {
@@ -305,35 +324,59 @@ public class UIManage : MonoBehaviour {
     }
     public void AddScore(int pluse)
     {
-       Score=Score + pluse;
-       GameObject.Find("Number").GetComponent<Text>().text = Score.ToString();
+        Score = Score + pluse;
+        GameObject.Find("Number").GetComponent<Text>().text = Score.ToString();
     }
     public void AddTime(int T)
     {
         timeLeft = timeLeft + T;
     }
-   public void MultiplierDisplay()
+    public void MultiplierDisplay()
     {
-       // MultplierDisplay.text = WoboCombo.GetMultiplier().ToString();
+        // MultplierDisplay.text = WoboCombo.GetMultipliecr().ToString();
         Multi = WoboCombo.GetMultiplier();
-
-        if (Multi<10)
+        if(Multi2<0)
         {
-            if (Multi<1)
-        {
-            mArea.SetActive(false);
+        Multi2 = WoboCombo.GetMultiplier(); 
         }
+
+        if (mArea.activeInHierarchy)
+        {
+            if (Multi!= Multi2)
+            {
+                MuliteCountDown = 5.0f;
+                Multi2 = Multi;
+            }
             else
             {
-            mArea.SetActive(true);
-            mSingle.gameObject.SetActive(true);
-            mDouble1.gameObject.SetActive(false);
-            mDouble2.gameObject.SetActive(false);
-            mSingle.sprite = WhiteNumberPool[Multi];
+            MuliteCountDown -= Time.deltaTime;
             }
-           
+            if (MuliteCountDown <= 0.0f)
+            {
+                WoboCombo.ResetCount();
+                MuliteCountDown = 5.0f;
+            }
+
         }
-        if(Multi>9)
+
+
+        if (Multi < 10)
+        {
+            if (Multi < 1)
+            {
+                mArea.SetActive(false);
+            }
+            else
+            {
+                mArea.SetActive(true);
+                mSingle.gameObject.SetActive(true);
+                mDouble1.gameObject.SetActive(false);
+                mDouble2.gameObject.SetActive(false);
+                mSingle.sprite = WhiteNumberPool[Multi];
+            }
+
+        }
+        if (Multi > 9)
         {
             mSingle.gameObject.SetActive(false);
             mDouble1.gameObject.SetActive(true);
@@ -372,7 +415,7 @@ public class UIManage : MonoBehaviour {
                     mDouble1.sprite = WhiteNumberPool[9];
                     break;
             }
-            switch(MultiString[1])
+            switch (MultiString[1])
             {
                 case '0':
                     Double2.sprite = WhiteNumberPool[0];
@@ -432,12 +475,12 @@ public class UIManage : MonoBehaviour {
     {
         GameManager.mGameManager.SetHighScore(s);
         FScore.text = "Your Score: " + s.ToString();
-		FhScore.text = "Highest Score: " + GameManager.mGameManager.GetHighScore().ToString();
+        FhScore.text = "Highest Score: " + GameManager.mGameManager.GetHighScore().ToString();
         Time.timeScale = 0f;
-        GameObject.Find("SettingButton").GetComponent<Button>().enabled = false;      
+        GameObject.Find("SettingButton").GetComponent<Button>().enabled = false;
     }
     public void OpenGameOverScreenMoves()//----------------------------------------------------Rafel
-    { 
+    {
         mGameOverScreen.SetActive(true);
         mG1.SetActive(false);
         mG2.SetActive(true);
@@ -474,14 +517,14 @@ public class UIManage : MonoBehaviour {
 
     public void PicForShapesTry(int m)
     {
-        if(m<10)
+        if (m < 10)
         {
             Double1.gameObject.SetActive(false);
             Double2.gameObject.SetActive(false);
             Single.gameObject.SetActive(true);
             Single.sprite = NumberPool[m];
         }
-        else if(m>9)
+        else if (m > 9)
         {
             ShapeTryString = m.ToString();
             Single.gameObject.SetActive(false);
@@ -560,23 +603,23 @@ public class UIManage : MonoBehaviour {
 
     public void UpdateShapesTimeLimit(float timeLimit)//----------------------------------------------------Rafel
     {
-       ShapeTimeLimit.text = Mathf.FloorToInt(timeLimit % 60f).ToString();
+        ShapeTimeLimit.text = Mathf.FloorToInt(timeLimit % 60f).ToString();
         if (cooldown < 0)
         {
             cooldown = Mathf.FloorToInt(timeLimit % 60f);
         }
-        if(timeLimit>= countdown)
+        if (timeLimit >= countdown)
         {
             cooldown = Mathf.FloorToInt(timeLimit % 60f);
             imageColldown.fillAmount = 1;
         }
 
-        if(timeLimit<cooldown)
-         {
-            imageColldown.fillAmount -= 1.0f / (timeLimit + (cooldown-timeLimit)) * Time.deltaTime;
-         }
+        if (timeLimit < cooldown)
+        {
+            imageColldown.fillAmount -= 1.0f / (timeLimit + (cooldown - timeLimit)) * Time.deltaTime;
+        }
 
-       if (imageColldown.fillAmount <=0)
+        if (imageColldown.fillAmount <= 0)
         {
             imageColldown.fillAmount = 1;
             cooldown = -1;
@@ -596,7 +639,7 @@ public class UIManage : MonoBehaviour {
             timeLeft -= Time.deltaTime;
 
             Timer.text = " " + Mins + ":" + Secs;
-            if (timeLeft < 10&&timeLeft>9)
+            if (timeLeft < 10 && timeLeft > 9)
             {
                 AudioController.sInstance.TimeNearEnd();
             }
@@ -606,7 +649,7 @@ public class UIManage : MonoBehaviour {
             AudioController.sInstance.GameOverSFX();
             OpenGameOverScreen();
         }
-   
+
 
     }
 }

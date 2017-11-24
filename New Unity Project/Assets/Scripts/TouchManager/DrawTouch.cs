@@ -15,13 +15,14 @@ public class DrawTouch : MonoBehaviour {
     GameObject curShape;
     public GameObject comboSystem;
 
-    bool checkTouch;
 
-    public float timeLimit;
+    public float timeLimit = -5.0f;
 
     private float timeColor = 0.0f;
 
     private bool LastShapeCorect;
+
+    private float lineColliderSize;
 
     public void Awake()
     {
@@ -33,9 +34,10 @@ public class DrawTouch : MonoBehaviour {
         linePrefab.GetComponent<TrailRenderer>().startWidth = 5 * PointsManager.mPointsManager.GetScreenYOffset();
         linePrefab.GetComponent<TrailRenderer>().endWidth = 5 * PointsManager.mPointsManager.GetScreenYOffset();
 
+        lineColliderSize = linePrefab.GetComponent<TrailRenderer>().startWidth;
         //Debug.Log("Line width: " + linePrefab.GetComponent<TrailRenderer>().startWidth.ToString());
 
-        
+
         LastShapeCorect = false;
         //pointsSelected = new List<GameObject>();
         objectPlane = new Plane(Camera.main.transform.forward * -1, this.transform.position);
@@ -43,9 +45,6 @@ public class DrawTouch : MonoBehaviour {
         firstPoint = new GameObject();
         curShape = new GameObject();
 
-        timeLimit = 1;
-
-        checkTouch = false;
 
 
         //Show level 1 animation
@@ -55,13 +54,13 @@ public class DrawTouch : MonoBehaviour {
         TouchManager.mTouchManager.mLevelAnimation.GetComponent<LevelDisplay>().LevelMovement(ref firstLevel);
 
     }
-
+    
     // Update is called once per frame
     public void update()
     {
-        if(!checkTouch)
+        if(timeLimit == -5.0f)
         {
-            timeLimit = TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().timeLimit;
+            timeLimit = TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().DecrementTimeLimit(LevelManager.mLevelManager.GetTotalReduceTime());
         }
 
         if(LastShapeCorect)
@@ -83,7 +82,6 @@ public class DrawTouch : MonoBehaviour {
         //This function can be use for Touch or mouse click
         if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) || (Input.GetMouseButtonDown(0)))
         {
-            checkTouch = true;
             if (LastShapeCorect == true)
             {
                 foreach (GameObject GO in TouchManager.mTouchManager.pointsSelected)
@@ -122,7 +120,11 @@ public class DrawTouch : MonoBehaviour {
             if (objectPlane.Raycast(mRay, out rayDistance))    //This check the contact of RayCast with plane and return the distance
             {
                 //coll = (GameObject)Instantiate(lineColliderPrefab, new Vector3(5000.0f, 0.0f, 0.0f), Quaternion.identity);
-
+                if(thisLine == null)
+                {
+                    thisLine = (GameObject)Instantiate(linePrefab, this.transform.position, Quaternion.identity);
+                    thisLine.name = "Line";
+                }
                 thisLine.transform.position = mRay.GetPoint(rayDistance);
 
                 if (startPosition.x == thisLine.transform.position.x && startPosition.y == thisLine.transform.position.y)
@@ -136,7 +138,7 @@ public class DrawTouch : MonoBehaviour {
                     float distance = thisLine.transform.position.y - startPosition.y;
 
                     coll.transform.position = new Vector3(startPosition.x, (distance * 0.5f) + startPosition.y, startPosition.z);
-                    coll.GetComponent<BoxCollider>().size = new Vector3(5.0f , distance, 1.0f);
+                    coll.GetComponent<BoxCollider>().size = new Vector3(lineColliderSize, distance, 1.0f);
                     coll.GetComponent<BoxCollider>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
 
                 }
@@ -147,7 +149,7 @@ public class DrawTouch : MonoBehaviour {
                     float distance = thisLine.transform.position.x - startPosition.x;
 
                     coll.transform.position = new Vector3((distance * 0.5f) + startPosition.x, startPosition.y, startPosition.z);
-                    coll.GetComponent<BoxCollider>().size = new Vector3(distance, 5.0f, 1.0f);
+                    coll.GetComponent<BoxCollider>().size = new Vector3(distance, lineColliderSize, 1.0f);
                     coll.GetComponent<BoxCollider>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
 
                 }
@@ -158,7 +160,7 @@ public class DrawTouch : MonoBehaviour {
                     float distanceY = thisLine.transform.position.y - startPosition.y;
                     
                     coll.transform.position = new Vector3((distanceX * 0.5f) + startPosition.x, (distanceY * 0.5f) + startPosition.y, startPosition.z);
-                    coll.GetComponent<BoxCollider>().size = new Vector3(distance, 5.0f, 1.0f);
+                    coll.GetComponent<BoxCollider>().size = new Vector3(distance, lineColliderSize, 1.0f);
 
                     coll.GetComponent<BoxCollider>().transform.eulerAngles = new Vector3(0.0f, 0.0f, GetRotation(startPosition, thisLine.transform.position));
                 }
@@ -176,12 +178,10 @@ public class DrawTouch : MonoBehaviour {
         }
         else if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Canceled))
         {
-            checkTouch = false;
+
         }
         else if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended) || (Input.GetMouseButtonUp(0)))
         {
-
-            checkTouch = false;
 
             //TouchManager.mTouchManager.pointsSelected = LineTouch.GetCollidedObjects();
             TouchManager.mTouchManager.pointsSelected = TouchManager.mTouchManager.GetCollidedObjects();
@@ -225,8 +225,11 @@ public class DrawTouch : MonoBehaviour {
                 LastShapeCorect = true;
 
                 //Add points to score
-                UIManage.instance.AddScore(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().points);
-
+                //Peter: Add Multiplier = 0 check
+                if(comboSystem.GetComponent<ComboSystem>().GetMultiplier() == 0)
+                    UIManage.instance.AddScore(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().points);
+                else
+                    UIManage.instance.AddScore(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().points * comboSystem.GetComponent<ComboSystem>().GetMultiplier());
                 //Add points to score
                 UIManage.instance.AddTime(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().timeBonus);
 
@@ -267,14 +270,14 @@ public class DrawTouch : MonoBehaviour {
             }
 
             //checkTouch = false;
-            timeLimit = TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().timeLimit;
+            timeLimit = TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().DecrementTimeLimit(LevelManager.mLevelManager.GetTotalReduceTime());
             Destroy(thisLine);
         }
                 
-        if (checkTouch)
-        {
+        //if (checkTouch)
+        //{
             DecrementTime();
-        }
+        //}
 
 
         UIManage.instance.UpdateNextLevel(LevelManager.mLevelManager.GetToNext());
@@ -356,7 +359,7 @@ public class DrawTouch : MonoBehaviour {
             AnimationMagager.mAnimation.ShapeMoveOut(TouchManager.mTouchManager.GetShapesIniatialized());
             TouchManager.mTouchManager.DeleteCurrentShape(false); //Delete current shape and Instantiate a new one
 
-            timeLimit = TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().timeLimit;
+            timeLimit = TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().DecrementTimeLimit(LevelManager.mLevelManager.GetTotalReduceTime());
 
 
         }

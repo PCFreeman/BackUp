@@ -60,24 +60,29 @@ public class Firstscreen : MonoBehaviour {
         Setting.SetActive(true);
 
     }
-    public void ModMenu()
-    {
-        PlaySFX();
-        MenuButton.SetActive(false);
-        Mode.SetActive(true);
-    }
+
     public void Endless()
     {
+    
         PlaySFX();
         Mode.SetActive(false);
         EndlessWindow.SetActive(true);
+      
 
     }//Those are the button in main menu
     public void Timed()
     {
-        PlaySFX();
+        if (PlayerPrefs.GetInt("FIRSTTIMEOPENING", 1) == 1)
+        {
+            PlayerPrefs.SetInt("FIRSTTIMEOPENING", 0);
+            GotoTutorial();
+        }
+        else
+        {
+            PlaySFX();
         Mode.SetActive(false);
         TimedWindow.SetActive(true);
+        }
     }
     public void Challenge()
     {
@@ -110,11 +115,6 @@ public class Firstscreen : MonoBehaviour {
            ChallengeWindow.SetActive(false);
            Mode.SetActive(true);
     }
-    public void PlayEndless()
-    {
-
-        //StartCoroutine(LoadingManager.instance.LoadingScreen(3));
-    }
     public void PlayTimed()
     {
         StartCoroutine(LoadingManager.instance.LoadingScreen(3));
@@ -123,10 +123,7 @@ public class Firstscreen : MonoBehaviour {
     {
        StartCoroutine(LoadingManager.instance.LoadingScreen(2));
     }
-    public void PlayChallenge()
-    {
-        SceneManager.LoadScene(1);
-    }
+
     public void MusicSwitch()
     {
         if(MusicCheck==true)

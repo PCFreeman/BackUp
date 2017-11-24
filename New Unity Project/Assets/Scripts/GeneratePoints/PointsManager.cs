@@ -33,12 +33,12 @@ public class PointsManager : MonoBehaviour {
     private int baseScreenResolutionHeight = 540;
     private int pointsAreaHeightPadding = 100;
     //private float areaOffset;
-    private float squaredAreaSize;
-    private float pointsAreaWidth;
-    private float maxAreaWidth;
+    private int squaredAreaSize;
+    private int pointsAreaWidth;
+    private int maxAreaWidth;
 
-    private float paddingLine = 10.5f;
-    private float lineHeight;
+    private int paddingLine = 10;
+    private int lineHeight;
 
     private int emptyLineAreaSize;
 
@@ -47,10 +47,10 @@ public class PointsManager : MonoBehaviour {
     //private float scalePoint;
     private int scaleSelectedPoint;
 
-    private float startingXposition = -10.0f;
-    private float startingYposition = -40.0f;
-    private float posXoffset;
-    private float posYoffset;
+    private int startingXposition = -10;
+    private int startingYposition = -40;
+    private int posXoffset;
+    private int posYoffset;
 
 
     private void Awake()
@@ -72,18 +72,18 @@ public class PointsManager : MonoBehaviour {
         isMovingSides = false;
 
         //Set x offset
-        ScreenXOffset = Screen.width / GameObject.Find("Canvas").GetComponent<CanvasScaler>().referenceResolution.x;
+        ScreenXOffset =Screen.width / GameObject.Find("Canvas").GetComponent<CanvasScaler>().referenceResolution.x;
 
         //Set y offset
         ScreenYOffset = Screen.height / GameObject.Find("Canvas").GetComponent<CanvasScaler>().referenceResolution.y;
         Debug.Log("Y = " + ScreenYOffset.ToString() + "    X = " + ScreenXOffset.ToString());
 
         //Center pos offset
-        posXoffset = (startingXposition * 0.0f);
-        posYoffset = (startingYposition * ScreenYOffset);
+        posXoffset = Mathf.FloorToInt(startingXposition * 0.0f);
+        posYoffset = Mathf.FloorToInt(startingYposition * ScreenYOffset);
 
         //Max Area Width
-        maxAreaWidth = 600.0f * ScreenXOffset;
+        maxAreaWidth = Mathf.FloorToInt(600.0f * ScreenXOffset);
     }
 
     // Use this for initialization
@@ -127,7 +127,7 @@ public class PointsManager : MonoBehaviour {
         numberPointsInLine = numberLines;
                         
         //Lines Variables
-        lineHeight = ((baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset) / numberLines;
+        lineHeight = Mathf.FloorToInt(((baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset) / numberLines);
 
         pointsPrefab.GetComponent<SpriteRenderer>().sprite.textureRect.size.Set(lineHeight, lineHeight);
 
@@ -143,7 +143,7 @@ public class PointsManager : MonoBehaviour {
         emptyLineAreaSize = ((int)(((baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset) - (2 * paddingLine)) - (numberPointsInLine * (int)sizePoint)) / (numberPointsInLine - 1);
 
         //Size if Area was squared
-        squaredAreaSize = (baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset;
+        squaredAreaSize = Mathf.FloorToInt((baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset);
 
         pointsAreaWidth = squaredAreaSize;
 
@@ -391,15 +391,15 @@ public class PointsManager : MonoBehaviour {
                     int xOffset = -((int)(sizePoint + emptyLineAreaSize) * checkPoints);
 
 
-                    pointTemp.transform.position = new Vector3(pointTemp.transform.position.x + xOffset, line.transform.position.y, pointTemp.transform.position.z);
-                    selectedPointTemp.transform.position = new Vector3(selectedPointTemp.transform.position.x + xOffset, line.transform.position.y, selectedPointTemp.transform.position.z);
+                    pointTemp.transform.position = new Vector3(Mathf.Floor(pointTemp.transform.position.x + xOffset), Mathf.Floor(line.transform.position.y), pointTemp.transform.position.z);
+                    selectedPointTemp.transform.position = new Vector3(Mathf.Floor(selectedPointTemp.transform.position.x + xOffset), Mathf.Floor(line.transform.position.y), selectedPointTemp.transform.position.z);
                 }
                 else //Line goes up
                 {
                     int xOffset = (int)(sizePoint + emptyLineAreaSize) * checkPoints;
 
-                    pointTemp.transform.position = new Vector3(pointTemp.transform.position.x + xOffset, line.transform.position.y, pointTemp.transform.position.z);
-                    selectedPointTemp.transform.position = new Vector3(selectedPointTemp.transform.position.x + xOffset, line.transform.position.y, selectedPointTemp.transform.position.z);
+                    pointTemp.transform.position = new Vector3(Mathf.Floor(pointTemp.transform.position.x + xOffset), Mathf.Floor(line.transform.position.y), pointTemp.transform.position.z);
+                    selectedPointTemp.transform.position = new Vector3(Mathf.Floor(selectedPointTemp.transform.position.x) + xOffset, Mathf.Floor(line.transform.position.y), selectedPointTemp.transform.position.z);
 
                 }
                 pointsList.Add(pointTemp);  //Temp list
@@ -442,12 +442,12 @@ public class PointsManager : MonoBehaviour {
                     xOffset = -xOffset;
                 }
 
-                pointTemp.transform.position = new Vector3(pointTemp.transform.position.x + xOffset,
-                    line.transform.position.y,
+                pointTemp.transform.position = new Vector3(Mathf.Floor(pointTemp.transform.position.x + xOffset),
+                    Mathf.Floor(line.transform.position.y),
                     pointTemp.transform.position.z);
 
-                selectedPointTemp.transform.position = new Vector3(selectedPointTemp.transform.position.x + xOffset,
-                   line.transform.position.y,
+                selectedPointTemp.transform.position = new Vector3(Mathf.Floor(selectedPointTemp.transform.position.x + xOffset),
+                   Mathf.Floor(line.transform.position.y),
                    selectedPointTemp.transform.position.z);
 
                 pointsList.Add(pointTemp);  //Temp list
@@ -476,7 +476,7 @@ public class PointsManager : MonoBehaviour {
 
         numberPointsInLine += (int)Mathf.Floor(floatNumberPointsInLine);
 
-        pointsAreaWidth += distanceBetweenPoints * (numberPointsInLine - numberLines);
+        pointsAreaWidth += Mathf.FloorToInt(distanceBetweenPoints * (numberPointsInLine - numberLines));
     }
 
     private int sortLine(GameObject GO1, GameObject GO2)
