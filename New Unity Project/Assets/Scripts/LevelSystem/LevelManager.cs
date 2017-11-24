@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour {
     public static LevelManager mLevelManager = null;
 
     private GameObject currentLevel;
-    private int mLevelIndex;
+    private uint mLevelIndex = 1;
 
     //Level Array
 
@@ -18,6 +18,9 @@ public class LevelManager : MonoBehaviour {
     private int mNumOfShapesTry;
     private int mNumShapesToNext;
 
+    private float totalReduceTime = 0.0f;
+
+    public float shapesReduceTime;
 
 
     //Functions
@@ -43,11 +46,12 @@ public class LevelManager : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        mLevelIndex = 0;
+        
         //currentLevel = (GameObject)Instantiate(mLevels[mLevelIndex], new Vector3(0.0f, 0.0f, -20.0f), Quaternion.identity);
         
         mNumOfShapesTry = (int)currentLevel.GetComponent<Level>().MaxShapesTry;
         mNumShapesToNext = (int)currentLevel.GetComponent<Level>().ShapesToNext;
+
     }
 	
 	
@@ -87,21 +91,22 @@ public class LevelManager : MonoBehaviour {
             Debug.Log("Next Level");
 
             
-            mLevelIndex++;
-            if(mLevelIndex < mLevels.Count)
+           
+            if((int)mLevelIndex < mLevels.Count)
             {
                 Destroy(currentLevel);
-                currentLevel = Instantiate(mLevels[mLevelIndex], new Vector3(0.0f, 0.0f, -20.0f), Quaternion.identity);
+                currentLevel = Instantiate(mLevels[(int)mLevelIndex], new Vector3(0.0f, 0.0f, -20.0f), Quaternion.identity);
             }
             else
             {
-                mLevelIndex = mLevels.Count - 1;
+                totalReduceTime += shapesReduceTime;
             }
+            mLevelIndex++;
             mNumShapesToNext = (int)currentLevel.GetComponent<Level>().ShapesToNext;
-            mNumOfShapesTry = (int)currentLevel.GetComponent<Level>().MaxShapesTry;
+            //mNumOfShapesTry = (int)currentLevel.GetComponent<Level>().MaxShapesTry;
 
             // ref here is bullshit! no need to use it is just an UINT that is never changed inside function
-            TouchManager.mTouchManager.mLevelAnimation.GetComponent<LevelDisplay>().LevelMovement(ref currentLevel.GetComponent<Level>().levelIndex); 
+            TouchManager.mTouchManager.mLevelAnimation.GetComponent<LevelDisplay>().LevelMovement(ref mLevelIndex); 
 
             TouchManager.mTouchManager.DeleteCurrentShape(true); //Delete current shape and Instantiate a new one
         }
@@ -117,14 +122,14 @@ public class LevelManager : MonoBehaviour {
     {
         if(currentLevel == null)
         {
-            currentLevel = (GameObject)Instantiate(mLevels[mLevelIndex], new Vector3(0.0f, 0.0f, -20.0f), Quaternion.identity);
+            currentLevel = (GameObject)Instantiate(mLevels[(int)mLevelIndex - 1], new Vector3(0.0f, 0.0f, -20.0f), Quaternion.identity);
         }
         return currentLevel;
     }
 
     public int GetCurrentLevelIndex()
     {
-        return mLevelIndex + 1;
+        return (int)mLevelIndex;
     }
 
     public int GetToNext()
@@ -158,5 +163,9 @@ public class LevelManager : MonoBehaviour {
         GameObject.Find("ShapeTLimit").GetComponent<Text>().text = Mathf.FloorToInt(timeLimit % 60f).ToString();
     }
     
+    public float GetTotalReduceTime()
+    {
+        return totalReduceTime;
+    }
 
 }
