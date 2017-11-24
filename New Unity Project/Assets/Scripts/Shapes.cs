@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Shapes : MonoBehaviour {
 
+
     public int points;
     public int timeBonus;
     private TouchLogic.Shapes shapeType;
