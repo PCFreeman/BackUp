@@ -34,6 +34,10 @@ public class AnimationMagager : MonoBehaviour
     public float maxSize;
     public float growFactor;
     List<GameObject> Temp;
+
+    //Peter: GetMultiplier()
+    private ComboSystem mComboSystem;
+
     private void Awake()
     {
 
@@ -60,6 +64,7 @@ public class AnimationMagager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        mComboSystem = GameObject.Find("WoboComboManager").GetComponent<ComboSystem>();
         EndPositionTime = EPTime.transform.position - new Vector3(0,0,60);
         EndPositionScore = EPScore.transform.position - new Vector3(0, 0, 60);
     }
@@ -440,7 +445,13 @@ public class AnimationMagager : MonoBehaviour
         // get point position
         // play animation to correct position
         Vector3 pp = point.transform.position;
-        mScoreBonus = currentshape.GetComponent<Shapes>().points;
+        
+        //Peter: Add Multiplier = 0 check
+        if(mComboSystem.GetMultiplier() == 0)
+            mScoreBonus = currentshape.GetComponent<Shapes>().points;
+        else
+            mScoreBonus = currentshape.GetComponent<Shapes>().points * mComboSystem.GetMultiplier();
+
         int size = mScoreBonus.ToString().Length;
         int halfSize;
 

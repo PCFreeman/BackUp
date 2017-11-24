@@ -54,7 +54,7 @@ public class UIManage : MonoBehaviour {
     public Image mDouble1;
     public Image mDouble2;
     public GameObject mArea;
-    private int cuntdown;
+    private float countdown;
     private Sprite CurrentShapeImage;
     public Sprite[] WhiteNumberPool;
     public Sprite[] NumberPool;
@@ -565,7 +565,7 @@ public class UIManage : MonoBehaviour {
         {
             cooldown = Mathf.FloorToInt(timeLimit % 60f);
         }
-        if(Mathf.FloorToInt(timeLimit % 60f)> cuntdown)
+        if(timeLimit>= countdown)
         {
             cooldown = Mathf.FloorToInt(timeLimit % 60f);
             imageColldown.fillAmount = 1;
@@ -581,7 +581,7 @@ public class UIManage : MonoBehaviour {
             imageColldown.fillAmount = 1;
             cooldown = -1;
         }
-        cuntdown = Mathf.FloorToInt(timeLimit % 60f);
+        countdown = timeLimit;
     }
     void Update()
     {

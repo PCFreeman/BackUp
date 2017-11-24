@@ -225,8 +225,11 @@ public class DrawTouch : MonoBehaviour {
                 LastShapeCorect = true;
 
                 //Add points to score
-                UIManage.instance.AddScore(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().points);
-
+                //Peter: Add Multiplier = 0 check
+                if(comboSystem.GetComponent<ComboSystem>().GetMultiplier() == 0)
+                    UIManage.instance.AddScore(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().points);
+                else
+                    UIManage.instance.AddScore(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().points * comboSystem.GetComponent<ComboSystem>().GetMultiplier());
                 //Add points to score
                 UIManage.instance.AddTime(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().timeBonus);
 
