@@ -202,6 +202,7 @@ public class TManager : MonoBehaviour {
             time -= Time.deltaTime;
             if(time<=0)
             {
+                GameObject.Find("Points Area").SetActive(false);
                 TUIManage.instance.OpenGameOverScreen();
             }
         }

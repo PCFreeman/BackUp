@@ -138,23 +138,18 @@ public class TUIManage : MonoBehaviour {
         timeLeft = timeLeft + T;
         GameObject.Find("Number").GetComponent<Text>().text = Score.ToString();
     }
-   
+
+    public ParticleSystem p1;
     public void OpenGameOverScreen()
     {
 
         mGameOverScreen.SetActive(true);
-        if (mGameOverScreen.activeInHierarchy)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                Time.timeScale = 1f;
-                StartCoroutine(LoadingManager.instance.LoadingScreen(0));
-            }
-        }
+        p1.gameObject.SetActive(true);
        // GameManager.mGameManager.SetHighScore(Score);
-        Time.timeScale = 0f;
+
         GameObject.Find("SettingButton").GetComponent<Button>().enabled = false;      
     }
+
     public void SetHighscore()
     {
         GameObject.Find("HNumber").GetComponent<Text>().text = "     " + GameManager.mGameManager.GetHighScore().ToString();
