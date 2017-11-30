@@ -132,6 +132,7 @@ public class TManager : MonoBehaviour {
       Third.transform.position + new Vector3(957, 0, -90),
       MovingSpeed));
         GroupOfArrow.SetActive(true);
+        CD.SetActive(false);
         Moves.GetComponent<RectTransform>().transform.position = new Vector3(-421,-125,0);
         Score.GetComponent<RectTransform>().transform.position = new Vector3(-421, 126, 0);
         count++;
@@ -145,6 +146,7 @@ public class TManager : MonoBehaviour {
         StartCoroutine(move(Fourth, Fourth.transform.position,
   Fourth.transform.position + new Vector3(957, 0, -90),
   MovingSpeed));
+
         count++;
     }
 
@@ -153,6 +155,7 @@ public class TManager : MonoBehaviour {
            StartCoroutine(move(Fourth, Fourth.transform.position,
     Fourth.transform.position + new Vector3(957, 0, 90),
     MovingSpeed));
+        CD.SetActive(true);
     }
 
     public ParticleSystem particle;

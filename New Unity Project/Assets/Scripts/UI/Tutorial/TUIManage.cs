@@ -74,12 +74,14 @@ public class TUIManage : MonoBehaviour {
     }
     public void settingMenu()
     {
+        GameObject.Find("Points Area").transform.position = new Vector3(0, 540, 0);
         Set.SetActive(true);
         Time.timeScale = 0f;
         Touch.SetActive(false);
     }
     public void SettingMenuBack()
     {
+        GameObject.Find("Points Area").transform.position = new Vector3(-65, 0,-20);
         Set.SetActive(false);
         Time.timeScale = 1f;
         Touch.SetActive(true);
@@ -183,7 +185,7 @@ public class TUIManage : MonoBehaviour {
     int Multi;
     int Multi2;
 
-    public void MultiplierDisplay()
+   public void MultiplierDisplay()
     {
         // MultplierDisplay.text = WoboCombo.GetMultipliecr().ToString();
         Multi = WoboCombo.GetMultiplier();
