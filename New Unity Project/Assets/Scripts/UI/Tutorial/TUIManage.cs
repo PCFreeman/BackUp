@@ -25,9 +25,19 @@ public class TUIManage : MonoBehaviour {
     private bool MusicCheck;
     private int Score;
     public GameObject Touch;
- 
-
-
+    public Image imageColldown;
+    public int cooldown;
+    public Text Moves;
+    public int Moveleft;
+    public static ComboSystem WoboCombo;
+    public GameObject mArea;
+    private float countdown;
+    private float MuliteCountDown;
+    public Sprite[] WhiteNumberPool;
+    public Image mSingle;
+    public Image mDouble1;
+    public Image mDouble2;
+    string MultiString;
     private void Awake()
     {
         //Check if instance already exist
@@ -48,7 +58,7 @@ public class TUIManage : MonoBehaviour {
        // SetHighscore();
         Time.timeScale = 1f;
         //Start Score
-         Score = 103;
+         Score = 5000;
 
         GameObject.Find("Number").GetComponent<Text>().text = Score.ToString();
 
@@ -57,6 +67,7 @@ public class TUIManage : MonoBehaviour {
     }
     private void Start()
     {
+        WoboCombo = GameObject.Find("TWoBoCombo").GetComponent<ComboSystem>();
         MusicCheck = true;
         SoundCheck = true;
 
@@ -124,8 +135,8 @@ public class TUIManage : MonoBehaviour {
     }
     public void AddTime(int T)
     {
-        timeMax = timeMax + T;
         timeLeft = timeLeft + T;
+        GameObject.Find("Number").GetComponent<Text>().text = Score.ToString();
     }
    
     public void OpenGameOverScreen()
@@ -149,10 +160,169 @@ public class TUIManage : MonoBehaviour {
         GameObject.Find("HNumber").GetComponent<Text>().text = "     " + GameManager.mGameManager.GetHighScore().ToString();
     }
 
+    public void ResetTimeLimit()
+    {
+        imageColldown.fillAmount = 1.0f;
+    }
+    public void UpdateShapesTimeLimit()
+    {
+        imageColldown.fillAmount -= 1.0f / cooldown * Time.deltaTime;
+        if(imageColldown.fillAmount<=0)
+        {
+            TAnimationMagager.mTAnimation.ShapeMoveOut(TTouchManager.mTTouchManager.GetShapesIniatialized());
+            TTouchManager.mTTouchManager.DeleteCurrentShape();
+            imageColldown.fillAmount = 1.0f;
+
+        }
+    }
+
+    public void UpdateShapeTry()
+    {
+        Moves.text = Moveleft.ToString();
+        Moveleft -= 1;
+        if(Moveleft<=0)
+        {
+            Moveleft = 0;
+        }
+    }
+    int Multi;
+    int Multi2;
+
+    public void MultiplierDisplay()
+    {
+        // MultplierDisplay.text = WoboCombo.GetMultipliecr().ToString();
+        Multi = WoboCombo.GetMultiplier();
+        if (Multi2 < 0)
+        {
+            Multi2 = WoboCombo.GetMultiplier();
+        }
+
+        if (mArea.activeInHierarchy)
+        {
+            if (Multi != Multi2)
+            {
+                MuliteCountDown = 5.0f;
+                Multi2 = Multi;
+            }
+            else
+            {
+                MuliteCountDown -= Time.deltaTime;
+            }
+            if (MuliteCountDown <= 0.0f)
+            {
+                WoboCombo.ResetCount();
+                MuliteCountDown = 5.0f;
+            }
+
+        }
+
+
+        if (Multi < 10)
+        {
+            if (Multi < 1)
+            {
+                mArea.SetActive(false);
+            }
+            else
+            {
+                mArea.SetActive(true);
+                mSingle.gameObject.SetActive(true);
+                mDouble1.gameObject.SetActive(false);
+                mDouble2.gameObject.SetActive(false);
+                mSingle.sprite = WhiteNumberPool[Multi];
+            }
+
+        }
+        if (Multi > 9)
+        {
+            mSingle.gameObject.SetActive(false);
+            mDouble1.gameObject.SetActive(true);
+            mDouble2.gameObject.SetActive(true);
+            MultiString = Multi.ToString();
+            switch (MultiString[0])
+            {
+                case '0':
+                    mDouble1.sprite = WhiteNumberPool[0];
+                    break;
+                case '1':
+                    mDouble1.sprite = WhiteNumberPool[1];
+                    break;
+                case '2':
+                    mDouble1.sprite = WhiteNumberPool[2];
+                    break;
+                case '3':
+                    mDouble1.sprite = WhiteNumberPool[3];
+                    break;
+                case '4':
+                    mDouble1.sprite = WhiteNumberPool[4];
+                    break;
+                case '5':
+                    mDouble1.sprite = WhiteNumberPool[5];
+                    break;
+                case '6':
+                    mDouble1.sprite = WhiteNumberPool[6];
+                    break;
+                case '7':
+                    mDouble1.sprite = WhiteNumberPool[7];
+                    break;
+                case '8':
+                    mDouble1.sprite = WhiteNumberPool[8];
+                    break;
+                case '9':
+                    mDouble1.sprite = WhiteNumberPool[9];
+                    break;
+            }
+            switch (MultiString[1])
+            {
+                case '0':
+                    mDouble2.sprite = WhiteNumberPool[0];
+                    break;
+                case '1':
+                    mDouble2.sprite = WhiteNumberPool[1];
+                    break;
+                case '2':
+                    mDouble2.sprite = WhiteNumberPool[2];
+                    break;
+                case '3':
+                    mDouble2.sprite = WhiteNumberPool[3];
+                    break;
+                case '4':
+                    mDouble2.sprite = WhiteNumberPool[4];
+                    break;
+                case '5':
+                    mDouble2.sprite = WhiteNumberPool[5];
+                    break;
+                case '6':
+                    mDouble2.sprite = WhiteNumberPool[6];
+                    break;
+                case '7':
+                    mDouble2.sprite = WhiteNumberPool[7];
+                    break;
+                case '8':
+                    mDouble2.sprite = WhiteNumberPool[8];
+                    break;
+                case '9':
+                    mDouble2.sprite = WhiteNumberPool[9];
+                    break;
+            }
+
+        }
+
+    }
+   public void BuyTime()
+    {
+        if (Score >= 500)
+        { 
+            AddTime(5);
+            Score -= 500;
+        }
+    }
+
     void Update()
     {
-       
-        
+        // UpdateShapesTimeLimit();
+        MultiplierDisplay();
+
         Mins = Mathf.FloorToInt(timeLeft / 60f);
         Secs = Mathf.FloorToInt(timeLeft % 60f);
         if (timeLeft > 0) {
@@ -164,10 +334,7 @@ public class TUIManage : MonoBehaviour {
         {
             timeLeft -= Time.deltaTime;
         }
-        if(Score>=150)
-        {
-           OpenGameOverScreen();
-        }
+
    //     else
    //     {        
 			//OpenGameOverScreen();

@@ -80,16 +80,8 @@ public class Firstscreen : MonoBehaviour {
         else
         {
             PlaySFX();
-        Mode.SetActive(false);
-        TimedWindow.SetActive(true);
+            PlayTimed();
         }
-    }
-    public void Challenge()
-    {
-        PlaySFX();
-        Mode.SetActive(false);
-        ChallengeWindow.SetActive(true);
-
     }
     public void SoundSwitch()
     {
@@ -146,7 +138,7 @@ public class Firstscreen : MonoBehaviour {
     public void PlaySFX()
     {
 
-        AudioController.sInstance.ClickSFX();
+        //AudioController.sInstance.ClickSFX();
     }
 
     public void SettingMenu()
@@ -160,7 +152,7 @@ public class Firstscreen : MonoBehaviour {
         else if(Setting.activeInHierarchy)
         {
             Setting.SetActive(false);
-            MenuButton.SetActive(true);
+            Mode.SetActive(true);
         }
        
     }

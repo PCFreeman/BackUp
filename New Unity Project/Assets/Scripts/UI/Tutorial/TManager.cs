@@ -9,16 +9,23 @@ public class TManager : MonoBehaviour {
     public GameObject Second;
     public GameObject Third;
     public GameObject Fourth;
+    public GameObject Fifth;
     public GameObject PointArea;
     public GameObject RB;
     public GameObject mHand;
+    public GameObject Pointer;
+    public GameObject CD;
+    public GameObject Score;
+    public GameObject Moves;
     public GameObject[] movingPoints;
     public Vector3 moveDir;
     public static TManager mTutorial = null;
     public float MovingSpeed;
     bool Check;
-    private int count = 1;
+    public int count = 1;
     private int moveIndex = 1;
+    public GameObject GroupOfArrow;
+    public GameObject MDisplay;
     private void Awake()
     {
 
@@ -56,8 +63,9 @@ public class TManager : MonoBehaviour {
         First.SetActive(true);
         Second.SetActive(true);
         Third.SetActive(true);
+        Fourth.SetActive(true);
+        Fifth.SetActive(true);
         mHand.transform.position = movingPoints[0].transform.position;
-        
         //TTouchManager.mTTouchManager.InstantiateShapes();
 
 
@@ -85,53 +93,83 @@ public class TManager : MonoBehaviour {
     void Fanimation()
     {
         StartCoroutine(move(First, First.transform.position,
-            First.transform.position + new Vector3(0, 300, 0),
+            First.transform.position + new Vector3(957, 0, 0),
             MovingSpeed));
         count++;
     }
     void Sanimation()
     {
      StartCoroutine(move(First, First.transform.position,
-           First.transform.position - new Vector3(0, 300, 0),
+           First.transform.position - new Vector3(-957, 0, 0),
            MovingSpeed));
-
+        Pointer.SetActive(true);
         EnablEverything();
+        count++;
 
+
+    }
+    public void TAnimation()
+     {
         StartCoroutine(move(Second, Second.transform.position,
-     Second.transform.position + new Vector3(130, 0, 0),
-     MovingSpeed));
+        Second.transform.position + new Vector3(957, 0, -90),
+        MovingSpeed));
+        Pointer.SetActive(false);
+        CD.SetActive(true);
+        count++;
+
+    }
+    public void FourthAnimation()
+    {
+        StartCoroutine(move(Second, Second.transform.position,
+                Second.transform.position + new Vector3(-957, 0, 90),
+                MovingSpeed));
+       
+        count++;
+    }
+   public void FifthAnimation()
+    {
+        StartCoroutine(move(Third, Third.transform.position,
+      Third.transform.position + new Vector3(957, 0, -90),
+      MovingSpeed));
+        GroupOfArrow.SetActive(true);
+        Moves.GetComponent<RectTransform>().transform.position = new Vector3(-421,-125,0);
+        Score.GetComponent<RectTransform>().transform.position = new Vector3(-421, 126, 0);
+        count++;
+    }
+    public void SixThAnimation()
+    {
+        StartCoroutine(move(Third, Third.transform.position,
+    Third.transform.position + new Vector3(957, 0, 90),
+    MovingSpeed));
+        GroupOfArrow.SetActive(false);
+        StartCoroutine(move(Fourth, Fourth.transform.position,
+  Fourth.transform.position + new Vector3(957, 0, -90),
+  MovingSpeed));
         count++;
     }
 
-    void Tanimation()
+    public void SeventhAnimation()
     {
-        StartCoroutine(move(Second, Second.transform.position,
-     Second.transform.position - new Vector3(130, 0, 0),
-     MovingSpeed));
-        mHand.SetActive(true);
-
-        StartCoroutine(move(Third, Third.transform.position,
-    Third.transform.position + new Vector3(125, 0, 0),
+           StartCoroutine(move(Fourth, Fourth.transform.position,
+    Fourth.transform.position + new Vector3(957, 0, 90),
     MovingSpeed));
-        Check = true;
     }
 
-    public void AnimatioonEnd()
-    {
-        StartCoroutine(move(Third, Third.transform.position,
-   Third.transform.position - new Vector3(125, 0, 0),
-   MovingSpeed));
-        mHand.SetActive(false);
-
-    }
-    public void AfterDraw()
-    {
-        Fourth.SetActive(true);
-    }
-
+    public ParticleSystem particle;
+    float time=3.0f;
     // Update is called once per frame
     void Update () {
-        HandMove();
+        if(count>=5)
+        {
+            TUIManage.instance.UpdateShapesTimeLimit();
+        }
+
+        if (MDisplay.activeInHierarchy)
+        {
+            particle.gameObject.SetActive(true);
+            Check = true;
+        }
+        // HandMove();
         if (Check == false)
         {
             if (Input.GetMouseButtonDown(0))
@@ -144,11 +182,27 @@ public class TManager : MonoBehaviour {
                     case 2:
                         Sanimation();
                         break;
-                    case 3:
-                        Tanimation();
+                    case 4:
+                       FourthAnimation();
                         break;
+                
+                    case 6:
+                        SixThAnimation();
+                        break;
+                    case 7:
+                        SeventhAnimation();
+                        break;
+
                 }
                 
+            }
+        }
+        else
+        {
+            time -= Time.deltaTime;
+            if(time<=0)
+            {
+                TUIManage.instance.OpenGameOverScreen();
             }
         }
     }

@@ -418,34 +418,34 @@ public class UIManage : MonoBehaviour
             switch (MultiString[1])
             {
                 case '0':
-                    Double2.sprite = WhiteNumberPool[0];
+                    mDouble2.sprite = WhiteNumberPool[0];
                     break;
                 case '1':
-                    Double2.sprite = WhiteNumberPool[1];
+                    mDouble2.sprite = WhiteNumberPool[1];
                     break;
                 case '2':
-                    Double2.sprite = WhiteNumberPool[2];
+                    mDouble2.sprite = WhiteNumberPool[2];
                     break;
                 case '3':
-                    Double2.sprite = WhiteNumberPool[3];
+                    mDouble2.sprite = WhiteNumberPool[3];
                     break;
                 case '4':
-                    Double2.sprite = WhiteNumberPool[4];
+                    mDouble2.sprite = WhiteNumberPool[4];
                     break;
                 case '5':
-                    Double2.sprite = WhiteNumberPool[5];
+                    mDouble2.sprite = WhiteNumberPool[5];
                     break;
                 case '6':
-                    Double2.sprite = WhiteNumberPool[6];
+                    mDouble2.sprite = WhiteNumberPool[6];
                     break;
                 case '7':
-                    Double2.sprite = WhiteNumberPool[7];
+                    mDouble2.sprite = WhiteNumberPool[7];
                     break;
                 case '8':
-                    Double2.sprite = WhiteNumberPool[8];
+                    mDouble2.sprite = WhiteNumberPool[8];
                     break;
                 case '9':
-                    Double2.sprite = NumberPool[9];
+                    mDouble2.sprite = WhiteNumberPool[9];
                     break;
             }
 

@@ -220,13 +220,23 @@ public class TTouchManager : MonoBehaviour
     {
         return mShapesInstantied[0];
     }
-
+    int check = 0;
     public void DeleteCurrentShape()
     {
-        TManager.mTutorial.AnimatioonEnd();
-        Destroy(mShapesInstantied[0], 1.0f);
+        if(check==0)
+        {
+        TManager.mTutorial.TAnimation();
+            check++;
+        }
+        if (check == 2)
+        {
+            TManager.mTutorial.FifthAnimation();
+            check++;
+        }
 
-        TManager.mTutorial.AfterDraw(); ;
+
+        Destroy(mShapesInstantied[0]);
+
 
         mShapesInstantied.Remove(mShapesInstantied[0]);
         mShapesList.RemoveAt(0);
@@ -237,7 +247,7 @@ public class TTouchManager : MonoBehaviour
         {
             GenerateShapesList();
         }
-
+        check++;
     }
 
     public void AddGameObject(GameObject GO)

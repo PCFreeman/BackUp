@@ -14,7 +14,7 @@ public class TDrawTouch : MonoBehaviour
     private GameObject coll; // line collider
     GameObject firstPoint;
     GameObject curShape;
-
+    public GameObject comboSystem;
     private bool LastShapeCorect;
 
     public void Awake()
@@ -57,8 +57,8 @@ public class TDrawTouch : MonoBehaviour
                 thisLine = (GameObject)Instantiate(linePrefab, this.transform.position, Quaternion.identity);
             }
 
-            Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            //Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);           //Use This for Mouse test
+            //Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);           //Use This for Mouse test
 
             float rayDistance;
             if (objectPlane.Raycast(mRay, out rayDistance))    //This check the contact of RayCast with plane and return the distance
@@ -70,8 +70,8 @@ public class TDrawTouch : MonoBehaviour
         {
 
 
-            Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            //Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);           //Use This for Mouse test
+            //Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);           //Use This for Mouse test
 
             float rayDistance;
             if (objectPlane.Raycast(mRay, out rayDistance))    //This check the contact of RayCast with plane and return the distance
@@ -149,6 +149,7 @@ public class TDrawTouch : MonoBehaviour
                 AudioController.sInstance.SuccessMoveSFX();
 
                 curShape = TTouchManager.mTTouchManager.GetCurrentShape();
+                comboSystem.GetComponent<ComboSystem>().IncreaseCount();
                 firstPoint = TTouchManager.mTTouchManager.pointsSelected[0];
 
                 Debug.Log("..........." + curShape.name);
@@ -161,7 +162,7 @@ public class TDrawTouch : MonoBehaviour
 
                 TAnimationMagager.mTAnimation.ShapeMoveOut(TTouchManager.mTTouchManager.GetShapesIniatialized());
                 TTouchManager.mTTouchManager.DeleteCurrentShape(); //Delete current shape and Instantiate a new one
-
+                TUIManage.instance.ResetTimeLimit();
 
                 //Destroy(thisLine);
 
@@ -208,7 +209,7 @@ public class TDrawTouch : MonoBehaviour
                 //TTouchManager.mTTouchManager.mColliders.pointCount = 0;
 
             }
-
+            TUIManage.instance.UpdateShapeTry();
             Destroy(thisLine);
         }
     }

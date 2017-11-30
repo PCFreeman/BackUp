@@ -71,22 +71,13 @@ public class TAnimationMagager : MonoBehaviour
 
     IEnumerator Scale(GameObject Shap)
     {
-        float timer = 0;
-
-        while (true) // this could also be a condition indicating "alive or dead"
-        {
-            // we scale all axis, so they will have the same value, 
-            // so we can work with a float instead of comparing vectors
+    
             while (maxSize > Shap.transform.localScale.x)
             {
-                timer += Time.deltaTime;
                 Shap.transform.localScale += new Vector3(1, 1, 1) * Time.deltaTime * growFactor;
                 yield return null;
             }
-            // reset the timer
-            timer = 0;
-            yield return new WaitForSeconds(waitTime);
-        }
+   
     }
     IEnumerator Move(GameObject point, Vector3 sPosition, Vector3 ePosition, float speed)
     {
