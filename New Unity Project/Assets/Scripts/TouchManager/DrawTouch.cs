@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DrawTouch : MonoBehaviour {
+public class DrawTouch : MonoBehaviour
+{
 
     //Change Screen Variables
     private Vector3 screenChangeStartPosition;
@@ -71,7 +72,7 @@ public class DrawTouch : MonoBehaviour {
         TouchManager.mTouchManager.mLevelAnimation.GetComponent<LevelDisplay>().LevelMovement(ref firstLevel);
 
     }
-    
+
     // Update is called once per frame
     public void update()
     {
@@ -147,7 +148,7 @@ public class DrawTouch : MonoBehaviour {
                             thisLine.name = "Line";
                         }
                         thisLine.transform.position = mRay.GetPoint(rayDistance);
-                    
+
 
                         if (startPosition.x == thisLine.transform.position.x && startPosition.y == thisLine.transform.position.y)
                         {
@@ -546,6 +547,64 @@ public class DrawTouch : MonoBehaviour {
                 }
             }
 
+            /*Peter Debug Use
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                isLeft = true;
+                if (isLeft)//&& LevelManager.mLevelManager.GetCurrentLevelIndex() > 1)
+                           //if(Input.GetKeyDown(KeyCode.K))
+                {
+                    Debug.Log("KKKKKKKKKKKKKK PRRRREEEEEEEESSSSSSSSSEEEEEEEEDDDDDD");
+                    GameObject canvas = GameObject.Find("Level");
+
+                    if (!wasInstantiated)
+                    {
+                        canvasClone = GameObject.Instantiate(canvas, new Vector3(canvas.transform.position.x + totalCanvasMove,
+                            canvas.transform.position.y, canvas.transform.position.z), Quaternion.identity, GameObject.Find("Canvas").transform);
+
+                        wasInstantiated = true;
+                    }
+
+
+
+                    float canvasMoveVariable = 100.0f;
+                    if (totalCanvasMove > canvasMoveVariable)
+                    {
+                        canvas.transform.position = new Vector3(canvas.transform.position.x - canvasMoveVariable,
+                            canvas.transform.position.y,
+                            canvas.transform.position.z);
+
+                        canvasClone.transform.position = new Vector3(canvasClone.transform.position.x - canvasMoveVariable,
+                            canvasClone.transform.position.y,
+                            canvasClone.transform.position.z);
+
+                        totalCanvasMove -= canvasMoveVariable;
+                    }
+                    else
+                    {
+                        canvas.transform.position = new Vector3(canvas.transform.position.x - totalCanvasMove,
+                            canvas.transform.position.y,
+                            canvas.transform.position.z);
+
+                        canvasClone.transform.position = new Vector3(canvasClone.transform.position.x - totalCanvasMove,
+                            canvasClone.transform.position.y,
+                            canvasClone.transform.position.z);
+
+
+                        totalCanvasMove = 0;
+
+                        isMoving = false;
+                        Destroy(canvas);
+                        canvasClone.name = "Level";
+                    }
+
+                }
+                else if (!isLeft && LevelManager.mLevelManager.GetCurrentLevelIndex() < GameManager.mGameManager.GetHighLevel())
+                {
+
+                }
+            }
+            */
             DecrementTime();
 
 
@@ -559,14 +618,14 @@ public class DrawTouch : MonoBehaviour {
             //Move screen code
 
             //Check if is possible
-            if (isLeft )//&& LevelManager.mLevelManager.GetCurrentLevelIndex() > 1)
+            if (isLeft)//&& LevelManager.mLevelManager.GetCurrentLevelIndex() > 1)
             {
-                GameObject canvas =  GameObject.Find("Level");
-                
+                GameObject canvas = GameObject.Find("Level");
+
                 if (!wasInstantiated)
                 {
-                canvasClone = GameObject.Instantiate(canvas, new Vector3(canvas.transform.position.x + totalCanvasMove,
-                    canvas.transform.position.y, canvas.transform.position.z), Quaternion.identity, GameObject.Find("Canvas").transform);
+                    canvasClone = GameObject.Instantiate(canvas, new Vector3(canvas.transform.position.x + totalCanvasMove,
+                        canvas.transform.position.y, canvas.transform.position.z), Quaternion.identity, GameObject.Find("Canvas").transform);
 
                     wasInstantiated = true;
                 }
@@ -574,7 +633,7 @@ public class DrawTouch : MonoBehaviour {
 
 
                 float canvasMoveVariable = 100.0f;
-                if(totalCanvasMove > canvasMoveVariable)
+                if (totalCanvasMove > canvasMoveVariable)
                 {
                     canvas.transform.position = new Vector3(canvas.transform.position.x - canvasMoveVariable,
                         canvas.transform.position.y,
@@ -610,13 +669,13 @@ public class DrawTouch : MonoBehaviour {
 
             }
 
-        }       
-        
+        }
+
     }
 
     public void SetSelectedPoint(ref GameObject point)
     {
-        Debug.Log(" -----------    "+point.name.ToString());
+        Debug.Log(" -----------    " + point.name.ToString());
 
 
         TouchManager.mTouchManager.pointsSelected.Add(point);
@@ -627,15 +686,15 @@ public class DrawTouch : MonoBehaviour {
         float xDistance = finalPos.x - initialPos.x;
         float yDistance = finalPos.y - initialPos.y;
 
-        return Mathf.Sqrt((xDistance* xDistance) + (yDistance* yDistance));
-        
+        return Mathf.Sqrt((xDistance * xDistance) + (yDistance * yDistance));
+
     }
 
     private float GetRotation(Vector3 initialPos, Vector3 finalPos)
     {
         float xDistance = finalPos.x - initialPos.x;
         float yDistance = finalPos.y - initialPos.y;
-                   
+
         float temp = (Mathf.Atan2(yDistance, xDistance) * Mathf.Rad2Deg);
 
         return temp;
@@ -661,14 +720,14 @@ public class DrawTouch : MonoBehaviour {
         //Put value inside time container
         //Mathf.FloorToInt() to get an int
 
-        if(timeLimit <= 0.0f)
+        if (timeLimit <= 0.0f)
         {
-            if(lineColliderPrefab != null)
+            if (lineColliderPrefab != null)
             {
                 Destroy(thisLine);
             }
-            
-            if(TouchManager.mTouchManager.pointsSelected.Count > 0)
+
+            if (TouchManager.mTouchManager.pointsSelected.Count > 0)
             {
                 foreach (GameObject GO in TouchManager.mTouchManager.pointsSelected)
                 {
@@ -682,7 +741,7 @@ public class DrawTouch : MonoBehaviour {
             TouchManager.mTouchManager.pointsSelected.Clear();
 
             LevelManager.mLevelManager.DecreaseShapesTry();
-                       
+
 
             AnimationMagager.mAnimation.ShapeMoveOut(TouchManager.mTouchManager.GetShapesIniatialized());
             TouchManager.mTouchManager.DeleteCurrentShape(false); //Delete current shape and Instantiate a new one

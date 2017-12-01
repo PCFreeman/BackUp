@@ -14,6 +14,8 @@ public class UIManage : MonoBehaviour
     public int TimeGain = 5;
     public int ChanceGain = 2;
     public int Score;
+
+    //-------------------------------------------------
     public Text ScoreShowedInGameOver;
     public Text Timer;
     public Text FhScore;
@@ -24,18 +26,18 @@ public class UIManage : MonoBehaviour
     public GameObject mG1;
     public Text mGC;
     public GameObject mG2;
-    public Sprite turnoff;
-    public Sprite turnon;
+    public Sprite turnoff;  //working
+    public Sprite turnon;   //working
     public Button button;
     private bool MusicCheck;
     float Mins;
     float Secs;
     public ParticleSystem particle;
-    public Sprite turnoffSound;
-    public Sprite turnonSound;
+    public Sprite turnoffSound; //working
+    public Sprite turnonSound;  //working
     public Button Soundbutton;
     private bool SoundCheck;
-    public GameObject Touch;
+    public GameObject Touch;    //working
     public Text TryLimit;
     public Text nextLevel;
     public Text ShapeTimeLimit;
@@ -56,6 +58,8 @@ public class UIManage : MonoBehaviour
     public Image mDouble1;
     public Image mDouble2;
     public GameObject mArea;
+    //--------------------------------------------------------
+
     private float countdown;
     private float MuliteCountDown;
     private Sprite CurrentShapeImage;
