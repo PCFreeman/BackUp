@@ -87,7 +87,7 @@ public class TManager : MonoBehaviour {
     {
         PointArea.SetActive(true);
         TTouchManager.mTTouchManager.InstantiateShapes();
-        RB.SetActive(true);
+       // RB.SetActive(true);
     }
     void Fanimation()
     {
@@ -112,6 +112,8 @@ public class TManager : MonoBehaviour {
         StartCoroutine(move(Second, Second.transform.position,
         Second.transform.position + new Vector3(957, 0, -90),
         MovingSpeed));
+        GameObject.Find("Points Area").transform.position = new Vector3(0, 500, 0);
+        GameObject.Find("Selected Points Area").transform.position = new Vector3(0, 500, 0);
         Pointer.SetActive(false);
         CD.SetActive(true);
         count++;
@@ -122,7 +124,8 @@ public class TManager : MonoBehaviour {
         StartCoroutine(move(Second, Second.transform.position,
                 Second.transform.position + new Vector3(-957, 0, 90),
                 MovingSpeed));
-       
+        GameObject.Find("Points Area").transform.position = new Vector3(-10, -40, -50);
+        GameObject.Find("Selected Points Area").transform.position = new Vector3(-10, -40, -50);
         count++;
     }
    public void FifthAnimation()
@@ -131,6 +134,8 @@ public class TManager : MonoBehaviour {
       Third.transform.position + new Vector3(957, 0, -90),
       MovingSpeed));
         GroupOfArrow.SetActive(true);
+        GameObject.Find("Points Area").transform.position = new Vector3(0, 500, 0);
+        GameObject.Find("Selected Points Area").transform.position = new Vector3(0, 500, 0);
         Moves.GetComponent<RectTransform>().transform.position = new Vector3(-421,-125,0);
         Score.GetComponent<RectTransform>().transform.position = new Vector3(-421, 126, 0);
         count++;
@@ -152,6 +157,8 @@ public class TManager : MonoBehaviour {
            StartCoroutine(move(Fourth, Fourth.transform.position,
     Fourth.transform.position + new Vector3(957, 0, 90),
     MovingSpeed));
+        GameObject.Find("Points Area").transform.position = new Vector3(-10, -40, -50);
+        GameObject.Find("Selected Points Area").transform.position = new Vector3(-10, -40, -50);
     }
 
     public ParticleSystem particle;
@@ -201,7 +208,8 @@ public class TManager : MonoBehaviour {
             time -= Time.deltaTime;
             if(time<=0)
             {
-                GameObject.Find("Points Area").SetActive(false);
+                GameObject.Find("Points Area").transform.position = new Vector3(0, 500, 0);
+                GameObject.Find("Selected Points Area").transform.position = new Vector3(0, 500, 0);
                 TUIManage.instance.OpenGameOverScreen();
             }
         }

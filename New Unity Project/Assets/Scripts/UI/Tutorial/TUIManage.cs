@@ -74,12 +74,16 @@ public class TUIManage : MonoBehaviour {
     }
     public void settingMenu()
     {
+        GameObject.Find("Points Area").transform.position = new Vector3(0, 500, 0);
+        GameObject.Find("Selected Points Area").transform.position = new Vector3(0, 500, 0);
         Set.SetActive(true);
         Time.timeScale = 0f;
         Touch.SetActive(false);
     }
     public void SettingMenuBack()
     {
+        GameObject.Find("Points Area").transform.position = new Vector3(-10, -40, -50);
+        GameObject.Find("Selected Points Area").transform.position = new Vector3(-10, -40, -50);
         Set.SetActive(false);
         Time.timeScale = 1f;
         Touch.SetActive(true);
@@ -145,7 +149,7 @@ public class TUIManage : MonoBehaviour {
 
         mGameOverScreen.SetActive(true);
         p1.gameObject.SetActive(true);
-       // GameManager.mGameManager.SetHighScore(Score);
+        // GameManager.mGameManager.SetHighScore(Score);
 
         GameObject.Find("SettingButton").GetComponent<Button>().enabled = false;      
     }
