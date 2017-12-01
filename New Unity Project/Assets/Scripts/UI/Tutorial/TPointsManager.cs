@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class TPointsManager : MonoBehaviour {
+public class TPointsManager : MonoBehaviour
+{
 
     public static TPointsManager mTPointsManager = null;
 
@@ -15,28 +16,42 @@ public class TPointsManager : MonoBehaviour {
     public GameObject pointsAreaPrefab;
     public GameObject pointsLinesPrefab;
     public GameObject pointsPrefab;
+    public GameObject selectedPointsPrefab;
 
     private GameObject pointsArea;
     private List<GameObject> pointsLines;       // This controls the lines structures, not content
     public List<List<GameObject>> points;      //for [x][y]   ,  each X will represent a line and each Y will represent a point in a line X
 
+    private GameObject selectedPointsArea;
+    private List<GameObject> selectedPointsLines;
+    public List<List<GameObject>> selectedPoints;      //for [x][y]   ,  each X will represent a line and each Y will represent a point in a line X
+
+
+
     private float ScreenXOffset;
     private float ScreenYOffset;
 
     private int baseScreenResolutionHeight = 540;
-    private int pointsAreaHeightPadding = 0;
-    private float areaOffset;
-    private float squaredAreaSize;
-    private float pointsAreaWidth;
+    private int pointsAreaHeightPadding = 100;
+    //private float areaOffset;
+    private int squaredAreaSize;
+    private int pointsAreaWidth;
+    private int maxAreaWidth;
 
-    private float paddingLine = 10.5f;
-    private float lineHeight;
+    private int paddingLine = 10;
+    private int lineHeight;
 
     private int emptyLineAreaSize;
 
+    //public float sizeDotSprite;
     private int sizePoint;
+    //private float scalePoint;
+    private int scaleSelectedPoint;
 
-    private float startingXposition = -65;
+    private int startingXposition = -10;
+    private int startingYposition = -40;
+    private int posXoffset;
+    private int posYoffset;
 
 
     private void Awake()
@@ -52,7 +67,7 @@ public class TPointsManager : MonoBehaviour {
             //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a TouchManager.
             Destroy(gameObject);
         }
-        
+
 
         isMovingUp = false;
         isMovingSides = false;
@@ -63,24 +78,45 @@ public class TPointsManager : MonoBehaviour {
         //Set y offset
         ScreenYOffset = Screen.height / GameObject.Find("Canvas").GetComponent<CanvasScaler>().referenceResolution.y;
         Debug.Log("Y = " + ScreenYOffset.ToString() + "    X = " + ScreenXOffset.ToString());
+
+        //Center pos offset
+        posXoffset = Mathf.FloorToInt(startingXposition * 0.0f);
+        posYoffset = Mathf.FloorToInt(startingYposition * ScreenYOffset);
+
+        //Max Area Width
+        maxAreaWidth = Mathf.FloorToInt(600.0f * ScreenXOffset);
     }
-    
 
     // Use this for initialization
-    void Start () {
-
+    void Start()
+    {
         GeneratePointsGrid();
-        Debug.Log("Teste");
+        Debug.Log("Canvas Width : " + GameObject.Find("Canvas").GetComponent<RectTransform>().rect.width *
+            GameObject.Find("Canvas").GetComponent<RectTransform>().localScale.x);
+        Debug.Log("Canvas Height : " + GameObject.Find("Canvas").GetComponent<RectTransform>().rect.height *
+            GameObject.Find("Canvas").GetComponent<RectTransform>().localScale.y);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+
+
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
 
 
+    public float GetScreenXOffset()
+    {
+        return ScreenXOffset;
+    }
 
-	}
+    public float GetScreenYOffset()
+    {
+        return ScreenYOffset;
+    }
+
 
     public int GetNumberOfHorizontalPoints()
     {
@@ -91,21 +127,25 @@ public class TPointsManager : MonoBehaviour {
     private void GeneratePointsGrid()
     {
         numberPointsInLine = numberLines;
-        
-        //PointArea variables
-        areaOffset = (GameObject.Find("Canvas").GetComponent<RectTransform>().rect.height) / 540.0f;
-        
+
         //Lines Variables
-        lineHeight = (baseScreenResolutionHeight - pointsAreaHeightPadding) / numberLines;
- 
+        lineHeight = Mathf.FloorToInt(((baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset) / numberLines);
+
+        pointsPrefab.GetComponent<SpriteRenderer>().sprite.textureRect.size.Set(lineHeight, lineHeight);
+
+
+
+
         //Points Variables
-        sizePoint = (int)(lineHeight * 0.7f);
+        sizePoint = Mathf.FloorToInt(lineHeight * 0.6f);// / pointsPrefab.GetComponent<SpriteRenderer>().sprite.rect.width);
+        scaleSelectedPoint = Mathf.FloorToInt((lineHeight * 0.6f) * 0.5f);// / selectedPointsPrefab.GetComponent<SpriteRenderer>().sprite.rect.width);
+
 
         //Variables to set Points positions in a Line
-        emptyLineAreaSize = ((int)((baseScreenResolutionHeight - 10.0) - (2 * paddingLine)) - (numberPointsInLine * sizePoint)) / (numberPointsInLine - 1);
+        emptyLineAreaSize = ((int)(((baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset) - (2 * paddingLine)) - (numberPointsInLine * (int)sizePoint)) / (numberPointsInLine - 1);
 
         //Size if Area was squared
-        squaredAreaSize = (baseScreenResolutionHeight - pointsAreaHeightPadding) * areaOffset;
+        squaredAreaSize = Mathf.FloorToInt((baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset);
 
         pointsAreaWidth = squaredAreaSize;
 
@@ -117,22 +157,28 @@ public class TPointsManager : MonoBehaviour {
         //Initialize the List that will hold PointLines
         pointsLines = new List<GameObject>();
 
+        //Initialize the List that will hold SelectedPointLines
+        selectedPointsLines = new List<GameObject>();
+
         //Initialize the 2D List that will hold Points
         points = new List<List<GameObject>>();
-        
+
+        //Initialize the 2D List that will hold SelectedPoints
+        selectedPoints = new List<List<GameObject>>();
+
         //Change size of points prefab
-        pointsPrefab.transform.localScale = new Vector3(sizePoint, sizePoint, pointsPrefab.transform.localScale.z) ;
+        pointsPrefab.transform.localScale = new Vector3(sizePoint, sizePoint, pointsPrefab.transform.localScale.z);
 
-
+        //Change size of points prefab
+        selectedPointsPrefab.transform.localScale = new Vector3(scaleSelectedPoint, scaleSelectedPoint, pointsPrefab.transform.localScale.z);
 
         GenerateLines();
 
-        foreach(GameObject lines in pointsLines)
+        for (int i = 0; i < pointsLines.Count; ++i)
         {
-            GeneratePoints(lines);
-        }     
+            GeneratePoints(pointsLines[i], selectedPointsLines[i]);
+        }
     }
-
 
     public float GetDistanceBetweenLinePoints()
     {
@@ -141,9 +187,6 @@ public class TPointsManager : MonoBehaviour {
 
     public float GetDistanceBetweenLines()
     {
-        //Debug.Log("P1  = " + points[2][0].transform.position.y.ToString() + points[2][0].transform.position.x.ToString());
-        //Debug.Log("P2  = " + points[0][0].transform.position.y.ToString() + points[0][0].transform.position.x.ToString());
-
         return points[2][0].transform.position.y - points[0][0].transform.position.y;
     }
 
@@ -151,41 +194,55 @@ public class TPointsManager : MonoBehaviour {
     {
         float offset = 0.0f;
 
-        for (int i = 1 ; i < pointsList.Count; ++i)
+        for (int i = 1; i < pointsList.Count; ++i)
         {
             if ((pointsList[i].transform.position.x - pointsList[i - 1].transform.position.x) != distance)
             {
-                if(((pointsList[i].transform.position.x + offset) - pointsList[i - 1].transform.position.x) != distance)
-                { 
+                if (((pointsList[i].transform.position.x + offset) - pointsList[i - 1].transform.position.x) != distance)
+                {
                     offset += distance - (pointsList[i].transform.position.x - pointsList[i - 1].transform.position.x);
                 }
 
                 float xPos = pointsList[i].transform.position.x;
                 xPos += offset;
 
-                pointsList[i].transform.position = new Vector3 (xPos,
+                pointsList[i].transform.position = new Vector3(xPos,
                                                       pointsList[i].transform.position.y,
                                                       pointsList[i].transform.position.z);
             }
 
         }
 
-        
+
 
     }
 
 
     private void GeneratePointsArea()
-    {    
+    {
 
         //Instantiate Points container
-        pointsArea = (GameObject)Instantiate(pointsAreaPrefab, new Vector3(Mathf.RoundToInt(startingXposition * ScreenXOffset), 0, -20), Quaternion.identity);
+        pointsArea = (GameObject)Instantiate(pointsAreaPrefab, new Vector3(Mathf.RoundToInt((startingXposition - posXoffset)), posYoffset, -50), Quaternion.identity);
+
+        //Instantiate Points container
+        selectedPointsArea = (GameObject)Instantiate(pointsAreaPrefab, new Vector3(Mathf.RoundToInt((startingXposition - posXoffset)), posYoffset, -50), Quaternion.identity);
 
         pointsArea.name = "Points Area";
+        selectedPointsArea.name = "Selected Points Area";
 
-        pointsArea.GetComponent<BoxCollider>().size = new Vector3((pointsAreaWidth - pointsAreaHeightPadding) * areaOffset,
-            (baseScreenResolutionHeight - pointsAreaHeightPadding) * areaOffset,
+        pointsArea.GetComponent<BoxCollider>().size = new Vector3(pointsAreaWidth,
+            (baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset,
             pointsArea.GetComponent<BoxCollider>().size.z);
+
+        selectedPointsArea.GetComponent<BoxCollider>().size = new Vector3(pointsAreaWidth,
+            (baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset,
+            pointsArea.GetComponent<BoxCollider>().size.z);
+
+
+        pointsArea.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+        pointsArea.transform.parent = GameObject.Find("Canvas").transform;
+        selectedPointsArea.transform.parent = GameObject.Find("Canvas").transform;
     }
 
     private void GenerateLines()
@@ -199,16 +256,25 @@ public class TPointsManager : MonoBehaviour {
             for (int i = 0; i < numberLines; ++i)
             {
                 //Instantiate Line
-                GameObject line = (GameObject)Instantiate(pointsLinesPrefab, new Vector3(startingXposition, 0, -20), Quaternion.identity);
+                GameObject line = (GameObject)Instantiate(pointsLinesPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), posYoffset, -50), Quaternion.identity);
+
+                //Instantiate Selected Line
+                GameObject selectedLine = (GameObject)Instantiate(pointsLinesPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), posYoffset, -50), Quaternion.identity);
+
 
                 //Set it as child of pointsArea
                 line.transform.parent = GameObject.Find("Points Area").transform;
+                //Set it as child of pointsArea
+                selectedLine.transform.parent = GameObject.Find("Selected Points Area").transform;
 
                 line.name = "Line " + i.ToString();
+                selectedLine.name = "Selected Line " + i.ToString();
 
                 //Set line height
                 line.GetComponent<BoxCollider>().size = new Vector3((int)((pointsAreaWidth - 10.0) - (2 * paddingLine)), lineHeight, line.GetComponent<BoxCollider>().size.z);
 
+                //Set Selectedline height
+                selectedLine.GetComponent<BoxCollider>().size = new Vector3((int)((pointsAreaWidth - 10.0) - (2 * paddingLine)), lineHeight, line.GetComponent<BoxCollider>().size.z);
 
                 //Line Goes down
                 if (i % 2 == 1)
@@ -218,7 +284,7 @@ public class TPointsManager : MonoBehaviour {
                     int yOffset = (int)(-(lineHeight * check));
 
                     line.transform.position = new Vector3(line.transform.position.x, line.transform.position.y + yOffset, line.transform.position.z);
-
+                    selectedLine.transform.position = new Vector3(selectedLine.transform.position.x, selectedLine.transform.position.y + yOffset, selectedLine.transform.position.z);
 
                 }
                 else //Line goes up
@@ -226,10 +292,12 @@ public class TPointsManager : MonoBehaviour {
                     int yOffset = (int)(lineHeight * check);
 
                     line.transform.position = new Vector3(line.transform.position.x, line.transform.position.y + yOffset, line.transform.position.z);
+                    selectedLine.transform.position = new Vector3(selectedLine.transform.position.x, selectedLine.transform.position.y + yOffset, selectedLine.transform.position.z);
 
                 }
 
                 pointsLines.Add(line);      //Line List
+                selectedPointsLines.Add(selectedLine);
             }
         }
         else          // Even number of lines
@@ -250,15 +318,24 @@ public class TPointsManager : MonoBehaviour {
 
 
                 //Instantiate Line
-                GameObject line = (GameObject)Instantiate(pointsLinesPrefab, new Vector3(startingXposition, 0, -20), Quaternion.identity);
+                GameObject line = (GameObject)Instantiate(pointsLinesPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), posYoffset, -20), Quaternion.identity);
+
+                //Instantiate Selected Line
+                GameObject selectedLine = (GameObject)Instantiate(pointsLinesPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), posYoffset, -50), Quaternion.identity);
 
                 //Set it as child of pointsArea
                 line.transform.parent = GameObject.Find("Points Area").transform;
+                //Set it as child of pointsArea
+                selectedLine.transform.parent = GameObject.Find("Selected Points Area").transform;
 
                 line.name = "Line " + i.ToString();
+                selectedLine.name = "Selected Line " + i.ToString();
 
                 //Set line size
-                line.GetComponent<BoxCollider>().size = new Vector3((int)((baseScreenResolutionHeight - 10.0) - (2 * paddingLine)), lineHeight, line.GetComponent<BoxCollider>().size.z);
+                line.GetComponent<BoxCollider>().size = new Vector3((int)((pointsAreaWidth - 10.0) - (2 * paddingLine)), lineHeight, line.GetComponent<BoxCollider>().size.z);
+
+                //Set selectedLine size
+                selectedLine.GetComponent<BoxCollider>().size = new Vector3((int)((pointsAreaWidth - 10.0) - (2 * paddingLine)), lineHeight, line.GetComponent<BoxCollider>().size.z);
 
                 int yOffset = (int)((lineHeight * 0.5) + (lineHeight * lineCheck));
 
@@ -271,19 +348,20 @@ public class TPointsManager : MonoBehaviour {
                 //Set line position
                 line.transform.position = new Vector3(line.transform.position.x, line.transform.position.y + yOffset, line.transform.position.z);
 
-                pointsLines.Add(line);      //Line List
+                //Set line position
+                selectedLine.transform.position = new Vector3(selectedLine.transform.position.x, selectedLine.transform.position.y + yOffset, selectedLine.transform.position.z);
 
+                pointsLines.Add(line);      //Line List
+                selectedPointsLines.Add(selectedLine);
             }
 
         }
-
-
-
     }
 
-    private void GeneratePoints(GameObject line)
+    private void GeneratePoints(GameObject line, GameObject selectedLine)
     {
         List<GameObject> pointsList = new List<GameObject>();
+        List<GameObject> selectedPointsList = new List<GameObject>();
 
         //Helper Variable
         int checkPoints = 0;
@@ -294,12 +372,17 @@ public class TPointsManager : MonoBehaviour {
             {
 
                 //Instantiate Point
-                GameObject pointTemp = (GameObject)Instantiate(pointsPrefab, new Vector3(startingXposition, 0, -20), Quaternion.identity);
+                GameObject pointTemp = (GameObject)Instantiate(pointsPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), 0, -50), Quaternion.identity);
+
+                //Instantiate Selected Point
+                GameObject selectedPointTemp = (GameObject)Instantiate(selectedPointsPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), 0, -50), Quaternion.identity);
 
                 //Set it as child of Line
                 pointTemp.transform.parent = line.transform;
+                selectedPointTemp.transform.parent = selectedLine.transform;
 
                 pointTemp.name = "Point " + j.ToString();
+                selectedPointTemp.name = "Selected Point " + j.ToString();
 
 
 
@@ -307,25 +390,22 @@ public class TPointsManager : MonoBehaviour {
                 {
                     checkPoints = checkPoints + 1;
 
-                    int xOffset = -((sizePoint + emptyLineAreaSize) * checkPoints);
+                    int xOffset = -((int)(sizePoint + emptyLineAreaSize) * checkPoints);
 
 
-                    pointTemp.transform.position = new Vector3(pointTemp.transform.position.x + xOffset, line.transform.position.y, pointTemp.transform.position.z);
-
+                    pointTemp.transform.position = new Vector3(Mathf.Floor(pointTemp.transform.position.x + xOffset), Mathf.Floor(line.transform.position.y), pointTemp.transform.position.z);
+                    selectedPointTemp.transform.position = new Vector3(Mathf.Floor(selectedPointTemp.transform.position.x + xOffset), Mathf.Floor(line.transform.position.y), selectedPointTemp.transform.position.z);
                 }
                 else //Line goes up
                 {
-                    int xOffset = (sizePoint + emptyLineAreaSize) * checkPoints;
+                    int xOffset = (int)(sizePoint + emptyLineAreaSize) * checkPoints;
 
-                    pointTemp.transform.position = new Vector3(pointTemp.transform.position.x + xOffset, line.transform.position.y, pointTemp.transform.position.z);
+                    pointTemp.transform.position = new Vector3(Mathf.Floor(pointTemp.transform.position.x + xOffset), Mathf.Floor(line.transform.position.y), pointTemp.transform.position.z);
+                    selectedPointTemp.transform.position = new Vector3(Mathf.Floor(selectedPointTemp.transform.position.x) + xOffset, Mathf.Floor(line.transform.position.y), selectedPointTemp.transform.position.z);
 
                 }
-
-
                 pointsList.Add(pointTemp);  //Temp list
-
-
-
+                selectedPointsList.Add(selectedPointTemp);
             }
         }
         else  //Even number of points
@@ -345,12 +425,17 @@ public class TPointsManager : MonoBehaviour {
 
 
                 //Instantiate Point
-                GameObject pointTemp = (GameObject)Instantiate(pointsPrefab, new Vector3(startingXposition, 0, -20), Quaternion.identity);
+                GameObject pointTemp = (GameObject)Instantiate(pointsPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), 0, -20), Quaternion.identity);
+
+                //Instantiate Selected Point
+                GameObject selectedPointTemp = (GameObject)Instantiate(selectedPointsPrefab, new Vector3(((startingXposition - posXoffset) * ScreenXOffset), 0, -50), Quaternion.identity);
 
                 //Set it as child of Line
                 pointTemp.transform.parent = line.transform;
+                selectedPointTemp.transform.parent = selectedLine.transform;
 
                 pointTemp.name = "Point " + j.ToString();
+                selectedPointTemp.name = "Selected Point " + j.ToString();
 
                 int xOffset = (int)(((sizePoint + emptyLineAreaSize) * (0.5f)) + ((sizePoint + emptyLineAreaSize) * checkPoints));
 
@@ -359,41 +444,41 @@ public class TPointsManager : MonoBehaviour {
                     xOffset = -xOffset;
                 }
 
-                pointTemp.transform.position = new Vector3(pointTemp.transform.position.x + xOffset,
-                    line.transform.position.y,
+                pointTemp.transform.position = new Vector3(Mathf.Floor(pointTemp.transform.position.x + xOffset),
+                    Mathf.Floor(line.transform.position.y),
                     pointTemp.transform.position.z);
 
+                selectedPointTemp.transform.position = new Vector3(Mathf.Floor(selectedPointTemp.transform.position.x + xOffset),
+                   Mathf.Floor(line.transform.position.y),
+                   selectedPointTemp.transform.position.z);
+
                 pointsList.Add(pointTemp);  //Temp list
-                                
+                selectedPointsList.Add(selectedPointTemp);
             }
         }
 
         pointsList.Sort(sortLine);
+        selectedPointsList.Sort(sortLine);
 
         checkPointsDistance(ref pointsList, (sizePoint + emptyLineAreaSize));
 
         points.Add(pointsList);     //2D List
+        selectedPoints.Add(selectedPointsList);
     }
 
     private void CheckPossibilityOfNewColumn(float distanceBetweenPoints)
     {
-        float timeWidth = GameObject.Find("Time").GetComponent<RectTransform>().rect.width;
-        float maxWidth = 650;
 
-        if ((squaredAreaSize + distanceBetweenPoints) > maxWidth)
+        if ((squaredAreaSize + distanceBetweenPoints) > maxAreaWidth)
         {
             return;
         }
 
-        float floatNumberPointsInLine = (maxWidth - squaredAreaSize) / distanceBetweenPoints;
+        float floatNumberPointsInLine = (maxAreaWidth - squaredAreaSize) / distanceBetweenPoints;
 
         numberPointsInLine += (int)Mathf.Floor(floatNumberPointsInLine);
 
-
-
-        pointsAreaWidth += distanceBetweenPoints * (numberPointsInLine - numberLines);
-
-
+        pointsAreaWidth += Mathf.FloorToInt(distanceBetweenPoints * (numberPointsInLine - numberLines));
     }
 
     private int sortLine(GameObject GO1, GameObject GO2)

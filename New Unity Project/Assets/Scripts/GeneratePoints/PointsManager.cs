@@ -72,7 +72,7 @@ public class PointsManager : MonoBehaviour {
         isMovingSides = false;
 
         //Set x offset
-        ScreenXOffset =Screen.width / GameObject.Find("Canvas").GetComponent<CanvasScaler>().referenceResolution.x;
+        ScreenXOffset = Screen.width / GameObject.Find("Canvas").GetComponent<CanvasScaler>().referenceResolution.x;
 
         //Set y offset
         ScreenYOffset = Screen.height / GameObject.Find("Canvas").GetComponent<CanvasScaler>().referenceResolution.y;
@@ -216,7 +216,7 @@ public class PointsManager : MonoBehaviour {
     }
 
 
-    private void GeneratePointsArea()
+    private void GeneratePointsArea(string parentName  = "Level")
     {    
 
         //Instantiate Points container
@@ -239,8 +239,8 @@ public class PointsManager : MonoBehaviour {
 
         pointsArea.transform.localScale = new Vector3(1.0f,1.0f,1.0f);
 
-        pointsArea.transform.parent = GameObject.Find("Canvas").transform;
-        selectedPointsArea.transform.parent = GameObject.Find("Canvas").transform;
+        pointsArea.transform.parent = GameObject.Find(parentName).transform;
+        selectedPointsArea.transform.parent = GameObject.Find(parentName).transform;
     }
 
     private void GenerateLines()

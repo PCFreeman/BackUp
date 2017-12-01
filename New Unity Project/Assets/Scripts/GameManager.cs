@@ -56,5 +56,19 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public int GetHighLevel()
+    {
+        return PlayerPrefs.GetInt("highlevel", 1);
+    }
+
+    public void SetHighLevel(int currentLevel)
+    {
+        if (currentLevel > PlayerPrefs.GetInt("highlevel", 1))
+        {
+            PlayerPrefs.SetInt("highlevel", currentLevel);
+        }
+    }
+
+
 
 }

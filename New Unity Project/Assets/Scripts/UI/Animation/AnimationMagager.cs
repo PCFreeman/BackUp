@@ -82,7 +82,7 @@ public class AnimationMagager : MonoBehaviour
                 Shap.transform.localScale += new Vector3(1, 1, 1) * Time.deltaTime * growFactor;
                 yield return null;
             }
-        
+        Shap.transform.localScale = new Vector3(2, 2, 2);
     }
 
     IEnumerator Move(GameObject point, Vector3 sPosition, Vector3 ePosition, float speed)
@@ -792,8 +792,9 @@ public class AnimationMagager : MonoBehaviour
             if (i == 1)
             {
                 StartCoroutine(Scale(Temp[i]));
+                //StartCoroutine(MoveShape(Temp[i], Temp[i].transform.position, Temp[i].transform.position + new Vector3(0, 210 * PointsManager.mPointsManager.GetScreenYOffset(), 0), ShapeMoveSpeed));
             }
-            StartCoroutine(MoveShape(Temp[i], Temp[i].transform.position, Temp[i].transform.position + new Vector3(0, 300 * PointsManager.mPointsManager.GetScreenYOffset(), 0), ShapeMoveSpeed));
+            StartCoroutine(MoveShape(Temp[i], Temp[i].transform.position, Temp[i].transform.position + new Vector3(0, 210 * PointsManager.mPointsManager.GetScreenYOffset(), 0), ShapeMoveSpeed));
         }
         //TouchManager.mTouchManager.DeleteCurrentShape(false);
     }

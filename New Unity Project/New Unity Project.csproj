@@ -127,7 +127,6 @@
     <Compile Include="Assets\Scripts\UI\Tutorial\TPointsManager.cs" />
     <Compile Include="Assets\Scripts\UI\Tutorial\TShapes.cs" />
     <Compile Include="Assets\Scripts\UI\Tutorial\TUIManage.cs" />
-    <Compile Include="Assets\Scripts\UI\TutorialManager.cs" />
     <Compile Include="Assets\Scripts\UI\UIManage.cs" />
     <Compile Include="Assets\TManager.cs" />
   </ItemGroup>
