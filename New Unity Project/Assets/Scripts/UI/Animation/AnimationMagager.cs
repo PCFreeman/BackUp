@@ -143,6 +143,7 @@ public class AnimationMagager : MonoBehaviour
                
                 case 0:
                     GameObject P0 = Instantiate(t0, pp, transform.rotation);
+                    P0.transform.localScale = new Vector2(t0.transform.localScale.x * PointsManager.mPointsManager.GetScreenXOffset(), t0.transform.localScale.y * PointsManager.mPointsManager.GetScreenYOffset());
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -172,6 +173,7 @@ public class AnimationMagager : MonoBehaviour
                     break;
                 case 1:
                     GameObject P1 = Instantiate(t1, pp, transform.rotation);
+                    P1.transform.localScale = new Vector2(t1.transform.localScale.x * PointsManager.mPointsManager.GetScreenXOffset(), t1.transform.localScale.y * PointsManager.mPointsManager.GetScreenYOffset());
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -202,6 +204,7 @@ public class AnimationMagager : MonoBehaviour
 
                 case 2:
                     GameObject P2 = Instantiate(t2, pp, transform.rotation);
+                    P2.transform.localScale = new Vector2(t2.transform.localScale.x * PointsManager.mPointsManager.GetScreenXOffset(), t2.transform.localScale.y * PointsManager.mPointsManager.GetScreenYOffset());
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -230,6 +233,7 @@ public class AnimationMagager : MonoBehaviour
                     break;
                 case 3:
                     GameObject P3 = Instantiate(t3, pp, transform.rotation);
+                    P3.transform.localScale = new Vector2(t3.transform.localScale.x * PointsManager.mPointsManager.GetScreenXOffset(), t3.transform.localScale.y * PointsManager.mPointsManager.GetScreenYOffset());
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -259,6 +263,7 @@ public class AnimationMagager : MonoBehaviour
                     break;
                 case 4:
                     GameObject P4 = Instantiate(t4, pp, transform.rotation);
+                    P4.transform.localScale = new Vector2(t4.transform.localScale.x * PointsManager.mPointsManager.GetScreenXOffset(), t4.transform.localScale.y * PointsManager.mPointsManager.GetScreenYOffset());
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -288,6 +293,7 @@ public class AnimationMagager : MonoBehaviour
                     break;
                 case 5:
                     GameObject P5 = Instantiate(t5, pp, transform.rotation);
+                    P5.transform.localScale = new Vector2(t5.transform.localScale.x * PointsManager.mPointsManager.GetScreenXOffset(), t5.transform.localScale.y * PointsManager.mPointsManager.GetScreenYOffset());
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -317,6 +323,7 @@ public class AnimationMagager : MonoBehaviour
                     break;
                 case 6:
                     GameObject P6 = Instantiate(t6, pp, transform.rotation);
+                    P6.transform.localScale = new Vector2(t6.transform.localScale.x * PointsManager.mPointsManager.GetScreenXOffset(), t6.transform.localScale.y * PointsManager.mPointsManager.GetScreenYOffset());
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -346,6 +353,7 @@ public class AnimationMagager : MonoBehaviour
                     break;
                 case 7:
                     GameObject P7 = Instantiate(t7, pp, transform.rotation);
+                    P7.transform.localScale = new Vector2(t7.transform.localScale.x * PointsManager.mPointsManager.GetScreenXOffset(), t7.transform.localScale.y * PointsManager.mPointsManager.GetScreenYOffset());
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -375,6 +383,7 @@ public class AnimationMagager : MonoBehaviour
                     break;
                 case 8:
                     GameObject P8 = Instantiate(t8, pp, transform.rotation);
+                    P8.transform.localScale = new Vector2(t8.transform.localScale.x * PointsManager.mPointsManager.GetScreenXOffset(), t8.transform.localScale.y * PointsManager.mPointsManager.GetScreenYOffset());
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -404,6 +413,7 @@ public class AnimationMagager : MonoBehaviour
                     break;
                 case 9:
                     GameObject P9 = Instantiate(t9, pp, transform.rotation);
+                    P9.transform.localScale = new Vector2(t9.transform.localScale.x * PointsManager.mPointsManager.GetScreenXOffset(), t9.transform.localScale.y * PointsManager.mPointsManager.GetScreenYOffset());
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -483,6 +493,7 @@ public class AnimationMagager : MonoBehaviour
               
                 case 0:
                     GameObject P0 = Instantiate(t0, pp, transform.rotation);
+                    P0.transform.localScale = new Vector2(t0.transform.localScale.x * PointsManager.mPointsManager.GetScreenXOffset(), t0.transform.localScale.y * PointsManager.mPointsManager.GetScreenYOffset());
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -512,6 +523,7 @@ public class AnimationMagager : MonoBehaviour
                     break;
                 case 1:
                     GameObject P1 = Instantiate(t1, pp, transform.rotation);
+                    P1.transform.localScale = new Vector2(t1.transform.localScale.x * PointsManager.mPointsManager.GetScreenXOffset(), t1.transform.localScale.y * PointsManager.mPointsManager.GetScreenYOffset());
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -541,6 +553,7 @@ public class AnimationMagager : MonoBehaviour
                     break;
                 case 2:
                     GameObject P2 = Instantiate(t2, pp, transform.rotation);
+                    P2.transform.localScale = new Vector2(t2.transform.localScale.x * PointsManager.mPointsManager.GetScreenXOffset(), t2.transform.localScale.y * PointsManager.mPointsManager.GetScreenYOffset());
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -570,6 +583,7 @@ public class AnimationMagager : MonoBehaviour
                     break;
                 case 3:
                     GameObject P3 = Instantiate(t3, pp, transform.rotation);
+                    P3.transform.localScale = new Vector2(t3.transform.localScale.x * PointsManager.mPointsManager.GetScreenXOffset(), t3.transform.localScale.y * PointsManager.mPointsManager.GetScreenYOffset());
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -599,6 +613,7 @@ public class AnimationMagager : MonoBehaviour
                     break;
                 case 4:
                     GameObject P4 = Instantiate(t4, pp, transform.rotation);
+                    P4.transform.localScale = new Vector2(t4.transform.localScale.x * PointsManager.mPointsManager.GetScreenXOffset(), t4.transform.localScale.y * PointsManager.mPointsManager.GetScreenYOffset());
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -628,6 +643,7 @@ public class AnimationMagager : MonoBehaviour
                     break;
                 case 5:
                     GameObject P5 = Instantiate(t5, pp, transform.rotation);
+                    P5.transform.localScale = new Vector2(t5.transform.localScale.x * PointsManager.mPointsManager.GetScreenXOffset(), t5.transform.localScale.y * PointsManager.mPointsManager.GetScreenYOffset());
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -657,6 +673,7 @@ public class AnimationMagager : MonoBehaviour
                     break;
                 case 6:
                     GameObject P6 = Instantiate(t6, pp, transform.rotation);
+                    P6.transform.localScale = new Vector2(t6.transform.localScale.x * PointsManager.mPointsManager.GetScreenXOffset(), t6.transform.localScale.y * PointsManager.mPointsManager.GetScreenYOffset());
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -686,6 +703,7 @@ public class AnimationMagager : MonoBehaviour
                     break;
                 case 7:
                     GameObject P7 = Instantiate(t7, pp, transform.rotation);
+                    P7.transform.localScale = new Vector2(t7.transform.localScale.x * PointsManager.mPointsManager.GetScreenXOffset(), t7.transform.localScale.y * PointsManager.mPointsManager.GetScreenYOffset());
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -715,6 +733,7 @@ public class AnimationMagager : MonoBehaviour
                     break;
                 case 8:
                     GameObject P8 = Instantiate(t8, pp, transform.rotation);
+                    P8.transform.localScale = new Vector2(t8.transform.localScale.x * PointsManager.mPointsManager.GetScreenXOffset(), t8.transform.localScale.y * PointsManager.mPointsManager.GetScreenYOffset());
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x
@@ -744,6 +763,7 @@ public class AnimationMagager : MonoBehaviour
                     break;
                 case 9:
                     GameObject P9 = Instantiate(t9, pp, transform.rotation);
+                    P9.transform.localScale = new Vector2(t9.transform.localScale.x * PointsManager.mPointsManager.GetScreenXOffset(), t9.transform.localScale.y * PointsManager.mPointsManager.GetScreenYOffset());
                     if (hasOffset) //even numbers
                     {
                         if (i + 1 > halfSize) //add to x

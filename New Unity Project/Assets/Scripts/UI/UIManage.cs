@@ -335,21 +335,21 @@ public class UIManage : MonoBehaviour
     {
         // MultplierDisplay.text = WoboCombo.GetMultipliecr().ToString();
         Multi = WoboCombo.GetMultiplier();
-        if(Multi2<0)
+        if (Multi2 < 0)
         {
-        Multi2 = WoboCombo.GetMultiplier(); 
+            Multi2 = WoboCombo.GetMultiplier();
         }
 
         if (mArea.activeInHierarchy)
         {
-            if (Multi!= Multi2)
+            if (Multi != Multi2)
             {
                 MuliteCountDown = 5.0f;
                 Multi2 = Multi;
             }
             else
             {
-            MuliteCountDown -= Time.deltaTime;
+                MuliteCountDown -= Time.deltaTime;
             }
             if (MuliteCountDown <= 0.0f)
             {
