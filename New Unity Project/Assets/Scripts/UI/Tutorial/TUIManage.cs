@@ -38,6 +38,20 @@ public class TUIManage : MonoBehaviour {
     public Image mDouble1;
     public Image mDouble2;
     string MultiString;
+    private Sprite CurrentShapes;
+    public ParticleSystem p1;
+    public Sprite[] RectangleH;
+    public Sprite[] RectangleW;
+    public Sprite[] Square;
+    public Sprite[] TriangleUp;
+    public Sprite[] TriangleDown;
+    public Sprite[] TriangleLeft;
+    public Sprite[] TriangleRight;
+    public Sprite[] TriangleRectangleUpRight;
+    public Sprite[] TriangleRectangleUpLeft;
+    public Sprite[] TriangleRectangleDownRight;
+    public Sprite[] TriangleRectangleDownLeft;
+    public Sprite[] CDBackground;
     private void Awake()
     {
         //Check if instance already exist
@@ -143,7 +157,6 @@ public class TUIManage : MonoBehaviour {
         GameObject.Find("Number").GetComponent<Text>().text = Score.ToString();
     }
 
-    public ParticleSystem p1;
     public void OpenGameOverScreen()
     {
 
@@ -316,10 +329,96 @@ public class TUIManage : MonoBehaviour {
             Score -= 500;
         }
     }
+    public void ChangeCDimage()
+    {
+        imageColldown.sprite = SearchForCDBackGround();
+    }
 
+    public Sprite SearchForCDBackGround()
+    {
+        CurrentShapes= TTouchManager.mTTouchManager.GetCurrentShape().GetComponent<Image>().sprite;
+        for (int rw = 0; rw < RectangleW.Length; rw++)
+        {
+            if (CurrentShapes == RectangleW[rw])
+            {
+                return CDBackground[0];
+            }
+        }
+        for(int rh=0;rh<RectangleH.Length;rh++)
+        {
+            if(CurrentShapes== RectangleH[rh])
+            {
+                return CDBackground[1];
+            }
+        }
+        for (int s = 0; s < Square.Length; s++)
+        {
+            if (CurrentShapes == Square[s])
+            {
+                return CDBackground[2];
+            }
+        }
+        for (int tu = 0; tu < TriangleUp.Length; tu++)
+        {
+            if (CurrentShapes == TriangleUp[tu])
+            {
+                return CDBackground[3];
+            }
+        }
+        for (int td = 0; td < TriangleDown.Length; ++td)
+        {
+            if (CurrentShapes== TriangleDown[td])
+            {
+                return CDBackground[4];
+            }
+        }
+        for (int tl = 0; tl < TriangleLeft.Length; ++tl)
+        {
+            if (CurrentShapes == TriangleLeft[tl])
+            {
+                return CDBackground[5];
+            }
+        }
+        for (int tr = 0; tr < TriangleRight.Length; ++tr)
+        {
+            if (CurrentShapes == TriangleRight[tr])
+            {
+                return CDBackground[6];
+            }
+        }
+        for (int trdr = 0; trdr < TriangleRectangleDownRight.Length; ++trdr)
+        {
+            if (CurrentShapes == TriangleRectangleDownRight[trdr])
+            {
+                return CDBackground[7];
+            }
+        }
+        for (int trdl = 0; trdl < TriangleRectangleDownLeft.Length; ++trdl)
+        {
+            if (CurrentShapes == TriangleRectangleDownLeft[trdl])
+            {
+                return CDBackground[10];
+            }
+        }
+        for (int trur = 0; trur < TriangleRectangleUpRight.Length; ++trur)
+        {
+            if (CurrentShapes == TriangleRectangleUpRight[trur])
+            {
+                return CDBackground[9];
+            }
+        }
+        for (int trul = 0; trul < TriangleRectangleUpLeft.Length; ++trul)
+        {
+            if (CurrentShapes == TriangleRectangleUpLeft[trul])
+            {
+                return CDBackground[8];
+            }
+        }
+        return null;
+    }
     void Update()
     {
-        // UpdateShapesTimeLimit();
+        ChangeCDimage();
         MultiplierDisplay();
 
         Mins = Mathf.FloorToInt(timeLeft / 60f);

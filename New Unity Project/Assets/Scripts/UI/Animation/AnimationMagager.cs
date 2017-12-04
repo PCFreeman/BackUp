@@ -6,7 +6,7 @@ public class AnimationMagager : MonoBehaviour
 {
     //public GameObject test;
     //public GameObject test2;
-    [SerializeField]
+
     private Vector3 EndPositionTime;
     private Vector3 EndPositionScore;
     public GameObject EPTime;
@@ -794,7 +794,7 @@ public class AnimationMagager : MonoBehaviour
                 StartCoroutine(Scale(Temp[i]));
                 //StartCoroutine(MoveShape(Temp[i], Temp[i].transform.position, Temp[i].transform.position + new Vector3(0, 210 * PointsManager.mPointsManager.GetScreenYOffset(), 0), ShapeMoveSpeed));
             }
-            StartCoroutine(MoveShape(Temp[i], Temp[i].transform.position, Temp[i].transform.position + new Vector3(0, 210 * PointsManager.mPointsManager.GetScreenYOffset(), 0), ShapeMoveSpeed));
+            StartCoroutine(MoveShape(Temp[i], Temp[i].transform.position, Temp[i].transform.position + new Vector3(0, 175 * PointsManager.mPointsManager.GetScreenYOffset(), 0), ShapeMoveSpeed));
         }
         //TouchManager.mTouchManager.DeleteCurrentShape(false);
     }

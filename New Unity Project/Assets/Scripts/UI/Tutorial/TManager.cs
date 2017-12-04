@@ -133,6 +133,7 @@ public class TManager : MonoBehaviour {
         StartCoroutine(move(Third, Third.transform.position,
       Third.transform.position + new Vector3(957, 0, -90),
       MovingSpeed));
+        CD.SetActive(false);
         GroupOfArrow.SetActive(true);
         GameObject.Find("Points Area").transform.position = new Vector3(0, 500, 0);
         GameObject.Find("Selected Points Area").transform.position = new Vector3(0, 500, 0);
@@ -159,6 +160,7 @@ public class TManager : MonoBehaviour {
     MovingSpeed));
         GameObject.Find("Points Area").transform.position = new Vector3(-10, -40, -50);
         GameObject.Find("Selected Points Area").transform.position = new Vector3(-10, -40, -50);
+        CD.SetActive(true);
     }
 
     public ParticleSystem particle;

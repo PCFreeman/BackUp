@@ -6,9 +6,11 @@ public class TAnimationMagager : MonoBehaviour
 {
     //public GameObject test;
     //public GameObject test2;
-    [SerializeField]
-    public Vector3 EndPositionTime;
-    public Vector3 EndPositionScore;
+
+    private Vector3 EndPositionTime;
+    private Vector3 EndPositionScore;
+    public GameObject EPTime;
+    public GameObject EPScore;
     Vector3 pp;
     Vector3 ShapePosition;
     public GameObject t0;
@@ -59,7 +61,8 @@ public class TAnimationMagager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        EndPositionTime = EPTime.transform.position - new Vector3(0, 0, 60);
+        EndPositionScore = EPScore.transform.position - new Vector3(0, 0, 60);
     }
 
     // Update is called once per frame
