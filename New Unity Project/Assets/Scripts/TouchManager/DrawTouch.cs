@@ -547,64 +547,65 @@ public class DrawTouch : MonoBehaviour
                 }
             }
 
-            /*Peter Debug Use
+            //Peter Debug Use
             if (Input.GetKeyDown(KeyCode.K))
             {
                 isLeft = true;
                 if (isLeft)//&& LevelManager.mLevelManager.GetCurrentLevelIndex() > 1)
-                           //if(Input.GetKeyDown(KeyCode.K))
-                {
-                    Debug.Log("KKKKKKKKKKKKKK PRRRREEEEEEEESSSSSSSSSEEEEEEEEDDDDDD");
-                    GameObject canvas = GameObject.Find("Level");
-
-                    if (!wasInstantiated)
+                    if (Input.GetKeyDown(KeyCode.K))
                     {
-                        canvasClone = GameObject.Instantiate(canvas, new Vector3(canvas.transform.position.x + totalCanvasMove,
-                            canvas.transform.position.y, canvas.transform.position.z), Quaternion.identity, GameObject.Find("Canvas").transform);
+                        Debug.Log("KKKKKKKKKKKKKK PRRRREEEEEEEESSSSSSSSSEEEEEEEEDDDDDD");
+                        GameObject canvas = GameObject.Find("Level");
 
-                        wasInstantiated = true;
+                        if (!wasInstantiated)
+                        {
+                            canvasClone = GameObject.Instantiate(canvas, new Vector3(canvas.transform.position.x + totalCanvasMove,
+                                canvas.transform.position.y, canvas.transform.position.z), Quaternion.identity, GameObject.Find("Canvas").transform);
+                            canvasClone.name = "TestLevel";
+                            wasInstantiated = true;
+                        }
+
+
+
+                        float canvasMoveVariable = 100.0f;
+                        if (totalCanvasMove > canvasMoveVariable)
+                        {
+                            canvas.transform.position = new Vector3(canvas.transform.position.x - canvasMoveVariable,
+                                canvas.transform.position.y,
+                                canvas.transform.position.z);
+
+                            canvasClone.transform.position = new Vector3(canvasClone.transform.position.x - canvasMoveVariable,
+                                canvasClone.transform.position.y,
+                                canvasClone.transform.position.z);
+
+                            totalCanvasMove -= canvasMoveVariable;
+                        }
+                        else
+                        {
+                            canvas.transform.position = new Vector3(canvas.transform.position.x - totalCanvasMove,
+                                canvas.transform.position.y,
+                                canvas.transform.position.z);
+
+                            canvasClone.transform.position = new Vector3(canvasClone.transform.position.x - totalCanvasMove,
+                                canvasClone.transform.position.y,
+                                canvasClone.transform.position.z);
+
+
+                            totalCanvasMove = 0;
+
+                            isMoving = false;
+                            Destroy(canvas);
+                            //canvasClone.name = "TestLevel";
+                            UIManage.instance.ReAssignValue();
+                        }
+
                     }
-
-
-
-                    float canvasMoveVariable = 100.0f;
-                    if (totalCanvasMove > canvasMoveVariable)
+                    else if (!isLeft && LevelManager.mLevelManager.GetCurrentLevelIndex() < GameManager.mGameManager.GetHighLevel())
                     {
-                        canvas.transform.position = new Vector3(canvas.transform.position.x - canvasMoveVariable,
-                            canvas.transform.position.y,
-                            canvas.transform.position.z);
 
-                        canvasClone.transform.position = new Vector3(canvasClone.transform.position.x - canvasMoveVariable,
-                            canvasClone.transform.position.y,
-                            canvasClone.transform.position.z);
-
-                        totalCanvasMove -= canvasMoveVariable;
                     }
-                    else
-                    {
-                        canvas.transform.position = new Vector3(canvas.transform.position.x - totalCanvasMove,
-                            canvas.transform.position.y,
-                            canvas.transform.position.z);
-
-                        canvasClone.transform.position = new Vector3(canvasClone.transform.position.x - totalCanvasMove,
-                            canvasClone.transform.position.y,
-                            canvasClone.transform.position.z);
-
-
-                        totalCanvasMove = 0;
-
-                        isMoving = false;
-                        Destroy(canvas);
-                        canvasClone.name = "Level";
-                    }
-
-                }
-                else if (!isLeft && LevelManager.mLevelManager.GetCurrentLevelIndex() < GameManager.mGameManager.GetHighLevel())
-                {
-
-                }
             }
-            */
+
             DecrementTime();
 
 

@@ -26,6 +26,17 @@ public class UIManage : MonoBehaviour
     public GameObject mG1;
     public Text mGC;
     public GameObject mG2;
+
+    public void ReAssignValue()
+    {
+        //GameObject newLevel = GameObject.Find(clonename);
+        ScoreShowedInGameOver = GameObject.Find("ScoreinGameOver").GetComponent<Text>();
+        Timer = GameObject.Find("Timer").GetComponent<Text>();
+        FhScore = GameObject.Find("HighScore").GetComponent<Text>();
+        FScore = GameObject.Find("Score").GetComponent<Text>();
+        Left = GameObject.Find("Teee").GetComponent<Text>();
+    }
+
     public Sprite turnoff;  //working
     public Sprite turnon;   //working
     public Button button;
@@ -58,6 +69,8 @@ public class UIManage : MonoBehaviour
     public Image mDouble1;
     public Image mDouble2;
     public GameObject mArea;
+
+
     //--------------------------------------------------------
 
     private float countdown;
@@ -630,6 +643,8 @@ public class UIManage : MonoBehaviour
         }
         countdown = timeLimit;
     }
+
+
     void Update()
     {
         ChangeCDimage();
