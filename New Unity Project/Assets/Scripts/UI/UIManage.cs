@@ -14,7 +14,6 @@ public class UIManage : MonoBehaviour
     public int TimeGain = 5;
     public int ChanceGain = 2;
     public int Score;
-
     //-------------------------------------------------
     public Text ScoreShowedInGameOver;
     public Text Timer;
@@ -26,16 +25,6 @@ public class UIManage : MonoBehaviour
     public GameObject mG1;
     public Text mGC;
     public GameObject mG2;
-
-    public void ReAssignValue()
-    {
-        //GameObject newLevel = GameObject.Find(clonename);
-        ScoreShowedInGameOver = GameObject.Find("ScoreinGameOver").GetComponent<Text>();
-        Timer = GameObject.Find("Timer").GetComponent<Text>();
-        FhScore = GameObject.Find("HighScore").GetComponent<Text>();
-        FScore = GameObject.Find("Score").GetComponent<Text>();
-        Left = GameObject.Find("Teee").GetComponent<Text>();
-    }
 
     public Sprite turnoff;  //working
     public Sprite turnon;   //working
@@ -120,9 +109,6 @@ public class UIManage : MonoBehaviour
         Score = 5000;
 
         GameObject.Find("Number").GetComponent<Text>().text = Score.ToString();
-
-
-
     }
 
     private void Start()
@@ -644,7 +630,60 @@ public class UIManage : MonoBehaviour
         countdown = timeLimit;
     }
 
+    //Use to find Inactive GameObject
+    public static GameObject FindObject(GameObject parent, string name)
+    {
+        Transform[] trs = parent.GetComponentsInChildren<Transform>(true);
+        foreach (Transform t in trs)
+        {
+            if (t.name == name)
+            {
+                return t.gameObject;
+            }
+        }
+        return null;
+    }
 
+    public void ReAssignValue(string clonename)
+    {
+        GameObject newLevel = GameObject.Find(clonename);
+        
+        ScoreShowedInGameOver = FindObject(newLevel, "ScoreinGameOver").GetComponent<Text>();
+        Timer = FindObject(newLevel, "Timer").GetComponent<Text>(); //-------------------
+        FhScore = FindObject(newLevel, "HighScore").GetComponent<Text>();
+        FScore = FindObject(newLevel, "Score").GetComponent<Text>();//-------------------
+        Left = FindObject(newLevel, "Text").GetComponent<Text>();
+
+        Debug.Log("Break1");
+
+        Set = FindObject(newLevel, "InGameSettingMenu").GetComponent<GameObject>(); //-------------------
+        mGameOverScreen = FindObject(newLevel, "GameOverScreen").GetComponent<GameObject>();//-------------------
+        mG1 = FindObject(newLevel, "GameOver").GetComponent<GameObject>();//-------------------
+        mGC = FindObject(newLevel, "GameOver (chance)").GetComponent<Text>();
+        mG2 = FindObject(newLevel, "G2").GetComponent<GameObject>();//------------------
+        Debug.Log("Break2");
+        button = FindObject(newLevel, "Button").GetComponent<Button>();
+        particle = FindObject(newLevel, "Particle System").GetComponent<ParticleSystem>();
+        Soundbutton = FindObject(newLevel, "Button (3)").GetComponent<Button>();
+        Debug.Log("Break3");
+        TryLimit = FindObject(newLevel, "shapesTry").GetComponent<Text>();
+        nextLevel = FindObject(newLevel, "NextLevel").GetComponent<Text>();
+        Debug.Log("Break4");
+        ShapeTimeLimit = FindObject(newLevel, "ShapeTLimit").GetComponent<Text>();
+        GrounpOfShapeTryDisplay = FindObject(newLevel, "GroupOfShapeTry").GetComponent<GameObject>();//-------------------
+        Debug.Log("Break5");
+        Single = FindObject(newLevel, "Single").GetComponent<Image>();
+        Double1 = FindObject(newLevel, "Double1").GetComponent<Image>();
+        Double2 = FindObject(newLevel, "Double2").GetComponent<Image>();
+        imageColldown = FindObject(newLevel, "Cooldown").GetComponent<Image>();
+        Debug.Log("Break6");
+        mSingle = FindObject(newLevel, "mSingle").GetComponent<Image>();
+        mDouble1 = FindObject(newLevel, "mDouble1").GetComponent<Image>(); 
+        mDouble2 = FindObject(newLevel, "mDouble2").GetComponent<Image>();
+        Debug.Log("Break7");
+        mArea = FindObject(newLevel, "Multiplier").GetComponent<GameObject>();//-------------------
+        Debug.Log("ReAssignFunctionCalled2! FINISHEDFINISHEDFINISHEDFINISHED");
+    }
     void Update()
     {
         ChangeCDimage();
