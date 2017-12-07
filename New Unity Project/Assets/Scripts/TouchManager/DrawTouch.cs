@@ -101,6 +101,8 @@ public class DrawTouch : MonoBehaviour
 
             if (Input.touchCount == 1)
             {
+                Debug.Log("Touch 1");
+                
                 //This function can be use for Touch or mouse click
                 if ((Input.GetTouch(0).phase == TouchPhase.Began) || (Input.GetMouseButtonDown(0)))
                 {
@@ -296,68 +298,68 @@ public class DrawTouch : MonoBehaviour
                     Destroy(thisLine);
                 }
             }
-            else if (Input.touchCount == 2)
-            {
-                Debug.Log("============================Two Touch");
-
-
-                if (thisLine != null)
-                {
-                    Destroy(thisLine);
-                }
-
-                //Changing level by moving screen with two fingers
-                if (Input.GetTouch(1).phase == TouchPhase.Began)
-                {
-                    Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(1).position);
-
-                    float rayDistance;
-                    if (objectPlane.Raycast(mRay, out rayDistance))    //This check the contact of RayCast with plane and return the distance
-                    {
-                        screenChangeStartPosition = mRay.GetPoint(rayDistance);
-                    }
-                }
-                else if (Input.GetTouch(1).phase == TouchPhase.Canceled)
-                {
-
-                }
-                else if (Input.GetTouch(1).phase == TouchPhase.Ended)
-                {
-                    Debug.Log("============================Two Touch finished");
-                    Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(1).position);
-
-                    float rayDistance;
-                    if (objectPlane.Raycast(mRay, out rayDistance))    //This check the contact of RayCast with plane and return the distance
-                    {
-                        screenChangeFinalPosition = mRay.GetPoint(rayDistance);
-                    }
-
-                    //Check for distance necessary for level change
-                    if ((screenChangeFinalPosition.x - screenChangeStartPosition.x) < 0.0f)
-                    {
-                        Debug.Log("============================isMoving");
-
-                        //Drecrease level
-                        if (Mathf.Abs(screenChangeFinalPosition.x - screenChangeStartPosition.x) >= distanceToScreenChange)
-                        {
-                            //start moving
-                            isMoving = true;
-                            isLeft = true;
-                        }
-                    }
-                    else
-                    {
-                        Debug.Log("============================isMoving");
-                        //Increase level
-                        if (Mathf.Abs(screenChangeFinalPosition.x - screenChangeStartPosition.x) >= distanceToScreenChange)
-                        {
-                            //start moving
-                            isMoving = true;
-                            isLeft = false;
-                        }
-                    }
-                }
-            }
+            //else if (Input.touchCount == 2)
+            //{
+            //    Debug.Log("============================Two Touch");
+            //
+            //
+            //    if (thisLine != null)
+            //    {
+            //        Destroy(thisLine);
+            //    }
+            //
+            //    //Changing level by moving screen with two fingers
+            //    if (Input.GetTouch(1).phase == TouchPhase.Began)
+            //    {
+            //        Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(1).position);
+            //
+            //        float rayDistance;
+            //        if (objectPlane.Raycast(mRay, out rayDistance))    //This check the contact of RayCast with plane and return the distance
+            //        {
+            //            screenChangeStartPosition = mRay.GetPoint(rayDistance);
+            //        }
+            //    }
+            //    else if (Input.GetTouch(1).phase == TouchPhase.Canceled)
+            //    {
+            //
+            //    }
+            //    else if (Input.GetTouch(1).phase == TouchPhase.Ended)
+            //    {
+            //        Debug.Log("============================Two Touch finished");
+            //        Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(1).position);
+            //
+            //        float rayDistance;
+            //        if (objectPlane.Raycast(mRay, out rayDistance))    //This check the contact of RayCast with plane and return the distance
+            //        {
+            //            screenChangeFinalPosition = mRay.GetPoint(rayDistance);
+            //        }
+            //
+            //        //Check for distance necessary for level change
+            //        if ((screenChangeFinalPosition.x - screenChangeStartPosition.x) < 0.0f)
+            //        {
+            //            Debug.Log("============================isMoving");
+            //
+            //            //Drecrease level
+            //            if (Mathf.Abs(screenChangeFinalPosition.x - screenChangeStartPosition.x) >= distanceToScreenChange)
+            //            {
+            //                //start moving
+            //                isMoving = true;
+            //                isLeft = true;
+            //            }
+            //        }
+            //        else
+            //        {
+            //            Debug.Log("============================isMoving");
+            //            //Increase level
+            //            if (Mathf.Abs(screenChangeFinalPosition.x - screenChangeStartPosition.x) >= distanceToScreenChange)
+            //            {
+            //                //start moving
+            //                isMoving = true;
+            //                isLeft = false;
+            //            }
+            //        }
+            //    }
+            //}
             else //==================================================delete for final version, mouse debug
             {
                 //This function can be use for Touch or mouse click
@@ -373,30 +375,30 @@ public class DrawTouch : MonoBehaviour
                         LastShapeCorect = false;
                         timeColor = 0.0f;
                     }
-
+            
                     thisLine = (GameObject)Instantiate(linePrefab, this.transform.position, Quaternion.identity);
                     thisLine.name = "Line";
-
-
-
+            
+            
+            
                     //Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
                     Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);           //Use This for Mouse test
-
-
+            
+            
                     float rayDistance;
                     if (objectPlane.Raycast(mRay, out rayDistance))    //This check the contact of RayCast with plane and return the distance
                     {
                         startPosition = mRay.GetPoint(rayDistance);
                     }
-
+            
                 }
                 else if ((Input.GetMouseButton(0)))
                 {
-
-
+            
+            
                     //Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
                     Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);           //Use This for Mouse test
-
+            
                     float rayDistance;
                     if (objectPlane.Raycast(mRay, out rayDistance))    //This check the contact of RayCast with plane and return the distance
                     {
@@ -407,8 +409,8 @@ public class DrawTouch : MonoBehaviour
                             thisLine.name = "Line";
                         }
                         thisLine.transform.position = mRay.GetPoint(rayDistance);
-
-
+            
+            
                         if (startPosition.x == thisLine.transform.position.x && startPosition.y == thisLine.transform.position.y)
                         {
                             //do nothing they are in same position
@@ -416,86 +418,86 @@ public class DrawTouch : MonoBehaviour
                         else if (startPosition.x == thisLine.transform.position.x && startPosition.y != thisLine.transform.position.y)
                         {
                             //Vertical Line
-
+            
                             float distance = thisLine.transform.position.y - startPosition.y;
-
+            
                             coll.transform.position = new Vector3(startPosition.x, (distance * 0.5f) + startPosition.y, startPosition.z);
                             coll.GetComponent<BoxCollider>().size = new Vector3(lineColliderSize, distance, 1.0f);
                             coll.GetComponent<BoxCollider>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
-
+            
                         }
                         else if (startPosition.x != thisLine.transform.position.x && startPosition.y == thisLine.transform.position.y)
                         {
                             //Horizontal Line
-
-
+            
+            
                             float distance = thisLine.transform.position.x - startPosition.x;
-
+            
                             coll.transform.position = new Vector3((distance * 0.5f) + startPosition.x, startPosition.y, startPosition.z);
                             coll.GetComponent<BoxCollider>().size = new Vector3(distance, lineColliderSize, 1.0f);
                             coll.GetComponent<BoxCollider>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
-
+            
                         }
                         else
                         {
                             float distance = GetPointsDistance(startPosition, thisLine.transform.position);
                             float distanceX = thisLine.transform.position.x - startPosition.x;
                             float distanceY = thisLine.transform.position.y - startPosition.y;
-
+            
                             coll.transform.position = new Vector3((distanceX * 0.5f) + startPosition.x, (distanceY * 0.5f) + startPosition.y, startPosition.z);
                             coll.GetComponent<BoxCollider>().size = new Vector3(distance, lineColliderSize, 1.0f);
-
+            
                             coll.GetComponent<BoxCollider>().transform.eulerAngles = new Vector3(0.0f, 0.0f, GetRotation(startPosition, thisLine.transform.position));
                         }
                     }
-
+            
                     startPosition = thisLine.transform.position;
-
+            
                 }
                 else if ((Input.GetMouseButtonUp(0)))
                 {
-
+            
                     //TouchManager.mTouchManager.pointsSelected = LineTouch.GetCollidedObjects();
                     TouchManager.mTouchManager.pointsSelected = TouchManager.mTouchManager.GetCollidedObjects();
-
+            
                     //Debug.Log("points selected = " + TouchManager.mTouchManager.pointsSelected.ToString()); 
-
-
+            
+            
                     // Check if the line makes the corect shape
                     //if (TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchLogic.Shapes.Triangle5X3YDown, ref TouchManager.mTouchManager.pointsSelected))
                     if (TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().GetShpeType(), ref TouchManager.mTouchManager.pointsSelected))
                     {
-
-
+            
+            
                         AudioController.sInstance.SuccessMoveSFX();
                         comboSystem.GetComponent<ComboSystem>().IncreaseCount();
-
+            
                         curShape = TouchManager.mTouchManager.GetCurrentShape();
                         firstPoint = TouchManager.mTouchManager.pointsSelected[0];
-
+            
                         Debug.Log("..........." + curShape.name);
                         Debug.Log("***********" + firstPoint.name);
-
-
-
+            
+            
+            
                         AnimationMagager.mAnimation.ScoreAnimation(ref firstPoint, ref curShape);
                         AnimationMagager.mAnimation.TimeAnimation(ref firstPoint, ref curShape);
-
+            
                         Debug.Log("Correct Shape");
-
+            
                         AnimationMagager.mAnimation.ShapeMoveOut(TouchManager.mTouchManager.GetShapesIniatialized());
-
+            
                         LevelManager.mLevelManager.DecreaseShapesToNext();
-
+            
                         //Destroy(thisLine);
-
+            
                         foreach (GameObject GO in TouchManager.mTouchManager.pointsSelected)
                         {
                             GO.GetComponent<SpriteRenderer>().color = new Vector4(1.0f, 0.0f, 0.0f, 1.0f);
                         }
-
+            
                         LastShapeCorect = true;
-
+            
                         //Add points to score
                         //Peter: Add Multiplier = 0 check
                         if (comboSystem.GetComponent<ComboSystem>().GetMultiplier() == 0)
@@ -504,28 +506,28 @@ public class DrawTouch : MonoBehaviour
                             UIManage.instance.AddScore(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().points * comboSystem.GetComponent<ComboSystem>().GetMultiplier());
                         //Add points to score
                         UIManage.instance.AddTime(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().timeBonus);
-
+            
                         ResetCollider();
-
-
-
+            
+            
+            
                         //TouchManager.mTouchManager.mColliders.pointCount = 0;
-
-
+            
+            
                         //Call the winning animation or add points or ...
-
+            
                     }
                     else
                     {
                         Debug.Log("Wrong Shape");
-
+            
                         if (TouchManager.mTouchManager.GetCollidedObjects().Count > 0)
                         {
                             LevelManager.mLevelManager.DecreaseShapesTry();
                         }
                         AudioController.sInstance.ErrorSFX();
                         comboSystem.GetComponent<ComboSystem>().ResetCount();
-
+            
                         //Destroi the line , may add some stuff in future to make player know that made mistake
                         //Destroy(thisLine);
                         Debug.Log("GOs 2 size = " + TouchManager.mTouchManager.pointsSelected.Count.ToString());
@@ -533,14 +535,14 @@ public class DrawTouch : MonoBehaviour
                         {
                             GO.GetComponent<SpriteRenderer>().color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
                         }
-
+            
                         ResetCollider();
-
+            
                         TouchManager.mTouchManager.pointsSelected.Clear();
-
-
+            
+            
                     }
-
+            
                     //checkTouch = false;
                     timeLimit = TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().DecrementTimeLimit(LevelManager.mLevelManager.GetTotalReduceTime());
                     Destroy(thisLine);
