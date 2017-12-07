@@ -596,7 +596,7 @@ public class DrawTouch : MonoBehaviour
                             isMoving = false;
                             Destroy(canvas);
                             //canvasClone.name = "TestLevel";
-                            UIManage.instance.ReAssignValue();
+                           // UIManage.instance.ReAssignValue();
                         }
 
                     }

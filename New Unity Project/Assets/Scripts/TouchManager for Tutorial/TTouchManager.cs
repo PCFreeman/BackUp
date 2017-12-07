@@ -177,24 +177,24 @@ public class TTouchManager : MonoBehaviour
 
         for (int i = 0; i < mShapesInstantied.Count; ++i)
         {
-            int yPos = 0;
+            float yPos = 0;
 
             switch (i)
             {
                 case 0:
-                    yPos = 165;
+                    yPos = 165 * TPointsManager.mTPointsManager.GetScreenYOffset();
                     break;
                 case 1:
-                    yPos = -135;
+                    yPos = -135 * TPointsManager.mTPointsManager.GetScreenYOffset();
                     break;
                 case 2:
-                    yPos = -435;
+                    yPos = -435 * TPointsManager.mTPointsManager.GetScreenYOffset();
                     break;
                 case 3:
-                    yPos = -735;
+                    yPos = -735 * TPointsManager.mTPointsManager.GetScreenYOffset();
                     break;
                 case 4:
-                    yPos = -635;
+                    yPos = -635 * TPointsManager.mTPointsManager.GetScreenYOffset();
                     break;
                 default:
                     Debug.Assert(false, "[TouchManager] Num of shapes bigger than Max");

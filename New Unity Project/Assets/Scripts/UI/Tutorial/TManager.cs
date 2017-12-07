@@ -92,14 +92,14 @@ public class TManager : MonoBehaviour {
     void Fanimation()
     {
         StartCoroutine(move(First, First.transform.position,
-            First.transform.position + new Vector3(957, 0, 0),
+            First.transform.position + new Vector3(1914, 0, 0),//957
             MovingSpeed));
         count++;
     }
     void Sanimation()
     {
      StartCoroutine(move(First, First.transform.position,
-           First.transform.position - new Vector3(-957, 0, 0),
+           First.transform.position - new Vector3(-1914, 0, 0),
            MovingSpeed));
         Pointer.SetActive(true);
         EnablEverything();
@@ -110,7 +110,7 @@ public class TManager : MonoBehaviour {
     public void TAnimation()
      {
         StartCoroutine(move(Second, Second.transform.position,
-        Second.transform.position + new Vector3(957, 0, -90),
+        Second.transform.position + new Vector3(957 * TPointsManager.mTPointsManager.GetScreenXOffset(), 0, -90),
         MovingSpeed));
         GameObject.Find("Points Area").transform.position = new Vector3(0, 500, 0);
         GameObject.Find("Selected Points Area").transform.position = new Vector3(0, 500, 0);
@@ -122,33 +122,33 @@ public class TManager : MonoBehaviour {
     public void FourthAnimation()
     {
         StartCoroutine(move(Second, Second.transform.position,
-                Second.transform.position + new Vector3(-957, 0, 90),
+                Second.transform.position + new Vector3(-957 * TPointsManager.mTPointsManager.GetScreenXOffset(), 0, 90),
                 MovingSpeed));
-        GameObject.Find("Points Area").transform.position = new Vector3(-10, -40, -50);
-        GameObject.Find("Selected Points Area").transform.position = new Vector3(-10, -40, -50);
+        GameObject.Find("Points Area").transform.position = new Vector3(-10 * TPointsManager.mTPointsManager.GetScreenXOffset(), -40 * TPointsManager.mTPointsManager.GetScreenYOffset(), -50);
+        GameObject.Find("Selected Points Area").transform.position = new Vector3(-10 * TPointsManager.mTPointsManager.GetScreenXOffset(), -40 * TPointsManager.mTPointsManager.GetScreenYOffset(), -50);
         count++;
     }
    public void FifthAnimation()
     {
         StartCoroutine(move(Third, Third.transform.position,
-      Third.transform.position + new Vector3(957, 0, -90),
+      Third.transform.position + new Vector3(957 * TPointsManager.mTPointsManager.GetScreenXOffset(), 0, -90),
       MovingSpeed));
         CD.SetActive(false);
         GroupOfArrow.SetActive(true);
-        GameObject.Find("Points Area").transform.position = new Vector3(0, 500, 0);
-        GameObject.Find("Selected Points Area").transform.position = new Vector3(0, 500, 0);
-        Moves.GetComponent<RectTransform>().transform.position = new Vector3(-421,-125,0);
-        Score.GetComponent<RectTransform>().transform.position = new Vector3(-421, 126, 0);
+        GameObject.Find("Points Area").transform.position = new Vector3(0, 500 * TPointsManager.mTPointsManager.GetScreenYOffset(), 0);
+        GameObject.Find("Selected Points Area").transform.position = new Vector3(0, 500 * TPointsManager.mTPointsManager.GetScreenYOffset(), 0);
+        Moves.GetComponent<RectTransform>().transform.position = new Vector3(-421 * TPointsManager.mTPointsManager.GetScreenXOffset(), -125 * TPointsManager.mTPointsManager.GetScreenYOffset(), 0);
+        Score.GetComponent<RectTransform>().transform.position = new Vector3(-421 * TPointsManager.mTPointsManager.GetScreenXOffset(), 126 * TPointsManager.mTPointsManager.GetScreenYOffset(), 0);
         count++;
     }
     public void SixThAnimation()
     {
         StartCoroutine(move(Third, Third.transform.position,
-    Third.transform.position + new Vector3(957, 0, 90),
+    Third.transform.position + new Vector3(957 * TPointsManager.mTPointsManager.GetScreenXOffset(), 0, 90),
     MovingSpeed));
         GroupOfArrow.SetActive(false);
         StartCoroutine(move(Fourth, Fourth.transform.position,
-  Fourth.transform.position + new Vector3(957, 0, -90),
+  Fourth.transform.position + new Vector3(957 * TPointsManager.mTPointsManager.GetScreenXOffset(), 0, -90),
   MovingSpeed));
         count++;
     }
@@ -156,10 +156,10 @@ public class TManager : MonoBehaviour {
     public void SeventhAnimation()
     {
            StartCoroutine(move(Fourth, Fourth.transform.position,
-    Fourth.transform.position + new Vector3(957, 0, 90),
+    Fourth.transform.position + new Vector3(957 * TPointsManager.mTPointsManager.GetScreenXOffset(), 0, 90),
     MovingSpeed));
-        GameObject.Find("Points Area").transform.position = new Vector3(-10, -40, -50);
-        GameObject.Find("Selected Points Area").transform.position = new Vector3(-10, -40, -50);
+        GameObject.Find("Points Area").transform.position = new Vector3(-10 * TPointsManager.mTPointsManager.GetScreenXOffset(), -40 * TPointsManager.mTPointsManager.GetScreenYOffset(), -50);
+        GameObject.Find("Selected Points Area").transform.position = new Vector3(-10 * TPointsManager.mTPointsManager.GetScreenXOffset(), -40 * TPointsManager.mTPointsManager.GetScreenYOffset(), -50);
         CD.SetActive(true);
     }
 
@@ -210,8 +210,8 @@ public class TManager : MonoBehaviour {
             time -= Time.deltaTime;
             if(time<=0)
             {
-                GameObject.Find("Points Area").transform.position = new Vector3(0, 500, 0);
-                GameObject.Find("Selected Points Area").transform.position = new Vector3(0, 500, 0);
+                GameObject.Find("Points Area").transform.position = new Vector3(0, 500 * TPointsManager.mTPointsManager.GetScreenYOffset(), 0);
+                GameObject.Find("Selected Points Area").transform.position = new Vector3(0, 500 * TPointsManager.mTPointsManager.GetScreenYOffset(), 0);
                 TUIManage.instance.OpenGameOverScreen();
             }
         }
