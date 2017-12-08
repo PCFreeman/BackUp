@@ -23,7 +23,6 @@ public class UIManage : MonoBehaviour
     public GameObject Set;
     public GameObject mGameOverScreen;
     public GameObject mG1;
-    public Text mGC;
     public GameObject mG2;
 
     public Sprite turnoff;  //working
@@ -85,6 +84,7 @@ public class UIManage : MonoBehaviour
     public Sprite[] Square;
     public Sprite[] Rec1;
     public Sprite[] Rec2;
+    public Sprite[] Ocgaton;
     public Sprite[] CDBackGroundPool;
     private void Awake()
     {
@@ -269,6 +269,13 @@ public class UIManage : MonoBehaviour
             }
         }
 
+        for(int oc=0;oc<Ocgaton.Length;++oc)
+        {
+            if(CurrentShapeImage==Ocgaton[oc])
+            {
+                return CDBackGroundPool[19];
+            }
+        }
 
         return null;
     }
@@ -477,8 +484,8 @@ public class UIManage : MonoBehaviour
     void ShowScoreInGameOver(int s)
     {
         GameManager.mGameManager.SetHighScore(s);
-        FScore.text = "Your Score: " + s.ToString();
-        FhScore.text = "Highest Score: " + GameManager.mGameManager.GetHighScore().ToString();
+        FScore.text = s.ToString();
+        FhScore.text = GameManager.mGameManager.GetHighScore().ToString();
         Time.timeScale = 0f;
         GameObject.Find("SettingButton").GetComponent<Button>().enabled = false;
     }
@@ -487,7 +494,6 @@ public class UIManage : MonoBehaviour
         mGameOverScreen.SetActive(true);
         mG1.SetActive(false);
         mG2.SetActive(true);
-        mGC.gameObject.SetActive(true);
         ShowScoreInGameOver(Score);
         PointsArea.SetActive(false);
         SelectPointArea.SetActive(false);
@@ -659,7 +665,6 @@ public class UIManage : MonoBehaviour
         Set = FindObject(newLevel, "InGameSettingMenu").GetComponent<GameObject>(); //-------------------
         mGameOverScreen = FindObject(newLevel, "GameOverScreen").GetComponent<GameObject>();//-------------------
         mG1 = FindObject(newLevel, "GameOver").GetComponent<GameObject>();//-------------------
-        mGC = FindObject(newLevel, "GameOver (chance)").GetComponent<Text>();
         mG2 = FindObject(newLevel, "G2").GetComponent<GameObject>();//------------------
         Debug.Log("Break2");
         button = FindObject(newLevel, "Button").GetComponent<Button>();

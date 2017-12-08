@@ -13,6 +13,7 @@ public class TManager : MonoBehaviour {
     public GameObject RB;
     public GameObject mHand;
     public GameObject Pointer;
+    public GameObject Pointer2;
     public GameObject CD;
     public GameObject Score;
     public GameObject Moves;
@@ -25,6 +26,10 @@ public class TManager : MonoBehaviour {
     private int moveIndex = 1;
     public GameObject GroupOfArrow;
     public GameObject MDisplay;
+    public GameObject TimeIcon;
+    public GameObject SettingButton;
+    List<GameObject> ShapeSpawn;
+    bool TimetoGo;
     private void Awake()
     {
 
@@ -63,8 +68,11 @@ public class TManager : MonoBehaviour {
         Second.SetActive(true);
         Third.SetActive(true);
         Fourth.SetActive(true);
-
+        TimeIcon.SetActive(false);
+        SettingButton.SetActive(false);
+        ShapeSpawn = TTouchManager.mTTouchManager.GetShapesIniatialized();
         mHand.transform.position = movingPoints[0].transform.position;
+        TimetoGo = true;
         //TTouchManager.mTTouchManager.InstantiateShapes();
 
 
@@ -92,16 +100,18 @@ public class TManager : MonoBehaviour {
     void Fanimation()
     {
         StartCoroutine(move(First, First.transform.position,
-            First.transform.position + new Vector3(1914, 0, 0),//957
+            First.transform.position + new Vector3(1920, 0, 0),//957
             MovingSpeed));
         count++;
     }
     void Sanimation()
     {
      StartCoroutine(move(First, First.transform.position,
-           First.transform.position - new Vector3(-1914, 0, 0),
+           First.transform.position - new Vector3(-1920, 0, 0),
            MovingSpeed));
         Pointer.SetActive(true);
+        TimeIcon.SetActive(true);
+        SettingButton.SetActive(true);
         EnablEverything();
         count++;
 
@@ -109,20 +119,31 @@ public class TManager : MonoBehaviour {
     }
     public void TAnimation()
      {
+        SettingButton.SetActive(false);
+        ShapeSpawn[0].SetActive(false);
+        ShapeSpawn[1].SetActive(false);
+        ShapeSpawn[2].SetActive(false);
+        TimetoGo = false;
         StartCoroutine(move(Second, Second.transform.position,
-        Second.transform.position + new Vector3(957 * TPointsManager.mTPointsManager.GetScreenXOffset(), 0, -90),
+        Second.transform.position + new Vector3(960 * TPointsManager.mTPointsManager.GetScreenXOffset(), 0, -90),
         MovingSpeed));
         GameObject.Find("Points Area").transform.position = new Vector3(0, 500, 0);
         GameObject.Find("Selected Points Area").transform.position = new Vector3(0, 500, 0);
         Pointer.SetActive(false);
-        CD.SetActive(true);
+        Pointer2.SetActive(true);
+    CD.SetActive(true);
         count++;
 
     }
     public void FourthAnimation()
     {
+        SettingButton.SetActive(true);
+        ShapeSpawn[0].SetActive(true);
+        ShapeSpawn[1].SetActive(true);
+        ShapeSpawn[2].SetActive(true);
+        TimetoGo = true;
         StartCoroutine(move(Second, Second.transform.position,
-                Second.transform.position + new Vector3(-957 * TPointsManager.mTPointsManager.GetScreenXOffset(), 0, 90),
+                Second.transform.position + new Vector3(-960 * TPointsManager.mTPointsManager.GetScreenXOffset(), 0, 90),
                 MovingSpeed));
         GameObject.Find("Points Area").transform.position = new Vector3(-10 * TPointsManager.mTPointsManager.GetScreenXOffset(), -40 * TPointsManager.mTPointsManager.GetScreenYOffset(), -50);
         GameObject.Find("Selected Points Area").transform.position = new Vector3(-10 * TPointsManager.mTPointsManager.GetScreenXOffset(), -40 * TPointsManager.mTPointsManager.GetScreenYOffset(), -50);
@@ -130,8 +151,15 @@ public class TManager : MonoBehaviour {
     }
    public void FifthAnimation()
     {
+        SettingButton.SetActive(false);
+        ShapeSpawn[0].SetActive(false);
+        ShapeSpawn[1].SetActive(false);
+        ShapeSpawn[2].SetActive(false);
+        CD.SetActive(false);
+        TimetoGo = false;
+        Pointer2.SetActive(false);
         StartCoroutine(move(Third, Third.transform.position,
-      Third.transform.position + new Vector3(957 * TPointsManager.mTPointsManager.GetScreenXOffset(), 0, -90),
+      Third.transform.position + new Vector3(960 * TPointsManager.mTPointsManager.GetScreenXOffset(), 0, -90),
       MovingSpeed));
         CD.SetActive(false);
         GroupOfArrow.SetActive(true);
@@ -143,20 +171,27 @@ public class TManager : MonoBehaviour {
     }
     public void SixThAnimation()
     {
+
         StartCoroutine(move(Third, Third.transform.position,
-    Third.transform.position + new Vector3(957 * TPointsManager.mTPointsManager.GetScreenXOffset(), 0, 90),
+    Third.transform.position + new Vector3(960 * TPointsManager.mTPointsManager.GetScreenXOffset(), 0, 90),
     MovingSpeed));
         GroupOfArrow.SetActive(false);
         StartCoroutine(move(Fourth, Fourth.transform.position,
-  Fourth.transform.position + new Vector3(957 * TPointsManager.mTPointsManager.GetScreenXOffset(), 0, -90),
+  Fourth.transform.position + new Vector3(960 * TPointsManager.mTPointsManager.GetScreenXOffset(), 0, -90),
   MovingSpeed));
         count++;
     }
 
     public void SeventhAnimation()
     {
-           StartCoroutine(move(Fourth, Fourth.transform.position,
-    Fourth.transform.position + new Vector3(957 * TPointsManager.mTPointsManager.GetScreenXOffset(), 0, 90),
+        CD.SetActive(true);
+        SettingButton.SetActive(true);
+        ShapeSpawn[0].SetActive(true);
+        ShapeSpawn[1].SetActive(true);
+        ShapeSpawn[2].SetActive(true);
+        TimetoGo = true;
+        StartCoroutine(move(Fourth, Fourth.transform.position,
+    Fourth.transform.position + new Vector3(960 * TPointsManager.mTPointsManager.GetScreenXOffset(), 0, 90),
     MovingSpeed));
         GameObject.Find("Points Area").transform.position = new Vector3(-10 * TPointsManager.mTPointsManager.GetScreenXOffset(), -40 * TPointsManager.mTPointsManager.GetScreenYOffset(), -50);
         GameObject.Find("Selected Points Area").transform.position = new Vector3(-10 * TPointsManager.mTPointsManager.GetScreenXOffset(), -40 * TPointsManager.mTPointsManager.GetScreenYOffset(), -50);
@@ -169,7 +204,11 @@ public class TManager : MonoBehaviour {
     void Update () {
         if(count>=5)
         {
+            if(TimetoGo==true)
+            {
             TUIManage.instance.UpdateShapesTimeLimit();
+
+            }
         }
 
         if (MDisplay.activeInHierarchy)

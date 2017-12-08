@@ -24,6 +24,7 @@ public class Firstscreen : MonoBehaviour {
     public Button button;
     public Button Soundbutton;
     private bool SoundCheck;
+    public GameObject Title;
 
     //Peter's Code cliksound
     //private AudioController mAudio;
@@ -46,6 +47,7 @@ public class Firstscreen : MonoBehaviour {
     }
     public void Tutorial()
     {
+        Title.SetActive(false);
         PlaySFX();
         Question.SetActive(true);
         Setting.SetActive(false);
@@ -54,6 +56,7 @@ public class Firstscreen : MonoBehaviour {
 
     public void TutorialBack()
     {
+        Title.SetActive(true);
         PlaySFX();
         Question.SetActive(false);
         setbutton.SetActive(true);

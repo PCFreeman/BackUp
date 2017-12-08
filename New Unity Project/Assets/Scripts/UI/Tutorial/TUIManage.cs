@@ -138,12 +138,16 @@ public class TUIManage : MonoBehaviour {
     public void BacktoMainMenu()
     {
         Time.timeScale = 1f;
+        GameObject.Find("Points Area").transform.position = new Vector3(0, 500 * TPointsManager.mTPointsManager.GetScreenYOffset(), 0);
+        GameObject.Find("Selected Points Area").transform.position = new Vector3(0, 500 * TPointsManager.mTPointsManager.GetScreenYOffset(), 0);
         StartCoroutine(LoadingManager.instance.LoadingScreen(0));
 
     }
     public void Retry()
     {
         Time.timeScale = 1f;
+        GameObject.Find("Points Area").transform.position = new Vector3(0, 500 * TPointsManager.mTPointsManager.GetScreenYOffset(), 0);
+        GameObject.Find("Selected Points Area").transform.position = new Vector3(0, 500 * TPointsManager.mTPointsManager.GetScreenYOffset(), 0);
         StartCoroutine(LoadingManager.instance.LoadingScreen(2));
     }
     public void AddScore(int pluse)
