@@ -108,7 +108,7 @@ public class UIManage : MonoBehaviour
         //SetHighscore();
         Time.timeScale = 1f;
         //Start Score
-        Score = 5000;
+        Score = 0;
 
         GameObject.Find("Number").GetComponent<Text>().text = Score.ToString();
     }

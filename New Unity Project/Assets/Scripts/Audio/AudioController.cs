@@ -83,7 +83,7 @@ public class AudioController : MonoBehaviour
     {
         Scene scene = SceneManager.GetActiveScene();
         Debug.Log(scene.name);
-        if (scene.name == "Endless")
+        if (scene.name == "Timed")
         {
             eBGM = GameObject.Find("EndlessBGM").GetComponent<AudioSource>();
             eBGM.mute = !eBGM.mute;
