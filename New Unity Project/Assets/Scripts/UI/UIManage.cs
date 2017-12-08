@@ -16,10 +16,12 @@ public class UIManage : MonoBehaviour
     public int Score;
     //-------------------------------------------------
     public Text ScoreShowedInGameOver;
+    public Text ScoreWhenleft;
+    public Text HighScoreWhenleft;
     public Text Timer;
     public Text FhScore;
     public Text FScore;
-    public Text Left;
+    public GameObject Left;
     public GameObject Set;
     public GameObject mGameOverScreen;
     public GameObject mG1;
@@ -317,10 +319,9 @@ public class UIManage : MonoBehaviour
     {
         mGameOverScreen.SetActive(true);
         mG1.SetActive(false);
-        mG2.SetActive(true);
-        Left.gameObject.SetActive(true);
-        ShowScoreInGameOver(Score);
-
+        Left.SetActive(true);
+        ScoreWhenleft.text = Score.ToString();
+        HighScoreWhenleft.text= GameManager.mGameManager.GetHighScore().ToString();
     }
     public void BacktoMainMenuButton()
     {
@@ -658,7 +659,6 @@ public class UIManage : MonoBehaviour
         Timer = FindObject(newLevel, "Timer").GetComponent<Text>(); //-------------------
         FhScore = FindObject(newLevel, "HighScore").GetComponent<Text>();
         FScore = FindObject(newLevel, "Score").GetComponent<Text>();//-------------------
-        Left = FindObject(newLevel, "Text").GetComponent<Text>();
 
         Debug.Log("Break1");
 
