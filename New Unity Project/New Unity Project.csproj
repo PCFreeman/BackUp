@@ -105,6 +105,7 @@
     <Compile Include="Assets\Scripts\TouchManager for Tutorial\TTouchLogic.cs" />
     <Compile Include="Assets\Scripts\TouchManager for Tutorial\TTouchManager.cs" />
     <Compile Include="Assets\Scripts\TouchManager for Tutorial\TTouchSence.cs" />
+    <Compile Include="Assets\Scripts\TouchManager\AreaCollider.cs" />
     <Compile Include="Assets\Scripts\TouchManager\Colliders.cs" />
     <Compile Include="Assets\Scripts\TouchManager\DrawTouch.cs" />
     <Compile Include="Assets\Scripts\TouchManager\LineCollider.cs" />
