@@ -59,6 +59,8 @@ public class TouchManager : MonoBehaviour {
 
     public GameObject redBorder;
 
+    public bool isDrawing = false;
+
 
     public List<GameObject> pointsSelected;
     private List<GameObject> GOs;
@@ -285,5 +287,9 @@ public class TouchManager : MonoBehaviour {
         }
     }
 
+    public void SetIsDrawing(bool b)
+    {
+        isDrawing = b;
+    }
 
 }

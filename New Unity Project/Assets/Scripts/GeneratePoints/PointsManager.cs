@@ -47,7 +47,7 @@ public class PointsManager : MonoBehaviour {
     //private float scalePoint;
     private int scaleSelectedPoint;
 
-    private int startingXposition = -10;
+    private int startingXposition = 0;
     private int startingYposition = -40;
     private int posXoffset;
     private int posYoffset;
@@ -145,7 +145,7 @@ public class PointsManager : MonoBehaviour {
         //Size if Area was squared
         squaredAreaSize = Mathf.FloorToInt((baseScreenResolutionHeight - pointsAreaHeightPadding) * ScreenYOffset);
 
-        pointsAreaWidth = squaredAreaSize;
+        pointsAreaWidth = squaredAreaSize + 80;
 
         CheckPossibilityOfNewColumn(emptyLineAreaSize + sizePoint);
 
@@ -269,10 +269,10 @@ public class PointsManager : MonoBehaviour {
                 selectedLine.name = "Selected Line " + i.ToString();
 
                 //Set line height
-                line.GetComponent<BoxCollider>().size = new Vector3((int)((pointsAreaWidth - 10.0) - (2 * paddingLine)), lineHeight, line.GetComponent<BoxCollider>().size.z);
+                line.GetComponent<BoxCollider>().size = new Vector3((int)(pointsAreaWidth - (2 * paddingLine)), lineHeight, line.GetComponent<BoxCollider>().size.z);
 
                 //Set Selectedline height
-                selectedLine.GetComponent<BoxCollider>().size = new Vector3((int)((pointsAreaWidth - 10.0) - (2 * paddingLine)), lineHeight, line.GetComponent<BoxCollider>().size.z);
+                selectedLine.GetComponent<BoxCollider>().size = new Vector3((int)(pointsAreaWidth - (2 * paddingLine)), lineHeight, line.GetComponent<BoxCollider>().size.z);
 
                 //Line Goes down
                 if (i % 2 == 1)

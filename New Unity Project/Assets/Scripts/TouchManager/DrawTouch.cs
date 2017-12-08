@@ -30,6 +30,7 @@ public class DrawTouch : MonoBehaviour
     GameObject curShape;
     public GameObject comboSystem;
 
+    public int count = 0;
 
     public float timeLimit = -5.0f;
 
@@ -75,7 +76,8 @@ public class DrawTouch : MonoBehaviour
 
     // Update is called once per frame
     public void update()
-    {
+    {        
+
         if (!isMoving)
         {
             if (timeLimit == -5.0f)
@@ -101,10 +103,8 @@ public class DrawTouch : MonoBehaviour
 
             if (Input.touchCount == 1)
             {
-                Debug.Log("Touch 1");
-                
                 //This function can be use for Touch or mouse click
-                if ((Input.GetTouch(0).phase == TouchPhase.Began) || (Input.GetMouseButtonDown(0)))
+                if ((Input.GetTouch(0).phase == TouchPhase.Began))
                 {
                     if (LastShapeCorect == true)
                     {
@@ -133,9 +133,30 @@ public class DrawTouch : MonoBehaviour
                     }
 
                 }
-                else if ((Input.GetTouch(0).phase == TouchPhase.Moved) || (Input.GetMouseButton(0)))
+                else if ((Input.GetTouch(0).phase == TouchPhase.Moved))
                 {
+                    if(!TouchManager.mTouchManager.isDrawing)
+                    {
+                        if(thisLine)
+                        {
+                        Destroy(thisLine);
+                            if (TouchManager.mTouchManager.pointsSelected.Count > 0)
+                            {
+                                LevelManager.mLevelManager.DecreaseShapesTry();
+                            }
+                        }
 
+                        TouchManager.mTouchManager.pointsSelected = TouchManager.mTouchManager.GetCollidedObjects();
+
+                        foreach (GameObject GO in TouchManager.mTouchManager.pointsSelected)
+                        {
+                            GO.GetComponent<SpriteRenderer>().color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+                        }
+
+                        TouchManager.mTouchManager.pointsSelected.Clear();
+                        
+                        
+                    }
 
                     Ray mRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
                     //Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);           //Use This for Mouse test
@@ -193,94 +214,120 @@ public class DrawTouch : MonoBehaviour
                     }
 
                     startPosition = thisLine.transform.position;
-
+                    ++count;
                 }
                 else if (Input.GetTouch(0).phase == TouchPhase.Stationary)
                 {
+                    if(TouchManager.mTouchManager.isDrawing)
+                    {
                     coll.GetComponent<BoxCollider>().size = new Vector3(1.0f, 1.0f, 1.0f);
                     coll.GetComponent<BoxCollider>().transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
+                    }
                 }
                 else if (Input.GetTouch(0).phase == TouchPhase.Canceled)
                 {
 
                 }
-                else if ((Input.GetTouch(0).phase == TouchPhase.Ended) || (Input.GetMouseButtonUp(0)))
+                else if ((Input.GetTouch(0).phase == TouchPhase.Ended))
                 {
-
-                    //TouchManager.mTouchManager.pointsSelected = LineTouch.GetCollidedObjects();
-                    TouchManager.mTouchManager.pointsSelected = TouchManager.mTouchManager.GetCollidedObjects();
-
-                    //Debug.Log("points selected = " + TouchManager.mTouchManager.pointsSelected.ToString()); 
-
-
-                    // Check if the line makes the corect shape
-                    //if (TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchLogic.Shapes.Triangle5X3YDown, ref TouchManager.mTouchManager.pointsSelected))
-                    if (TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().GetShpeType(), ref TouchManager.mTouchManager.pointsSelected))
+                    if (TouchManager.mTouchManager.isDrawing)
                     {
-
-
-                        AudioController.sInstance.SuccessMoveSFX();
-                        comboSystem.GetComponent<ComboSystem>().IncreaseCount();
-
-                        curShape = TouchManager.mTouchManager.GetCurrentShape();
-                        firstPoint = TouchManager.mTouchManager.pointsSelected[0];
-
-                        Debug.Log("..........." + curShape.name);
-                        Debug.Log("***********" + firstPoint.name);
-
-
-
-                        AnimationMagager.mAnimation.ScoreAnimation(ref firstPoint, ref curShape);
-                        AnimationMagager.mAnimation.TimeAnimation(ref firstPoint, ref curShape);
-
-                        Debug.Log("Correct Shape");
-
-                        AnimationMagager.mAnimation.ShapeMoveOut(TouchManager.mTouchManager.GetShapesIniatialized());
-
-                        LevelManager.mLevelManager.DecreaseShapesToNext();
-
-                        //Destroy(thisLine);
-
-                        foreach (GameObject GO in TouchManager.mTouchManager.pointsSelected)
+                        TouchManager.mTouchManager.pointsSelected = TouchManager.mTouchManager.GetCollidedObjects();
+                        // Check if the line makes the corect shape
+                        //if (TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchLogic.Shapes.Triangle5X3YDown, ref TouchManager.mTouchManager.pointsSelected))
+                        if (TouchManager.mTouchManager.mTouchLogic.checkShapes(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().GetShpeType(), ref TouchManager.mTouchManager.pointsSelected))
                         {
-                            GO.GetComponent<SpriteRenderer>().color = new Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+
+
+                            AudioController.sInstance.SuccessMoveSFX();
+                            comboSystem.GetComponent<ComboSystem>().IncreaseCount();
+
+                            curShape = TouchManager.mTouchManager.GetCurrentShape();
+                            firstPoint = TouchManager.mTouchManager.pointsSelected[0];
+
+                            Debug.Log("..........." + curShape.name);
+                            Debug.Log("***********" + firstPoint.name);
+
+
+
+                            AnimationMagager.mAnimation.ScoreAnimation(ref firstPoint, ref curShape);
+                            AnimationMagager.mAnimation.TimeAnimation(ref firstPoint, ref curShape);
+
+                            Debug.Log("Correct Shape");
+
+                            AnimationMagager.mAnimation.ShapeMoveOut(TouchManager.mTouchManager.GetShapesIniatialized());
+
+                            LevelManager.mLevelManager.DecreaseShapesToNext();
+
+                            //Destroy(thisLine);
+
+                            foreach (GameObject GO in TouchManager.mTouchManager.pointsSelected)
+                            {
+                                GO.GetComponent<SpriteRenderer>().color = new Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+                            }
+
+                            LastShapeCorect = true;
+
+                            //Add points to score
+                            //Peter: Add Multiplier = 0 check
+                            if (comboSystem.GetComponent<ComboSystem>().GetMultiplier() == 0)
+                                UIManage.instance.AddScore(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().points);
+                            else
+                                UIManage.instance.AddScore(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().points * comboSystem.GetComponent<ComboSystem>().GetMultiplier());
+                            //Add points to score
+                            UIManage.instance.AddTime(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().timeBonus);
+
+                            ResetCollider();
+
+
+
+                            //TouchManager.mTouchManager.mColliders.pointCount = 0;
+
+
+                            //Call the winning animation or add points or ...
+
                         }
-
-                        LastShapeCorect = true;
-
-                        //Add points to score
-                        //Peter: Add Multiplier = 0 check
-                        if (comboSystem.GetComponent<ComboSystem>().GetMultiplier() == 0)
-                            UIManage.instance.AddScore(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().points);
                         else
-                            UIManage.instance.AddScore(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().points * comboSystem.GetComponent<ComboSystem>().GetMultiplier());
-                        //Add points to score
-                        UIManage.instance.AddTime(TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().timeBonus);
+                        {
+                            Debug.Log("Wrong Shape");
 
-                        ResetCollider();
+                            if (TouchManager.mTouchManager.GetCollidedObjects().Count > 0)
+                            {
+                                LevelManager.mLevelManager.DecreaseShapesTry();
+                            }
+                            AudioController.sInstance.ErrorSFX();
+                            comboSystem.GetComponent<ComboSystem>().ResetCount();
 
+                            //Destroi the line , may add some stuff in future to make player know that made mistake
+                            //Destroy(thisLine);
+                            Debug.Log("GOs 2 size = " + TouchManager.mTouchManager.pointsSelected.Count.ToString());
+                            foreach (GameObject GO in TouchManager.mTouchManager.pointsSelected)
+                            {
+                                GO.GetComponent<SpriteRenderer>().color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+                            }
 
+                            ResetCollider();
 
-                        //TouchManager.mTouchManager.mColliders.pointCount = 0;
-
-
-                        //Call the winning animation or add points or ...
-
+                            TouchManager.mTouchManager.pointsSelected.Clear();
+                        }
+                        //checkTouch = false;
+                        timeLimit = TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().DecrementTimeLimit(LevelManager.mLevelManager.GetTotalReduceTime());
+                        Destroy(thisLine);
                     }
                     else
                     {
-                        Debug.Log("Wrong Shape");
+                        TouchManager.mTouchManager.pointsSelected = TouchManager.mTouchManager.GetCollidedObjects();
 
-                        if (TouchManager.mTouchManager.GetCollidedObjects().Count > 0)
+                        if (thisLine)
                         {
-                            LevelManager.mLevelManager.DecreaseShapesTry();
+                            Destroy(thisLine);
+                            if(TouchManager.mTouchManager.pointsSelected.Count > 0)
+                            {
+                                LevelManager.mLevelManager.DecreaseShapesTry();
+                            }
                         }
-                        AudioController.sInstance.ErrorSFX();
-                        comboSystem.GetComponent<ComboSystem>().ResetCount();
 
-                        //Destroi the line , may add some stuff in future to make player know that made mistake
-                        //Destroy(thisLine);
-                        Debug.Log("GOs 2 size = " + TouchManager.mTouchManager.pointsSelected.Count.ToString());
+
                         foreach (GameObject GO in TouchManager.mTouchManager.pointsSelected)
                         {
                             GO.GetComponent<SpriteRenderer>().color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
@@ -289,13 +336,7 @@ public class DrawTouch : MonoBehaviour
                         ResetCollider();
 
                         TouchManager.mTouchManager.pointsSelected.Clear();
-
-
                     }
-
-                    //checkTouch = false;
-                    timeLimit = TouchManager.mTouchManager.GetCurrentShape().GetComponent<Shapes>().DecrementTimeLimit(LevelManager.mLevelManager.GetTotalReduceTime());
-                    Destroy(thisLine);
                 }
             }
             //else if (Input.touchCount == 2)
