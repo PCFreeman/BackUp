@@ -59,8 +59,9 @@ public class UIManage : MonoBehaviour
     public Image mDouble1;
     public Image mDouble2;
     public GameObject mArea;
-
-
+    public GameObject ScoreImage;
+    public Image MoveImage;
+    public GameObject ImageforTime;
     //--------------------------------------------------------
 
     private float countdown;
@@ -108,7 +109,7 @@ public class UIManage : MonoBehaviour
         //SetHighscore();
         Time.timeScale = 1f;
         //Start Score
-        Score = 0;
+        Score = 5000;
 
         GameObject.Find("Number").GetComponent<Text>().text = Score.ToString();
     }
@@ -464,14 +465,18 @@ public class UIManage : MonoBehaviour
 
     }
 
+    float BlinkTime = 0.2f;
     public void PurchaseTime()
     {
         sinstance.PurchaseTime();
+        InvokeRepeating("BlinkForTime", 0f, BlinkTime);
     }
 
     public void PurchasChance()
-    {
+    { 
         sinstance.PurchaseChance();
+        InvokeRepeating("BlinkforMove", 0f, BlinkTime);
+
     }
     public void OpenGameOverScreen()
     {
@@ -688,6 +693,41 @@ public class UIManage : MonoBehaviour
         Debug.Log("Break7");
         mArea = FindObject(newLevel, "Multiplier").GetComponent<GameObject>();//-------------------
         Debug.Log("ReAssignFunctionCalled2! FINISHEDFINISHEDFINISHEDFINISHED");
+    }
+
+    int BlinkAmount=5;
+    int BlinkCounter = 0;
+   void BlinkforMove()
+    {
+        ScoreImage.GetComponent<RawImage>().color = Color.red;
+        MoveImage.color = Color.green;
+        ScoreImage.gameObject.SetActive(!ScoreImage.gameObject.activeSelf);
+        if (BlinkCounter >= BlinkAmount)
+        {
+            CancelInvoke("BlinkforMove");
+            ScoreImage.GetComponent<RawImage>().color = Color.white;
+            MoveImage.color = Color.white;
+           BlinkCounter = 0;
+            ScoreImage.gameObject.SetActive(true);
+        }
+
+        ++BlinkCounter;
+    }
+    void BlinkForTime()
+    {
+        ScoreImage.GetComponent<RawImage>().color = Color.red;
+        ImageforTime.GetComponent<Image>().color = Color.green;
+        ScoreImage.gameObject.SetActive(!ScoreImage.gameObject.activeSelf);
+        if (BlinkCounter >= BlinkAmount)
+        {
+            CancelInvoke("BlinkForTime");
+            ScoreImage.GetComponent<RawImage>().color = Color.white;
+            ImageforTime.GetComponent<Image>().color = Color.white;
+            BlinkCounter = 0;
+            ScoreImage.gameObject.SetActive(true);
+        }
+
+        ++BlinkCounter;
     }
     void Update()
     {

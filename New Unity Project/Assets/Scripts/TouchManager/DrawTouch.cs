@@ -30,6 +30,7 @@ public class DrawTouch : MonoBehaviour
     GameObject curShape;
     public GameObject comboSystem;
 
+
     public int count = 0;
 
     public float timeLimit = -5.0f;
