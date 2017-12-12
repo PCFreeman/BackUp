@@ -10,7 +10,8 @@ public class PurchaseSystem : MonoBehaviour
     public int ChanceCost = 500;
     public int TimeGain = 5;
     public int ChanceGain = 2;
-
+    public int timeCostIncrease = 100;
+    public int chanceCostIncrease = 100;
     // Use this for initialization
     void Start()
     {
@@ -41,4 +42,13 @@ public class PurchaseSystem : MonoBehaviour
         }
     }
 
+    public void IncreaseTimeCost()
+    {
+        TimeCost += timeCostIncrease;
+    }
+
+    public void IncreaseChanceCost()
+    {
+        ChanceCost += chanceCostIncrease;
+    }
 }
