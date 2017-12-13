@@ -23,7 +23,7 @@ public class PurchaseSystem : MonoBehaviour
     {
 
     }
-
+ 
     public void PurchaseTime()
     {
         if(mUIManager.Score >= 500)

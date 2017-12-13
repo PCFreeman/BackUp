@@ -734,6 +734,8 @@ public class UIManage : MonoBehaviour
         ChangeCDimage();
         MultiplierDisplay();
 
+        GameObject.Find("PTime").GetComponent<Text>().text ="-"+ sinstance.TimeCost.ToString();
+        GameObject.Find("PChance").GetComponent<Text>().text = "-" + sinstance.ChanceCost.ToString();
         GameObject.Find("Number").GetComponent<Text>().text = Score.ToString();
         Mins = Mathf.FloorToInt(timeLeft / 60f);
         Secs = Mathf.FloorToInt(timeLeft % 60f);
