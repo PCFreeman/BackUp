@@ -473,6 +473,10 @@ public class UIManage : MonoBehaviour
     float BlinkTime = 0.2f;
     public void PurchaseTime()
     {
+        if(Score< sinstance.TimeCost)
+        {
+            AudioController.sInstance.ErrorSFX();
+        }
         sinstance.PurchaseTime();
         AudioController.sInstance.SuccessMoveSFX();
        TimeCostDisplay.gameObject.SetActive(true);
@@ -480,7 +484,11 @@ public class UIManage : MonoBehaviour
     }
 
     public void PurchasChance()
-    { 
+    {
+        if (Score < sinstance.ChanceCost)
+        {
+            AudioController.sInstance.ErrorSFX();
+        }
         sinstance.PurchaseChance();
         AudioController.sInstance.SuccessMoveSFX();
         MovesCostDisplay.gameObject.SetActive(true);
