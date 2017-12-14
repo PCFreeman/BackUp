@@ -26,19 +26,19 @@ public class PurchaseSystem : MonoBehaviour
  
     public void PurchaseTime()
     {
-        if(mUIManager.Score >= 500)
+        if(mUIManager.Score >= TimeCost)
         {
             UIManage.instance.AddTime(TimeGain);
-            mUIManager.Score -= 500;
+            mUIManager.Score -= TimeCost;
         }
     }
 
     public void PurchaseChance()
     {
-        if (mUIManager.Score >= 500)
+        if (mUIManager.Score >= ChanceCost)
         {
             LevelManager.mLevelManager.AddNumTry(ChanceGain);
-            mUIManager.Score -= 500;
+            mUIManager.Score -= ChanceCost;
         }
     }
 
