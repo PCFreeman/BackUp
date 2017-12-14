@@ -4,10 +4,10 @@
     <Files>
       <File FileName="Assets\Scripts\UI\Firstscreen.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Audio\AudioController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\UI\UIManage.cs" Line="184" Column="6" />
+      <File FileName="Assets\Scripts\UI\UIManage.cs" Line="128" Column="1" />
       <File FileName="Assets\Scripts\TouchManager\DrawTouch.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\TouchManager\TouchManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\LevelDisplay.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PurchaseSystem.cs" Line="44" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

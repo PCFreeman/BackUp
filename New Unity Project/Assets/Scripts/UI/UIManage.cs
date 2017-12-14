@@ -62,6 +62,8 @@ public class UIManage : MonoBehaviour
     public GameObject ScoreImage;
     public Image MoveImage;
     public GameObject ImageforTime;
+    public Text TimeCostDisplay;
+    public Text MovesCostDisplay;
     //--------------------------------------------------------
 
     private float countdown;
@@ -125,6 +127,9 @@ public class UIManage : MonoBehaviour
         PointsArea = GameObject.Find("Points Area");
         SelectPointArea = GameObject.Find("Selected Points Area");
         MuliteCountDown = 5.0f;
+        TimeCostDisplay.gameObject.SetActive(false);
+        MovesCostDisplay.gameObject.SetActive(false);
+
     }
     public void MusicSwitch()
     {
@@ -469,12 +474,16 @@ public class UIManage : MonoBehaviour
     public void PurchaseTime()
     {
         sinstance.PurchaseTime();
+        AudioController.sInstance.SuccessMoveSFX();
+       TimeCostDisplay.gameObject.SetActive(true);
         InvokeRepeating("BlinkForTime", 0f, BlinkTime);
     }
 
     public void PurchasChance()
     { 
         sinstance.PurchaseChance();
+        AudioController.sInstance.SuccessMoveSFX();
+        MovesCostDisplay.gameObject.SetActive(true);
         InvokeRepeating("BlinkforMove", 0f, BlinkTime);
 
     }
@@ -707,8 +716,9 @@ public class UIManage : MonoBehaviour
             CancelInvoke("BlinkforMove");
             ScoreImage.GetComponent<RawImage>().color = Color.white;
             MoveImage.color = Color.white;
-           BlinkCounter = 0;
+            BlinkCounter = 0;
             ScoreImage.gameObject.SetActive(true);
+            MovesCostDisplay.gameObject.SetActive(false);
         }
 
         ++BlinkCounter;
@@ -725,6 +735,7 @@ public class UIManage : MonoBehaviour
             ImageforTime.GetComponent<Image>().color = Color.white;
             BlinkCounter = 0;
             ScoreImage.gameObject.SetActive(true);
+            TimeCostDisplay.gameObject.SetActive(false);
         }
 
         ++BlinkCounter;
@@ -734,8 +745,8 @@ public class UIManage : MonoBehaviour
         ChangeCDimage();
         MultiplierDisplay();
 
-        GameObject.Find("PTime").GetComponent<Text>().text ="-"+ sinstance.TimeCost.ToString();
-        GameObject.Find("PChance").GetComponent<Text>().text = "-" + sinstance.ChanceCost.ToString();
+        TimeCostDisplay.text ="-"+ sinstance.TimeCost.ToString();
+        MovesCostDisplay.text = "-" + sinstance.ChanceCost.ToString();
         GameObject.Find("Number").GetComponent<Text>().text = Score.ToString();
         Mins = Mathf.FloorToInt(timeLeft / 60f);
         Secs = Mathf.FloorToInt(timeLeft % 60f);

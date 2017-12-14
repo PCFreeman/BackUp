@@ -46,12 +46,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\LevelDisplay.cs" />
-     <Compile Include="Assets\LoadingManager.cs" />
      <Compile Include="Assets\Scripts\Audio\AudioController.cs" />
      <Compile Include="Assets\Scripts\Audio\AudioTest.cs" />
      <Compile Include="Assets\Scripts\Audio\EndlessBGM.cs" />
      <Compile Include="Assets\Scripts\Audio\MainBGM.cs" />
+     <Compile Include="Assets\Scripts\ComboSystem.cs" />
      <Compile Include="Assets\Scripts\DebugScript.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GeneratePoints\GeneratingPoints.cs" />
@@ -59,6 +58,7 @@
      <Compile Include="Assets\Scripts\GeneratePoints\PointsMovement.cs" />
      <Compile Include="Assets\Scripts\LevelSystem\Level.cs" />
      <Compile Include="Assets\Scripts\LevelSystem\LevelManager.cs" />
+     <Compile Include="Assets\Scripts\PurchaseSystem.cs" />
      <Compile Include="Assets\Scripts\Shapes.cs" />
      <Compile Include="Assets\Scripts\TouchManager for Tutorial\TDrawTouch.cs" />
      <Compile Include="Assets\Scripts\TouchManager for Tutorial\TLineCollider.cs" />
@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\TouchManager for Tutorial\TTouchLogic.cs" />
      <Compile Include="Assets\Scripts\TouchManager for Tutorial\TTouchManager.cs" />
      <Compile Include="Assets\Scripts\TouchManager for Tutorial\TTouchSence.cs" />
+     <Compile Include="Assets\Scripts\TouchManager\AreaCollider.cs" />
      <Compile Include="Assets\Scripts\TouchManager\Colliders.cs" />
      <Compile Include="Assets\Scripts\TouchManager\DrawTouch.cs" />
      <Compile Include="Assets\Scripts\TouchManager\LineCollider.cs" />
@@ -81,6 +82,8 @@
      <Compile Include="Assets\Scripts\UI\BackGround.cs" />
      <Compile Include="Assets\Scripts\UI\Firstscreen.cs" />
      <Compile Include="Assets\Scripts\UI\InGameSetting.cs" />
+     <Compile Include="Assets\Scripts\UI\LevelDisplay.cs" />
+     <Compile Include="Assets\Scripts\UI\LoadingManager.cs" />
      <Compile Include="Assets\Scripts\UI\ScreenResolution.cs" />
      <Compile Include="Assets\Scripts\UI\Tutorial\HandAnimation.cs" />
      <Compile Include="Assets\Scripts\UI\Tutorial\TManager.cs" />
@@ -127,6 +130,7 @@
      <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\AudioFile\{790bb9af-4004-4d4e-8ec4-c70ecd4e2ae8}.xml" />
      <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\AudioFile\{681af424-3180-4522-81aa-b03c39fd0360}.xml" />
      <None Include="Assets\Audio\Audio Bank\Main Audio\Metadata\Mixer.xml" />
+     <None Include="Assets\Prefab\TouchPrefabs\ShaderLine.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
